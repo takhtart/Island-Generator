@@ -29,7 +29,7 @@ public class DotGen {
                 vertices.add(Vertex.newBuilder().setX((double) x+square_size).setY((double) y).build());
                 vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y+square_size).build());
                 vertices.add(Vertex.newBuilder().setX((double) x+square_size).setY((double) y+square_size).build());
-
+                System.out.println();
                 
             }
         }
@@ -52,12 +52,16 @@ public class DotGen {
 
         // Segments Generation Between Veritices:
         List<Structs.Segment> segments = new ArrayList<>();
-        for (int i = 0; i < vertices.size()-1; i++) {
+        for (int i = 0; i < vertices.size()-3; i++) {
             double test = 0;
             int v1_idx = i;
             int v2_idx = i+1;
-            Structs.Segment s = Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build();
-            segments.add(s);
+            int v3_idx = i+2;
+            int v4_idx = i+3;
+            segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build());
+            segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
+            segments.add(Structs.Segment.newBuilder().setV1Idx(v4_idx).setV2Idx(v2_idx).build());
+            segments.add(Structs.Segment.newBuilder().setV1Idx(v4_idx).setV2Idx(v3_idx).build());
         }
 
         return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments).build();
