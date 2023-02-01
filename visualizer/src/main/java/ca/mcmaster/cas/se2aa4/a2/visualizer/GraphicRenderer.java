@@ -3,12 +3,14 @@ package ca.mcmaster.cas.se2aa4.a2.visualizer;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
 
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.Line2D;
 import java.util.List;
 
 public class GraphicRenderer {
@@ -27,6 +29,22 @@ public class GraphicRenderer {
             canvas.fill(point);
             canvas.setColor(old);
         }
+
+        //Displays Segments
+        for (Segment s: aMesh.getSegmentsList()) {
+            List<Vertex> v = aMesh.getVerticesList();
+            int shift = 35;
+            int v1 = s.getV1Idx();
+            int v2 = s.getV2Idx();
+            double centre_x1 = v.get(v1).getX();
+            double centre_y1 = v.get(v1).getY();
+            double centre_x2 = v.get(v2).getX();
+            double centre_y2 = v.get(v2).getY();
+            canvas.draw(new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2));
+
+        }
+
+        
     }
 
     private Color extractColor(List<Property> properties) {
