@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.Random;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
@@ -21,7 +22,7 @@ public class DotGen {
     private final int square_size = 20;
 
     public Mesh generate() {
-        Set<Vertex> vertices = new HashSet<>();
+        List<Vertex> vertices = new ArrayList<>();
         // Create all the vertices
         for(int x = 0; x < width; x += square_size) {
             for(int y = 0; y < height; y += square_size) {
@@ -38,7 +39,7 @@ public class DotGen {
 
 
         // Distribute colors randomly. Vertices are immutable, need to enrich them
-        Set<Vertex> verticesWithColors = new HashSet<>();
+        List<Vertex> verticesWithColors = new ArrayList<>();
         Random bag = new Random();
         for(Vertex v: vertices){
             int red = bag.nextInt(255);
@@ -52,16 +53,45 @@ public class DotGen {
 
         // Segments Generation Between Veritices:
         List<Structs.Segment> segments = new ArrayList<>();
+        
         for (int i = 0; i < vertices.size()-3; i++) {
+
             double test = 0;
             int v1_idx = i;
             int v2_idx = i+1;
             int v3_idx = i+2;
             int v4_idx = i+3;
-            segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build());
-            segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
-            segments.add(Structs.Segment.newBuilder().setV1Idx(v4_idx).setV2Idx(v2_idx).build());
-            segments.add(Structs.Segment.newBuilder().setV1Idx(v4_idx).setV2Idx(v3_idx).build());
+
+            List<Vertex> vertex = new ArrayList<>(vertices);
+            double v1x = vertex.get(v1_idx).getX();
+            double v1y = vertex.get(v1_idx).getY();
+            double v2x = vertex.get(v2_idx).getX();
+            double v2y = vertex.get(v2_idx).getY();
+            double v3x = vertex.get(v3_idx).getX();
+            double v3y = vertex.get(v3_idx).getY();
+            double v4x = vertex.get(v4_idx).getX();
+            double v4y = vertex.get(v4_idx).getY();
+
+            
+
+            if (v1y == v2y || v1x == v2x){
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build()); 
+            }
+            if (v1y == v3y || v1x == v3x){
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
+            }
+            if (v1y == v4y || v1x == v4x){
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v4_idx).build());
+            }
+            if (v2y == v3y || v2x == v3x){
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v3_idx).build());
+            }
+            if (v2y == v4y || v2x == v4x){
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
+            }
+            if (v3y == v4y || v3x == v4x){
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v3_idx).setV2Idx(v4_idx).build());
+            }
         }
 
         return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments).build();
