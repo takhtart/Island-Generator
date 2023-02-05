@@ -32,18 +32,23 @@ public class GraphicRenderer {
 
         //Displays Segments
         for (Segment s: aMesh.getSegmentsList()) {
+            
             List<Vertex> v = aMesh.getVerticesList();
-            int shift = 35;
             int v1 = s.getV1Idx();
             int v2 = s.getV2Idx();
             double centre_x1 = v.get(v1).getX();
             double centre_y1 = v.get(v1).getY();
             double centre_x2 = v.get(v2).getX();
             double centre_y2 = v.get(v2).getY();
-            canvas.draw(new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2));
+            canvas.setColor(extractColor(s.getPropertiesList()));
+            Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
+            canvas.draw(Line);
+
+    
 
         }
-
+        //System.out.println("Vertices: " + aMesh.getVerticesList());
+        //System.out.println("Segments: " + aMesh.getSegmentsList());
         
     }
 

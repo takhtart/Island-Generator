@@ -19,8 +19,8 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
 public class DotGen {
 
-    private final int width = 500;
-    private final int height = 500;
+    private final int width = 40;
+    private final int height = 40;
     private final int square_size = 20;
 
     public Mesh generate() {
@@ -32,15 +32,14 @@ public class DotGen {
                 vertices.add(Vertex.newBuilder().setX((double) x+square_size).setY((double) y).build());
                 vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y+square_size).build());
                 vertices.add(Vertex.newBuilder().setX((double) x+square_size).setY((double) y+square_size).build());
-                System.out.println();
                 
             }
         }
 
 
-
         // Distribute colors randomly. Vertices are immutable, need to enrich them
         List<Vertex> verticesWithColors = new ArrayList<>();
+        List<int[]> Colors = new ArrayList<int[]>();
         Random bag = new Random();
         for(Vertex v: vertices){
             int red = bag.nextInt(255);
@@ -50,13 +49,15 @@ public class DotGen {
             Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
             Vertex colored = Vertex.newBuilder(v).addProperties(color).build();
             verticesWithColors.add(colored);
+            int[] RGB = {red,green,blue};
+            Colors.add(RGB);
+            
         }
+
+        
 
         // Segments Generation Between Veritices:
         List<Structs.Segment> segments = new ArrayList<>();
-        
-        
-        
         for (int i = 0; i < vertices.size()-3; i+=4) {
 
             int v1_idx = i;
@@ -69,11 +70,38 @@ public class DotGen {
                 segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
                 segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
                 segments.add(Structs.Segment.newBuilder().setV1Idx(v3_idx).setV2Idx(v4_idx).build());
-            
-        
         }
 
-        return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segments).build();
+        List<Structs.Segment> segmentsWithColors = new ArrayList<>();
+        for(Segment s: segments) {
+            int v1 = s.getV1Idx();
+            int v2 = s.getV2Idx();
+
+            int red = (Colors.get(v1)[0] + Colors.get(v2)[0])/2;
+            int green = (Colors.get(v1)[1] + Colors.get(v2)[1])/2;
+            int blue = (Colors.get(v1)[2] + Colors.get(v2)[2])/2;
+
+
+            System.out.println("V1: " + v1);
+            System.out.println(Colors.get(v1)[0] + "," + Colors.get(v1)[1] + "," + Colors.get(v1)[2]);
+
+            System.out.println("V2: " + v2);
+            System.out.println(Colors.get(v2)[0] + "," + Colors.get(v2)[1] + "," + Colors.get(v2)[2]);
+
+
+            System.out.println("Average: " + v1 + " and " + v2);
+            System.out.println(red + "," + green + "," + blue);
+
+
+            String colorCode = red + "," + green + "," + blue;
+            Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
+            Segment colored = Segment.newBuilder(s).addProperties(color).build();
+            segmentsWithColors.add(colored);
+
+        }
+
+        System.out.println("|Segments| = " + segmentsWithColors.size());
+        return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).build();
 
     }
 
