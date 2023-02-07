@@ -26,8 +26,8 @@ public class DotGen {
     public Mesh generate() {
         List<Vertex> vertices = new ArrayList<>();
         // Create all the vertices
-        for(int x = 0; x < width; x += square_size) {
-            for(int y = 0; y < height; y += square_size) {
+        for(int x = 0; x < width; x += square_size*2) {
+            for(int y = 0; y < height; y += square_size*2) {
                 vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y).build());
                 vertices.add(Vertex.newBuilder().setX((double) x+square_size).setY((double) y).build());
                 vertices.add(Vertex.newBuilder().setX((double) x).setY((double) y+square_size).build());
@@ -54,6 +54,8 @@ public class DotGen {
             
         }
 
+        
+
         //Sets Top-Most Dots To Match Dot Colour Underneath (If Overlapping) This is done so that verticies and the segments they are connected by use the right colours
         for (int i = 0; i < verticesWithColors.size(); i++) {
             
@@ -75,6 +77,8 @@ public class DotGen {
                     Vertex colored = Vertex.newBuilder(verticesWithColors.get(j+1)).setProperties(0,color).build();
                     verticesWithColors.set(j+1, colored);
                     Colors.set(j+1,RGB);
+                    //verticesWithColors.remove(j+1);
+                    //Colors.remove(j+1);
                 }
             }
 
@@ -84,19 +88,38 @@ public class DotGen {
 
         // Segments Generation Between Vertices:
         List<Structs.Segment> segments = new ArrayList<>();
-        for (int i = 0; i < vertices.size()-3; i+=4) {
+        for (int i = 0; i < verticesWithColors.size()-3; i+=4) {
 
             int v1_idx = i;
             int v2_idx = i+1;
             int v3_idx = i+2;
             int v4_idx = i+3;
+            int v1nexty_idx = i+4;
+            int v2nexty_idx = i+5;
+            int v2nextx_idx = v2_idx+(width/square_size)*2+1;
+            int v4nextx_idx = v4_idx+(width/square_size)*2+1;
 
-        
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build()); 
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v3_idx).setV2Idx(v4_idx).build());
+            
+            segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build()); 
+            segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
+            segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
+            segments.add(Structs.Segment.newBuilder().setV1Idx(v3_idx).setV2Idx(v4_idx).build());
+            if (verticesWithColors.get(v4_idx).getY() != height) {
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v3_idx).setV2Idx(v1nexty_idx).build());
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v4_idx).setV2Idx(v2nexty_idx).build());
+            }
+            if (verticesWithColors.get(v4_idx).getX() != width) {
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v2nextx_idx).build());
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v4_idx).setV2Idx(v4nextx_idx).build());
+            }
+
         }
+    
+
+    
+        //for (int i = 0; i < verticesWithColors.size()-6; i+=4){
+
+        //}
 
         //Adds Average Colours Of The 2 Vertices Each Segment is Connected To
         List<Structs.Segment> segmentsWithColors = new ArrayList<>();
