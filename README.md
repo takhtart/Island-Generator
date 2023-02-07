@@ -66,5 +66,6 @@ When you develop features and enrich the product, remember that you have first t
 | Id | Feature title | Who? | Start | End | Status |
 |:--:|---------------|------|-------|-----|--------|
 | F01 | Draw Segments Between Vertices To Visualize The Squares | Team | 02/01/2023 | 02/02/2023 | D |
+| F02 | Display Segments As The Averages Of The Vertices It's Connected To | Team | 02/06/2023 | 02/07/2023 | D |
 
 
