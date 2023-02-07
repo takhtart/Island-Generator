@@ -19,8 +19,8 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 
 public class DotGen {
 
-    private final int width = 40;
-    private final int height = 40;
+    private final int width = 500;
+    private final int height = 500;
     private final int square_size = 20;
 
     public Mesh generate() {
@@ -54,9 +54,35 @@ public class DotGen {
             
         }
 
-        
+        //Sets Top-Most Dots To Match Dot Colour Underneath (If Overlapping) This is done so that verticies and the segments they are connected by use the right colours
+        for (int i = 0; i < verticesWithColors.size(); i++) {
+            
+            double x1 = verticesWithColors.get(i).getX();
+            double y1 = verticesWithColors.get(i).getY();
+            int red = Colors.get(i)[0];
+            int green = Colors.get(i)[1];
+            int blue = Colors.get(i)[2];
+            int[] RGB = {red,green,blue};
 
-        // Segments Generation Between Veritices:
+            String colorCode = red + "," + green + "," + blue;
+
+            for (int j = i; j < verticesWithColors.size()-1; j++) {
+                double x2 = verticesWithColors.get(j+1).getX();
+                double y2 = verticesWithColors.get(j+1).getY();
+
+                if (Double.compare(x1, x2) == 0 && Double.compare(y1, y2) == 0){
+                    Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
+                    Vertex colored = Vertex.newBuilder(verticesWithColors.get(j+1)).setProperties(0,color).build();
+                    verticesWithColors.set(j+1, colored);
+                    Colors.set(j+1,RGB);
+                }
+            }
+
+            
+        }
+
+
+        // Segments Generation Between Vertices:
         List<Structs.Segment> segments = new ArrayList<>();
         for (int i = 0; i < vertices.size()-3; i+=4) {
 
@@ -72,6 +98,7 @@ public class DotGen {
                 segments.add(Structs.Segment.newBuilder().setV1Idx(v3_idx).setV2Idx(v4_idx).build());
         }
 
+        //Adds Average Colours Of The 2 Vertices Each Segment is Connected To
         List<Structs.Segment> segmentsWithColors = new ArrayList<>();
         for(Segment s: segments) {
             int v1 = s.getV1Idx();
