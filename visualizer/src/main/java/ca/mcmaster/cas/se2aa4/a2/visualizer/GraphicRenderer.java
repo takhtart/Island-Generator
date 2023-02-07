@@ -20,17 +20,9 @@ public class GraphicRenderer {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        for (Vertex v: aMesh.getVerticesList()) {
-            double centre_x = v.getX() - (THICKNESS/2.0d);
-            double centre_y = v.getY() - (THICKNESS/2.0d);
-            Color old = canvas.getColor();
-            canvas.setColor(extractColor(v.getPropertiesList()));
-            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
-            canvas.fill(point);
-            canvas.setColor(old);
-        }
 
-        //Displays Segments
+
+        //Displays Segments (Below Vertices)
         for (Segment s: aMesh.getSegmentsList()) {
             
             List<Vertex> v = aMesh.getVerticesList();
@@ -47,6 +39,19 @@ public class GraphicRenderer {
     
 
         }
+
+        //Displays Vertices (On Top Of Segments)
+        for (Vertex v: aMesh.getVerticesList()) {
+            double centre_x = v.getX() - (THICKNESS/2.0d);
+            double centre_y = v.getY() - (THICKNESS/2.0d);
+            Color old = canvas.getColor();
+            canvas.setColor(extractColor(v.getPropertiesList()));
+            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(old);
+        }
+
+        
         //System.out.println("Vertices: " + aMesh.getVerticesList());
         //System.out.println("Segments: " + aMesh.getSegmentsList());
         
