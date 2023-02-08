@@ -60,7 +60,7 @@ public class GraphicRenderer {
     private Color extractColor(List<Property> properties) {
         String val = null;
         for(Property p: properties) {
-            if (p.getKey().equals("rgb_color")) {
+            if (p.getKey().equals("rgba_color")) {
                 System.out.println(p.getValue());
                 val = p.getValue();
             }
@@ -71,7 +71,8 @@ public class GraphicRenderer {
         int red = Integer.parseInt(raw[0]);
         int green = Integer.parseInt(raw[1]);
         int blue = Integer.parseInt(raw[2]);
-        return new Color(red, green, blue);
+        int transparencyAlpha = Integer.parseInt(raw[3]);
+        return new Color(red, green, blue, transparencyAlpha);
     }
 
 }
