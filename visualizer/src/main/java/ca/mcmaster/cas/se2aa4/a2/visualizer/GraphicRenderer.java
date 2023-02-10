@@ -1,6 +1,7 @@
 package ca.mcmaster.cas.se2aa4.a2.visualizer;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Segment;
@@ -50,6 +51,11 @@ public class GraphicRenderer {
             canvas.fill(point);
             canvas.setColor(old);
         }
+
+/*         for (int i = 0; i < aMesh.getPolygonsList().size(); i++) {
+            Polygon p = aMesh.getPolygonsList().get(i);
+            canvas.drawPolygon(p);
+        } */
 
         
         //System.out.println("Vertices: " + aMesh.getVerticesList());

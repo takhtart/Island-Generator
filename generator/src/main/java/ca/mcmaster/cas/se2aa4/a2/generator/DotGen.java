@@ -16,6 +16,7 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.SegmentOrBuilder;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Property;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 public class DotGen {
 
@@ -183,8 +184,43 @@ public class DotGen {
 
         }
 
+        List<Structs.Polygon> polygons = new ArrayList<>();
+
+        for (int i = 0; i < segmentsWithColors.size()-5;) {
+            
+           int v3 = 0;
+           int v1 = i;
+           int v2 = i + 1;
+           if (i==0){
+            v3 = i+3;
+           }
+           else{
+            if (i%2 == 0 ){
+                v3 = i+3;
+            }
+            else{
+                v3 = i+5;
+            }
+        }
+
+           int v4 = i + 2;
+
+
+           
+           Polygon polygon = Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v2).addSegmentIdxs(v3).addSegmentIdxs(v4).build();
+           polygons.add(polygon);
+           
+
+            if (i%2 == 0){
+                i+=3;
+            }
+            else{
+                i+=5;
+            }
+        }
+
         System.out.println("|Segments| = " + segmentsWithColors.size());
-        return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).build();
+        return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygons).build();
 
     }
 
