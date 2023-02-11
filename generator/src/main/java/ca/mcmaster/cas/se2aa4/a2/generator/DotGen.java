@@ -20,8 +20,8 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 public class DotGen {
 
-    private final int width = 220;
-    private final int height = 220;
+    private final int width = 500;
+    private final int height = 500;
     private final int square_size = 20;
 
     public Mesh generate() {
