@@ -20,9 +20,9 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 
 public class DotGen {
 
-    private final int width = 1000;
-    private final int height = 1000;
-    private final int square_size = 40;
+    private final int width = 220;
+    private final int height = 220;
+    private final int square_size = 20;
 
     public Mesh generate() {
         List<Vertex> vertices = new ArrayList<>();
@@ -197,7 +197,7 @@ public class DotGen {
 
         //polygon code (NEW CODE)
         List<Polygon> polygons = new ArrayList<>();
-        for (int i = 0; i < ((height/square_size)+1)*((height/square_size)+1); i+=4) {
+        for (int i = 0; i < ((height/square_size)+1)*((height/square_size)+(((width+height)/2)/square_size)); i+=4) {
             polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i+1).addSegmentIdxs(i+2).addSegmentIdxs(i+3).build()); 
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+3).getV1Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+3).getV1Idx()).getY())/4;

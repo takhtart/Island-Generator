@@ -23,7 +23,7 @@ public class GraphicRenderer {
         canvas.setStroke(stroke);
 
 
-        //Displays Segments (Below Vertices)
+        /* //Displays Segments (Below Vertices)
         for (Segment s: aMesh.getSegmentsList()) {
             
             List<Vertex> v = aMesh.getVerticesList();
@@ -39,7 +39,7 @@ public class GraphicRenderer {
 
     
 
-        }
+        } */
 
         //Displays Vertices (On Top Of Segments)
         for (Vertex v: aMesh.getVerticesList()) {
@@ -65,7 +65,7 @@ public class GraphicRenderer {
                 canvas.setColor(extractColor(s.getPropertiesList()));
                 Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
                 canvas.draw(Line);
-                canvas.drawString(""+p.getSegmentIdxs(i),(float)((centre_x1+centre_x2)/2),(float)((centre_y1+centre_y2)/2));
+                //canvas.drawString(""+p.getSegmentIdxs(i),(float)((centre_x1+centre_x2)/2),(float)((centre_y1+centre_y2)/2));
             }
         }
 
