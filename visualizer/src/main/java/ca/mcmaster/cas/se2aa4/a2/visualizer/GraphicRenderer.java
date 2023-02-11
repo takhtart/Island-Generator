@@ -51,6 +51,23 @@ public class GraphicRenderer {
             canvas.fill(point);
             canvas.setColor(old);
         }
+        
+        for(Polygon p: aMesh.getPolygonsList()){
+            for(int i = 0; i<4; i++){
+                List<Vertex> v = aMesh.getVerticesList();
+                Segment s = aMesh.getSegments(p.getSegmentIdxs(i));
+                int v1 = s.getV1Idx();
+                int v2 = s.getV2Idx();
+                double centre_x1 = v.get(v1).getX();
+                double centre_y1 = v.get(v1).getY();
+                double centre_x2 = v.get(v2).getX();
+                double centre_y2 = v.get(v2).getY();
+                canvas.setColor(extractColor(s.getPropertiesList()));
+                Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
+                canvas.draw(Line);
+                canvas.drawString(""+p.getSegmentIdxs(i),(float)((centre_x1+centre_x2)/2),(float)((centre_y1+centre_y2)/2));
+            }
+        }
 
 /*         for (int i = 0; i < aMesh.getPolygonsList().size(); i++) {
             Polygon p = aMesh.getPolygonsList().get(i);
