@@ -1,5 +1,6 @@
 package ca.mcmaster.cas.se2aa4.a2.visualizer;
 
+import ca.mcmaster.cas.se2aa4.a2.io.Structs;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Vertex;
@@ -14,6 +15,10 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.util.List;
 
+import org.apache.batik.ext.awt.geom.Polygon2D;
+
+import java.awt.*;
+
 public class GraphicRenderer {
 
     private static final int THICKNESS = 3;
@@ -23,7 +28,7 @@ public class GraphicRenderer {
         canvas.setStroke(stroke);
 
 
-        //Displays Segments (Below Vertices)
+        /* //Displays Segments (Below Vertices)
         for (Segment s: aMesh.getSegmentsList()) {
             
             List<Vertex> v = aMesh.getVerticesList();
@@ -39,7 +44,7 @@ public class GraphicRenderer {
 
     
 
-        }
+        } */
 
         //Displays Vertices (On Top Of Segments)
         for (Vertex v: aMesh.getVerticesList()) {
@@ -52,14 +57,60 @@ public class GraphicRenderer {
             canvas.setColor(old);
         }
 
-/*         for (int i = 0; i < aMesh.getPolygonsList().size(); i++) {
+        //Displays Segment Numbers
+        Font stringFont = new Font( "SansSerif", Font.PLAIN, 3 );
+        canvas.setFont(stringFont);
+        for (int i = 0; i < aMesh.getSegmentsList().size(); i++) {
+            Segment s = aMesh.getSegmentsList().get(i);
+            
+            List<Vertex> v = aMesh.getVerticesList();
+            int v1 = s.getV1Idx();
+            int v2 = s.getV2Idx();
+            float centre_x1 = (float) v.get(v1).getX();
+            float centre_y1 = (float) v.get(v1).getY();
+            float centre_x2 = (float) v.get(v2).getX();
+            float centre_y2 = (float) v.get(v2).getY();
+            canvas.setColor(extractColor(s.getPropertiesList()));
+            String index = Integer.toString(i);
+            if ((centre_y1+centre_y2)/2+3 > 500){
+                canvas.drawString(index,((centre_x1+centre_x2)/2), ((centre_y1+centre_y2)/2)-3);
+            }
+            else{
+                canvas.drawString(index,((centre_x1+centre_x2)/2), ((centre_y1+centre_y2)/2)+3);
+            }
+           
+
+    
+
+        }
+
+
+        /* for (int i = 0; i < aMesh.getPolygonsList().size(); i++) {
             Polygon p = aMesh.getPolygonsList().get(i);
-            canvas.drawPolygon(p);
+
+            Structs.Segment segment1 = aMesh.getSegments(p.getSegmentIdxs(0));
+            Structs.Segment segment2 = aMesh.getSegments(p.getSegmentIdxs(1));
+            Structs.Segment segment3 = aMesh.getSegments(p.getSegmentIdxs(2));
+            Structs.Segment segment4 = aMesh.getSegments(p.getSegmentIdxs(3));
+
+           canvas.setColor(extractColor(segment1.getPropertiesList()));
+           canvas.setColor(extractColor(segment2.getPropertiesList()));
+           canvas.setColor(extractColor(segment3.getPropertiesList()));
+           canvas.setColor(extractColor(segment4.getPropertiesList()));
+
+           canvas.draw(new Line2D.Double(aMesh.getVertices(segment1.getV1Idx()).getX(),aMesh.getVertices(segment1.getV1Idx()).getY(),aMesh.getVertices(segment1.getV2Idx()).getX(),aMesh.getVertices(segment1.getV2Idx()).getY()));
+           canvas.draw(new Line2D.Double(aMesh.getVertices(segment2.getV1Idx()).getX(),aMesh.getVertices(segment2.getV1Idx()).getY(),aMesh.getVertices(segment2.getV2Idx()).getX(),aMesh.getVertices(segment2.getV2Idx()).getY()));
+           canvas.draw(new Line2D.Double(aMesh.getVertices(segment3.getV1Idx()).getX(),aMesh.getVertices(segment3.getV1Idx()).getY(),aMesh.getVertices(segment3.getV2Idx()).getX(),aMesh.getVertices(segment3.getV2Idx()).getY()));
+           canvas.draw(new Line2D.Double(aMesh.getVertices(segment4.getV1Idx()).getX(),aMesh.getVertices(segment4.getV1Idx()).getY(),aMesh.getVertices(segment4.getV2Idx()).getX(),aMesh.getVertices(segment4.getV2Idx()).getY()));
+
+
+
         } */
 
         
         //System.out.println("Vertices: " + aMesh.getVerticesList());
         //System.out.println("Segments: " + aMesh.getSegmentsList());
+    
         
     }
 

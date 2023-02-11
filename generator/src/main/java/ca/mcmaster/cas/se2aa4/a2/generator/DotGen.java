@@ -88,7 +88,7 @@ public class DotGen {
         
 
         
-        ArrayList<Integer> Overlap = new ArrayList<Integer>();
+        /* ArrayList<Integer> Overlap = new ArrayList<Integer>();
         //Sets Top-Most Dots To Match Dot Colour Underneath (If Overlapping) This is done so that verticies and the segments they are connected by use the right colours
         for (int i = 0; i < verticesWithColors.size(); i++) {
             
@@ -118,7 +118,7 @@ public class DotGen {
             }
 
             
-        }
+        } */
 
 
         // Segments Generation Between Vertices:
@@ -186,8 +186,9 @@ public class DotGen {
 
         List<Structs.Polygon> polygons = new ArrayList<>();
 
-        for (int i = 0; i < segmentsWithColors.size()-5;) {
+        /* for (int i = 0; i < segmentsWithColors.size()-1; ) {
             
+        
            int v3 = 0;
            int v1 = i;
            int v2 = i + 1;
@@ -202,22 +203,104 @@ public class DotGen {
                 v3 = i+5;
             }
         }
-
            int v4 = i + 2;
-
-
            
            Polygon polygon = Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v2).addSegmentIdxs(v3).addSegmentIdxs(v4).build();
            polygons.add(polygon);
-           
-
-            if (i%2 == 0){
+            if (i%2 == 0 || (i-99)%102 == 0 || i == 99){
                 i+=3;
             }
             else{
                 i+=5;
             }
+        } */
+        for (int i = 0; i < segmentsWithColors.size()-(height/square_size)*3-1;) {
+            Polygon polygon1 = Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i+1).addSegmentIdxs(i+3).addSegmentIdxs(i+2).build();
+            polygons.add(polygon1);
+            if ((i-((height/square_size)*4-4))%((height/square_size)*4+2) == 0 || i == ((height/square_size)*4-4)){
+                i+=6;
+            }
+            else {
+                Polygon polygon2 = Polygon.newBuilder().addSegmentIdxs(i+3).addSegmentIdxs(i+4).addSegmentIdxs(i+8).addSegmentIdxs(i+5).build();
+                polygons.add(polygon2);
+                i+=8;
+            }
         }
+        for (int i = segmentsWithColors.size()-(height/square_size)*3-1; i < segmentsWithColors.size()-1;){
+            Polygon polygon3 = Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i+1).addSegmentIdxs(i+3).addSegmentIdxs(i+2).build();
+            polygons.add(polygon3);
+            i+=3;
+        }
+       /*  for (int i = 6; i < segmentsWithColors.size()-77;) {
+            if ((i-102)%102 == 0 || i == 102){
+                Polygon polygon3 = Polygon.newBuilder().addSegmentIdxs(i-2).addSegmentIdxs(i-4).addSegmentIdxs(i-1).addSegmentIdxs(i-3+(width/square_size)*4).build();
+                polygons.add(polygon3);
+                i+=6;
+            }
+            else {
+                Polygon polygon1 = Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i-4).addSegmentIdxs(i+1).addSegmentIdxs(i-3+(width/square_size)*4).build();
+                polygons.add(polygon1);
+                Polygon polygon2 = Polygon.newBuilder().addSegmentIdxs(i+1).addSegmentIdxs(i-1).addSegmentIdxs(i+8).addSegmentIdxs(i+(width/square_size)*4).build();
+                polygons.add(polygon2);
+                i+=8;
+            }
+        } */
+        
+        for (int i = 6; i < segmentsWithColors.size()-77;) {
+            
+            int v3 = 0;
+            int v1 = i;
+            int v2 = 0;
+            if (i==6){
+                v2 = i-4;
+            }
+            else{
+                if (i%2 == 0){
+                    v2 = i-4;
+                }
+                else{
+                    v2 = i-2;
+                }
+            }
+
+            if (i==6){
+             v3 = i+1;
+            }
+            else{
+             if (i%2 == 0 ){
+                 v3 = i+1;
+             }
+             else{
+                 v3 = i+7;
+             }
+         }
+         int v4 = 0;
+         if (i==6){
+            v4 = (width/square_size)*2 + i-3;
+           }
+           else{
+            if (i%2 == 0 ){
+                v4 = (width/square_size)*2 + i-3;
+            }
+            else{
+                v4 = (width/square_size)*2 + i;
+            }
+        }
+            
+            Polygon polygon = Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v2).addSegmentIdxs(v3).addSegmentIdxs(v4).build();
+            polygons.add(polygon);
+            if ((i-95)%102 == 0 || i == 95 ){
+                i+=5;
+            }
+            else if (i%2 == 0){
+                i+=1;
+            }
+            else{
+                i+=7;
+            }
+         }
+
+
 
         System.out.println("|Segments| = " + segmentsWithColors.size());
         return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygons).build();
