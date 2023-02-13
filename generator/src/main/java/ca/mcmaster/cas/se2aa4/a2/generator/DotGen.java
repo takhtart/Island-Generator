@@ -155,28 +155,7 @@ public class DotGen {
         }
 
 
-        for (int i = 2; i < verticesWithColors.size()-3; i+=4) {
-
-            int v1_idx = i;
-            int v2_idx = i+1;
-            int v3_idx = i+2;
-            int v4_idx = i+3;
-            if (verticesWithColors.get(v2_idx).getY() != height) {
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
-            }
-        }
-
-        for (int i = 0; i < verticesWithColors.size()-3; i+=4) {
-            int v1_idx = i+1;
-            int v2_idx = i+3;
-            int v3_idx = v1_idx+(width/square_size)*2+1;
-            int v4_idx = v2_idx+(width/square_size)*2+1;
-            if (verticesWithColors.get(v2_idx).getX() != width) {
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
-            }
-        }
+         
 
 
         //Adds Average Colours Of The 2 Vertices Each Segment is Connected To
@@ -321,7 +300,7 @@ public class DotGen {
             }
          }
 
-/*      // Segments Generation Between Vertices: (CHANGED CODE)
+     /* // Segments Generation Between Vertices: (CHANGED CODE)
         List<Structs.Segment> segments = new ArrayList<>();
         for (int i = 0; i < verticesWithColors.size()-3; i+=4) {
 
@@ -341,6 +320,30 @@ public class DotGen {
 
 
         }
+
+        for (int i = 2; i < verticesWithColors.size()-3; i+=4) {
+
+            int v1_idx = i;
+            int v2_idx = i+1;
+            int v3_idx = i+2;
+            int v4_idx = i+3;
+            if (verticesWithColors.get(v2_idx).getY() != height) {
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
+           }
+        }
+
+        for (int i = 0; i < verticesWithColors.size()-3; i+=4) {
+            int v1_idx = i+1;
+            int v2_idx = i+3;
+            int v3_idx = v1_idx+(width/square_size)*2+1;
+            int v4_idx = v2_idx+(width/square_size)*2+1;
+            if (verticesWithColors.get(v2_idx).getX() != width) {
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
+                segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
+            }
+        }
+
         //polygon code (NEW CODE)
         List<Polygon> polygons = new ArrayList<>();
         for (int i = 0; i < ((height/square_size)+1)*((height/square_size)+(((width+height)/2)/square_size)); i+=4) {
