@@ -217,6 +217,9 @@ public class DotGen {
         
         for (int i = 0; i < segmentsWithColors.size()-(height/square_size)*3-1;) {
             Polygon polygon1 = Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i+1).addSegmentIdxs(i+3).addSegmentIdxs(i+2).build();
+            double centroidX = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+3).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getX())/4;
+            double centroidY = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+3).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getY())/4;
+            verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
             polygons.add(polygon1);
             if ((i-((height/square_size)*4-4))%((height/square_size)*4+2) == 0 || i == ((height/square_size)*4-4)){
                 i+=6;
@@ -224,29 +227,71 @@ public class DotGen {
             else {
                 Polygon polygon2 = Polygon.newBuilder().addSegmentIdxs(i+3).addSegmentIdxs(i+4).addSegmentIdxs(i+8).addSegmentIdxs(i+5).build();
                 polygons.add(polygon2);
+                centroidX = (verticesWithColors.get(segmentsWithColors.get(i+3).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+4).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+8).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+5).getV1Idx()).getX())/4;
+                centroidY = (verticesWithColors.get(segmentsWithColors.get(i+3).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+4).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+8).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+5).getV1Idx()).getY())/4;
+                verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
                 i+=8;
             }
         }
         for (int i = segmentsWithColors.size()-(height/square_size)*3-1; i < segmentsWithColors.size()-1;){
             Polygon polygon3 = Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i+1).addSegmentIdxs(i+3).addSegmentIdxs(i+2).build();
             polygons.add(polygon3);
+            double centroidX = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+3).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getX())/4;
+            double centroidY = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+3).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getY())/4;
+            verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
             i+=3;
         }
-        /*  for (int i = 6; i < segmentsWithColors.size()-77;) {
-            if ((i-102)%102 == 0 || i == 102){
-                Polygon polygon3 = Polygon.newBuilder().addSegmentIdxs(i-2).addSegmentIdxs(i-4).addSegmentIdxs(i-1).addSegmentIdxs(i-3+(width/square_size)*4).build();
+        int count = (height/square_size)*4+3;
+        
+        
+        for (int i = 6; i < segmentsWithColors.size()-((height/square_size)*3+2);) {
+            if ((i-((width/square_size)*4))%((width/square_size)*4+2) == 0 || i == ((width/square_size)*4)){
+                Polygon polygon3 = Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i-2).addSegmentIdxs(i+1).addSegmentIdxs(count).build();
                 polygons.add(polygon3);
-                i+=6;
+                double centroidX = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i-2).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(count).getV1Idx()).getX())/4;
+                double centroidY = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i-2).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(count).getV1Idx()).getY())/4;
+                verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
+                i+=8;
+                count+=6;
             }
             else {
-                Polygon polygon1 = Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i-4).addSegmentIdxs(i+1).addSegmentIdxs(i-3+(width/square_size)*4).build();
+                Polygon polygon1 = Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i-4).addSegmentIdxs(i+1).addSegmentIdxs(count).build();
                 polygons.add(polygon1);
-                Polygon polygon2 = Polygon.newBuilder().addSegmentIdxs(i+1).addSegmentIdxs(i-1).addSegmentIdxs(i+8).addSegmentIdxs(i+(width/square_size)*4).build();
-                polygons.add(polygon2);
-                i+=8;
+                double centroidX = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i-4).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(count).getV1Idx()).getX())/4;
+                double centroidY = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i-4).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(count).getV1Idx()).getY())/4;
+                verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
+
+                if (((i+1)-((width/square_size)*4-5))%((width/square_size)*4+2) == 0 || (i+1) == ((width/square_size)*4-5)){
+                    Polygon polygon2 = Polygon.newBuilder().addSegmentIdxs(i+1).addSegmentIdxs(i-1).addSegmentIdxs(i+6).addSegmentIdxs(count+3).build();
+                    polygons.add(polygon2);
+                    centroidX = (verticesWithColors.get(segmentsWithColors.get(i+1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i-1).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+6).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(count+3).getV1Idx()).getX())/4;
+                    centroidY = (verticesWithColors.get(segmentsWithColors.get(i+1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i-1).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+6).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(count+3).getV1Idx()).getY())/4;
+                    verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
+                }
+                else {
+                    Polygon polygon2 = Polygon.newBuilder().addSegmentIdxs(i+1).addSegmentIdxs(i-1).addSegmentIdxs(i+8).addSegmentIdxs(count+3).build();
+                    polygons.add(polygon2);
+                    centroidX = (verticesWithColors.get(segmentsWithColors.get(i+1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i-1).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+8).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(count+3).getV1Idx()).getX())/4;
+                    centroidY = (verticesWithColors.get(segmentsWithColors.get(i+1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i-1).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+8).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(count+3).getV1Idx()).getY())/4;
+                    verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
+                }
+
+                if ((i-((width/square_size)*4-6))%((width/square_size)*4+2) == 0 || i == ((width/square_size)*4-6)){
+                    i+=6;
+                }
+                else {
+                    i+=8;
+                }
+                if ((i <= segmentsWithColors.size()-((height/square_size)*3+3) && i >= segmentsWithColors.size()-((height/square_size)*7-3))) {
+                    count += 6;
+                }
+                else {
+                    count += 8;
+                }
             }
-        } */
-        for (int i = 6; i < segmentsWithColors.size()-77;) {
+        }
+        
+        /* for (int i = 6; i < segmentsWithColors.size()-(height/square_size)*3+2;) {
             
             int v3 = 0;
             int v1 = i;
@@ -289,7 +334,10 @@ public class DotGen {
             
             Polygon polygon = Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v2).addSegmentIdxs(v3).addSegmentIdxs(v4).build();
             polygons.add(polygon);
-            if ((i-95)%102 == 0 || i == 95 ){
+
+            
+
+            if ((i-((width/square_size)*4-5))%((width/square_size)*4+2) == 0 || i == ((width/square_size)*4-5) ){
                 i+=5;
             }
             else if (i%2 == 0){
@@ -298,7 +346,7 @@ public class DotGen {
             else{
                 i+=7;
             }
-         }
+         } */
 
      /* // Segments Generation Between Vertices: (CHANGED CODE)
         List<Structs.Segment> segments = new ArrayList<>();

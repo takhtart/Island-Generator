@@ -69,8 +69,8 @@ public class GraphicRenderer {
                 double centre_y2 = v.get(v2).getY();
                 canvas.setColor(extractColor(s.getPropertiesList()));
                 Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
+                //canvas.drawString(""+p.getSegmentIdxs(i),(float)(((centre_x1+centre_x2)/2)+5), (float)((centre_y1+centre_y2)/2)-3);
                 canvas.draw(Line);
-                //canvas.drawString(""+p.getSegmentIdxs(i),(float)((centre_x1+centre_x2)/2),(float)((centre_y1+centre_y2)/2));
             }
         }
 
@@ -100,6 +100,8 @@ public class GraphicRenderer {
     
 
         }
+
+       
 
 
         /* for (int i = 0; i < aMesh.getPolygonsList().size(); i++) {
