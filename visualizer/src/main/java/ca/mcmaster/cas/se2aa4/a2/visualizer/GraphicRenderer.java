@@ -103,6 +103,8 @@ public class GraphicRenderer {
             }
         }
 
+        
+
         //Displays Segment Numbers
         /* Font stringFont = new Font( "SansSerif", Font.PLAIN, 3 );
         canvas.setFont(stringFont);
@@ -121,8 +123,11 @@ public class GraphicRenderer {
             if ((centre_y1+centre_y2)/2+3 > 500){
                 canvas.drawString(index,((centre_x1+centre_x2)/2), ((centre_y1+centre_y2)/2)-3);
             }
+            else if ((centre_x1+centre_x2)/2+3 > 500){
+                canvas.drawString(index,((centre_x1+centre_x2)/2)-6, ((centre_y1+centre_y2)/2)+3);
+            }
             else{
-                canvas.drawString(index,((centre_x1+centre_x2)/2), ((centre_y1+centre_y2)/2)+3);
+                canvas.drawString(index,((centre_x1+centre_x2)/2)+1, ((centre_y1+centre_y2)/2)+3);
             }
            
 
