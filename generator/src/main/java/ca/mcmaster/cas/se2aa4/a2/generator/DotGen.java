@@ -401,7 +401,7 @@ public class DotGen {
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+3).getV2Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+3).getV2Idx()).getY())/4;
             verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
-            polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i+1).addSegmentIdxs(i+3).addSegmentIdxs(i+2).setCentroidIdx(verticesWithColors.size()).build()); 
+            polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i+1).addSegmentIdxs(i+3).addSegmentIdxs(i+2).setCentroidIdx(verticesWithColors.size()-1).build()); 
         }
         int counter = 0;
          for (int i = ((height/square_size)+1)*((height/square_size)+1); i < ((height/square_size)+1)*((height/square_size)+1)+(height/square_size)*(height/square_size)/2; i+=2) {
@@ -417,7 +417,7 @@ public class DotGen {
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getY())/4;
             verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
-            polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v3).addSegmentIdxs(v1).addSegmentIdxs(v4).addSegmentIdxs(v2).setCentroidIdx(verticesWithColors.size()).build()); 
+            polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v3).addSegmentIdxs(v1).addSegmentIdxs(v4).addSegmentIdxs(v2).setCentroidIdx(verticesWithColors.size()-1).build()); 
         }
         counter = 0;
         for (int i = ((height/square_size)+1)*((height/square_size)+1)+(height/square_size+1)*((height/square_size-1)/2)+1; i<segments.size()-2;i+=2){
@@ -434,7 +434,7 @@ public class DotGen {
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getY())/4;
             verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
-            polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v3).addSegmentIdxs(v2).addSegmentIdxs(v4).setCentroidIdx(verticesWithColors.size()).build());
+            polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v3).addSegmentIdxs(v2).addSegmentIdxs(v4).setCentroidIdx(verticesWithColors.size()-1).build());
         }  
         counter = 0;
         for (int i = ((height/square_size)+1)*((height/square_size)+1)+(height/square_size+1)*((height/square_size-1)/2); i<segments.size()-1;i+=2){
@@ -447,7 +447,7 @@ public class DotGen {
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getY())/4;
             verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
-            polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v3).addSegmentIdxs(v2).addSegmentIdxs(v4).setCentroidIdx(verticesWithColors.size()).build()); 
+            polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v3).addSegmentIdxs(v2).addSegmentIdxs(v4).setCentroidIdx(verticesWithColors.size()-1).build()); 
         } 
         List <Polygon> polygonsWithNeighbors = new ArrayList<>();
         List<Integer> neighbor = new ArrayList<>();
@@ -460,22 +460,21 @@ public class DotGen {
             else{
                 vertex = segmentsWithColors.get(p.getSegmentIdxs(i%4)).getV1Idx();
             }
-            counter = 1;
+            counter = 0;
             for (Polygon o: polygons){
-                if (o.getSegmentIdxs(0) == p.getSegmentIdxs(0)){
-                    continue;
-                }
-                if (vertex == segmentsWithColors.get(o.getSegmentIdxs(0)).getV1Idx()){
-                    neighbor.add(counter);
-                }
-                else if (vertex == segmentsWithColors.get(o.getSegmentIdxs(1)).getV2Idx()){
-                    neighbor.add(counter);
-                }
-                else if (vertex == segmentsWithColors.get(o.getSegmentIdxs(2)).getV2Idx()){
-                    neighbor.add(counter);
-                }
-                else if (vertex == segmentsWithColors.get(o.getSegmentIdxs(3)).getV1Idx()){
-                    neighbor.add(counter);
+                if (counter != i/4){
+                    if (vertex == segmentsWithColors.get(o.getSegmentIdxs(0)).getV1Idx()){
+                        neighbor.add(counter);
+                    }
+                    else if (vertex == segmentsWithColors.get(o.getSegmentIdxs(1)).getV2Idx()){
+                        neighbor.add(counter);
+                    }
+                    else if (vertex == segmentsWithColors.get(o.getSegmentIdxs(2)).getV2Idx()){
+                        neighbor.add(counter);
+                    }
+                    else if (vertex == segmentsWithColors.get(o.getSegmentIdxs(3)).getV1Idx()){
+                        neighbor.add(counter);
+                    }
                 }
                 counter++;
             }
@@ -490,7 +489,7 @@ public class DotGen {
             }
         }
         System.out.println("|Segments| = " + segmentsWithColors.size());
-        for (int i = 0; i<polygonsWithNeighbors.get(15).getNeighborIdxsCount(); i++){
+        for (int i = 0; i<polygonsWithNeighbors.get(1).getNeighborIdxsCount(); i++){
             System.out.println("Neighbors: " + polygonsWithNeighbors.get(15).getNeighborIdxs(i));
         }
         return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygonsWithNeighbors).build();

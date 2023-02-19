@@ -26,8 +26,7 @@ public class GraphicRenderer {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-
-
+        int nonCentroids = (int)Math.pow((int) Math.sqrt(aMesh.getVerticesList().size()/2) + 1,2);
         /* //Displays Segments (Below Vertices)
         for (Segment s: aMesh.getSegmentsList()) {
             
@@ -47,14 +46,41 @@ public class GraphicRenderer {
         } */
 
         //Displays Vertices (On Top Of Segments)
-        for (Vertex v: aMesh.getVerticesList()) {
+        for (Vertex v: aMesh.getVerticesList().subList(0,nonCentroids)) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
             Color old = canvas.getColor();
             canvas.setColor(extractColor(v.getPropertiesList()));
+            if (true){ // change condition to command line arg
+                canvas.setColor(Color.BLACK);
+            }
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
             canvas.fill(point);
             canvas.setColor(old);
+        }
+        if (true){ // change condition to command line arg
+            for (Vertex v: aMesh.getVerticesList().subList(nonCentroids,aMesh.getVerticesCount())) {
+                double centre_x = v.getX() - (THICKNESS/2.0d);
+                double centre_y = v.getY() - (THICKNESS/2.0d);
+                Color old = canvas.getColor();
+                canvas.setColor(Color.RED);
+                Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+                canvas.fill(point);
+                canvas.setColor(old);
+            }
+            for(Polygon p: aMesh.getPolygonsList()){
+                Vertex c1 = aMesh.getVertices(p.getCentroidIdx());
+                for(int i: p.getNeighborIdxsList()){
+                    Vertex c2 = aMesh.getVertices(aMesh.getPolygons(i).getCentroidIdx());
+                    double centre_x1 = c1.getX();
+                    double centre_y1 = c1.getY();
+                    double centre_x2 = c2.getX();
+                    double centre_y2 = c2.getY();
+                    canvas.setColor(Color.GRAY);
+                    Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
+                    canvas.draw(Line);
+                }
+            }
         }
         
         for(Polygon p: aMesh.getPolygonsList()){
@@ -68,6 +94,9 @@ public class GraphicRenderer {
                 double centre_x2 = v.get(v2).getX();
                 double centre_y2 = v.get(v2).getY();
                 canvas.setColor(extractColor(s.getPropertiesList()));
+                if(true){ // change condition to command line arg
+                    canvas.setColor(Color.BLACK);
+                }
                 Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
                 //canvas.drawString(""+p.getSegmentIdxs(i),(float)(((centre_x1+centre_x2)/2)+5), (float)((centre_y1+centre_y2)/2)-3);
                 canvas.draw(Line);
@@ -75,7 +104,7 @@ public class GraphicRenderer {
         }
 
         //Displays Segment Numbers
-        Font stringFont = new Font( "SansSerif", Font.PLAIN, 3 );
+        /* Font stringFont = new Font( "SansSerif", Font.PLAIN, 3 );
         canvas.setFont(stringFont);
         for (int i = 0; i < aMesh.getSegmentsList().size(); i++) {
             Segment s = aMesh.getSegmentsList().get(i);
@@ -99,7 +128,7 @@ public class GraphicRenderer {
 
     
 
-        }
+        } */
 
        
 
