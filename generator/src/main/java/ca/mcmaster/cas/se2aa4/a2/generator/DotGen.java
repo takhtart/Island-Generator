@@ -86,75 +86,90 @@ public class DotGen {
             v = Structs.Vertex.newBuilder().setX(x).setY(y).build();
             vertice.add(v);
         }
-
-        List<Coordinate> coordlist = new ArrayList<>();
-        for (int i = 0; i < vertice.size(); i++) {
-            Coordinate coordinate = new Coordinate(vertice.get(i).getX(),vertice.get(i).getY());
-            coordlist.add(coordinate);
-        }
-
-
-        //VoronoiDiagramBuilder
-        GeometryFactory factory = new GeometryFactory();
-        Envelope envelope = new Envelope(0,500,0,500);
-        VoronoiDiagramBuilder irregularMesh = new VoronoiDiagramBuilder();
-
-        
-        irregularMesh.setSites(coordlist);
-        irregularMesh.setClipEnvelope(envelope);
-
-
-        Geometry preEnvelope = irregularMesh.getDiagram(factory);
-        Geometry polygonsVD = preEnvelope.intersection(new GeometryFactory().toGeometry(envelope));
-        GeometryCollection geometryCollection = (GeometryCollection) polygonsVD;
-
-        
-        //JTS Polygons to Structs Polygon
         List<Structs.Segment> segments = new ArrayList<>();
         List<Vertex> vertices = new ArrayList<>();
         List<Polygon> polygons = new ArrayList<>();
-        int total = 0;
-        for (int j = 0 ; j < geometryCollection.getNumGeometries() - 1; j++){
-            org.locationtech.jts.geom.Polygon geometryPolygon = (org.locationtech.jts.geom.Polygon) geometryCollection.getGeometryN(j);
+        for (int a = 0; a < 20; a++){
+            List<Coordinate> coordlist = new ArrayList<>();
+            for (int i = 0; i < vertice.size(); i++) {
+                Coordinate coordinate = new Coordinate(vertice.get(i).getX(),vertice.get(i).getY());
+                coordlist.add(coordinate);
+            }
+
+
+            //VoronoiDiagramBuilder
+            GeometryFactory factory = new GeometryFactory();
+            Envelope envelope = new Envelope(0,500,0,500);
+            VoronoiDiagramBuilder irregularMesh = new VoronoiDiagramBuilder();
+
             
-            Coordinate[] polygonCoordinates = geometryPolygon.getCoordinates();
-
-            //Line Segments: JTS
-            /* List<LineSegment> lineSegments = new ArrayList<>();
-            for (int k = 0; k < polygonCoordinates.length - 1; k++){
-                Coordinate start = polygonCoordinates[k];
-                Coordinate end = polygonCoordinates[k+1];
-                lineSegments.add(new LineSegment(start,end));
-            }
-            lineSegments.add(new LineSegment(polygonCoordinates[polygonCoordinates.length - 1],polygonCoordinates[0])); */
+            irregularMesh.setSites(coordlist);
+            irregularMesh.setClipEnvelope(envelope);
 
 
-            //JTS Polygon Coordinates to Vertices
-            List<Integer> s = new ArrayList<>();
-            int newVertices = 0;
-            for(int m = 0; m < polygonCoordinates.length ; m++, newVertices ++) {
-                double x1 = polygonCoordinates[m].x;
-                double y1 = polygonCoordinates[m].y;
-                vertices.add(Vertex.newBuilder().setX(x1).setY(y1).build());
+            Geometry preEnvelope = irregularMesh.getDiagram(factory);
+            Geometry polygonsVD = preEnvelope.intersection(new GeometryFactory().toGeometry(envelope));
+            GeometryCollection geometryCollection = (GeometryCollection) polygonsVD;
+
+            
+            //JTS Polygons to Structs Polygon
+            segments = new ArrayList<>();
+            vertices = new ArrayList<>();
+            polygons = new ArrayList<>();
+            int total = 0;
+            for (int j = 0 ; j < geometryCollection.getNumGeometries() - 1; j++){
+                org.locationtech.jts.geom.Polygon geometryPolygon = (org.locationtech.jts.geom.Polygon) geometryCollection.getGeometryN(j);
                 
+                Coordinate[] polygonCoordinates = geometryPolygon.getCoordinates();
+
+                //Line Segments: JTS
+                /* List<LineSegment> lineSegments = new ArrayList<>();
+                for (int k = 0; k < polygonCoordinates.length - 1; k++){
+                    Coordinate start = polygonCoordinates[k];
+                    Coordinate end = polygonCoordinates[k+1];
+                    lineSegments.add(new LineSegment(start,end));
+                }
+                lineSegments.add(new LineSegment(polygonCoordinates[polygonCoordinates.length - 1],polygonCoordinates[0])); */
+
+
+                //JTS Polygon Coordinates to Vertices
+                List<Integer> s = new ArrayList<>();
+                int newVertices = 0;
+                for(int m = 0; m < polygonCoordinates.length ; m++, newVertices ++) {
+                    double x1 = polygonCoordinates[m].x;
+                    double y1 = polygonCoordinates[m].y;
+                    vertices.add(Vertex.newBuilder().setX(x1).setY(y1).build());
+                    
+                }
+                //Segment Generation + Structs Polygon
+                for (int p = total; p <  (total + newVertices) - 1; p++) {
+                    int v1_idx = p;
+                    int v2_idx = p+1;
+
+                    segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build()); 
+                    s.add(p);
+                }
+                segments.add(Structs.Segment.newBuilder().setV1Idx(total).setV2Idx(total).build()); 
+                total += newVertices;
+                s.add(total - 1);
+
+                polygons.add(Structs.Polygon.newBuilder().addAllSegmentIdxs(s).build());
+
+
             }
-            //Segment Generation + Structs Polygon
-            for (int p = total; p <  (total + newVertices) - 1; p++) {
-                int v1_idx = p;
-                int v2_idx = p+1;
-
-                segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build()); 
-                s.add(p);
+            vertice = new ArrayList<>();
+            for (Polygon p: polygons){
+                double centroidX = 0;
+                double centroidY = 0;
+                for (int i = 0; i<p.getSegmentIdxsCount();i++){
+                    centroidX += vertices.get(segments.get(p.getSegmentIdxs(i)).getV1Idx()).getX();
+                    centroidY += vertices.get(segments.get(p.getSegmentIdxs(i)).getV1Idx()).getY();
+                }
+                centroidX /= p.getSegmentIdxsCount();
+                centroidY /= p.getSegmentIdxsCount();
+                vertice.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
             }
-            segments.add(Structs.Segment.newBuilder().setV1Idx(total).setV2Idx(total).build()); 
-            total += newVertices;
-            s.add(total - 1);
-
-            polygons.add(Structs.Polygon.newBuilder().addAllSegmentIdxs(s).build());
-
-
         }
-
         return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
     }
     
