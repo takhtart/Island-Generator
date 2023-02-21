@@ -46,17 +46,6 @@ public class GraphicRenderer {
 
         } */
 
-        //Displays Vertices (On Top Of Segments)
-        for (Vertex v: aMesh.getVerticesList()) {
-            double centre_x = v.getX() - (THICKNESS/2.0d);
-            double centre_y = v.getY() - (THICKNESS/2.0d);
-            Color old = canvas.getColor();
-            canvas.setColor(extractColor(v.getPropertiesList()));
-            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
-            canvas.fill(point);
-            canvas.setColor(old);
-        }
-        
         for(Polygon p: aMesh.getPolygonsList()){
             for(int i = 0; i<4; i++){
                 List<Vertex> v = aMesh.getVerticesList();
@@ -73,6 +62,18 @@ public class GraphicRenderer {
                 canvas.draw(Line);
             }
         }
+
+        //Displays Vertices (On Top Of Segments)
+        for (Vertex v: aMesh.getVerticesList()) {
+            double centre_x = v.getX() - (THICKNESS/2.0d);
+            double centre_y = v.getY() - (THICKNESS/2.0d);
+            Color old = canvas.getColor();
+            canvas.setColor(extractColor(v.getPropertiesList()));
+            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(old);
+        }
+        
 
         //Displays Segment Numbers
         Font stringFont = new Font( "SansSerif", Font.PLAIN, 3 );
@@ -92,8 +93,11 @@ public class GraphicRenderer {
             if ((centre_y1+centre_y2)/2+3 > 500){
                 canvas.drawString(index,((centre_x1+centre_x2)/2), ((centre_y1+centre_y2)/2)-3);
             }
+            else if ((centre_x1+centre_x2)/2+3 > 500){
+                canvas.drawString(index,((centre_x1+centre_x2)/2)-6, ((centre_y1+centre_y2)/2)+3);
+            }
             else{
-                canvas.drawString(index,((centre_x1+centre_x2)/2), ((centre_y1+centre_y2)/2)+3);
+                canvas.drawString(index,((centre_x1+centre_x2)/2)+1, ((centre_y1+centre_y2)/2)+3);
             }
            
 
