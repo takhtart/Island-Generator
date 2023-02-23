@@ -71,5 +71,5 @@ When you develop features and enrich the product, remember that you have first t
 | F04 | Create polygons for all squares | Team | 02/08/2023 | 02/12/2023 | D |
 | F05 | Create centroids for all polygons | Aswin, Kyen | 02/12/2023 | 02/16/2023 | D |
 | F06 | Create neighboring indexes for all polygons | Aswin | 02/16/2023| 02/20/2023 | D |
-| F06 | Create visualization mode | Aswin | 02/20/2023| | S |
+| F06 | Create visualization mode | Aswin, Kyen | 02/20/2023| | D |
 

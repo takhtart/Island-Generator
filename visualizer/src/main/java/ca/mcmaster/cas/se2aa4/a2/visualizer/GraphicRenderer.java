@@ -22,7 +22,7 @@ import java.awt.*;
 public class GraphicRenderer {
 
     private static final int THICKNESS = 3;
-    public void render(Mesh aMesh, Graphics2D canvas) {
+    public void render(Mesh aMesh, Graphics2D canvas, Boolean debugMode) {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
@@ -51,14 +51,14 @@ public class GraphicRenderer {
             double centre_y = v.getY() - (THICKNESS/2.0d);
             Color old = canvas.getColor();
             canvas.setColor(extractColor(v.getPropertiesList()));
-            if (true){ // change condition to command line arg
+            if (debugMode){ // change condition to command line arg
                 canvas.setColor(Color.BLACK);
             }
             Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
             canvas.fill(point);
             canvas.setColor(old);
         }
-        if (true){ // change condition to command line arg
+        if (debugMode){ // change condition to command line arg
             for (Vertex v: aMesh.getVerticesList().subList(nonCentroids,aMesh.getVerticesCount())) {
                 double centre_x = v.getX() - (THICKNESS/2.0d);
                 double centre_y = v.getY() - (THICKNESS/2.0d);
@@ -94,7 +94,7 @@ public class GraphicRenderer {
                 double centre_x2 = v.get(v2).getX();
                 double centre_y2 = v.get(v2).getY();
                 canvas.setColor(extractColor(s.getPropertiesList()));
-                if(true){ // change condition to command line arg
+                if(debugMode){ // change condition to command line arg
                     canvas.setColor(Color.BLACK);
                 }
                 Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
