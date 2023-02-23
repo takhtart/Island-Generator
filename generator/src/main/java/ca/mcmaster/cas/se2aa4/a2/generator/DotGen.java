@@ -43,8 +43,14 @@ public class DotGen {
             double x = 0;
             double y = 0;
 
+            int whilecount = 0;
             while (posoverlap == true){
                 int count = 0;
+                whilecount ++;
+                if (whilecount > 100){
+                    throw new java.lang.RuntimeException("Too Many Vertices For Plot Area, Please Select A Lower Vertices Count Than " + VertexCount);
+                    
+                }
                 x = bag.nextDouble(0.0, width);
                 y = bag.nextDouble(0.0, height);
 
@@ -66,6 +72,7 @@ public class DotGen {
 
             }
             
+            System.out.println(whilecount);
 
 
 
