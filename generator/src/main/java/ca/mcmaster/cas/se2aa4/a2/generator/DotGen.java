@@ -72,7 +72,6 @@ public class DotGen {
 
             }
             
-            System.out.println(whilecount);
 
 
 
