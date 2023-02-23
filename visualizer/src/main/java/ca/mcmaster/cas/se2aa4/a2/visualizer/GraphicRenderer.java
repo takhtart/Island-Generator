@@ -27,6 +27,7 @@ public class GraphicRenderer {
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
         int nonCentroids = (int)Math.pow((int) Math.sqrt(aMesh.getVerticesList().size()/2) + 1,2);
+        
         /* //Displays Segments (Below Vertices)
         for (Segment s: aMesh.getSegmentsList()) {
             
@@ -44,6 +45,26 @@ public class GraphicRenderer {
     
 
         } */
+
+        for(Polygon p: aMesh.getPolygonsList()){
+            for(int i = 0; i<4; i++){
+                List<Vertex> v = aMesh.getVerticesList();
+                Segment s = aMesh.getSegments(p.getSegmentIdxs(i));
+                int v1 = s.getV1Idx();
+                int v2 = s.getV2Idx();
+                double centre_x1 = v.get(v1).getX();
+                double centre_y1 = v.get(v1).getY();
+                double centre_x2 = v.get(v2).getX();
+                double centre_y2 = v.get(v2).getY();
+                canvas.setColor(extractColor(s.getPropertiesList()));
+                if(debugMode){ // change condition to command line arg
+                    canvas.setColor(Color.BLACK);
+                }
+                Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
+                //canvas.drawString(""+p.getSegmentIdxs(i),(float)(((centre_x1+centre_x2)/2)+5), (float)((centre_y1+centre_y2)/2)-3);
+                canvas.draw(Line);
+            }
+        }
 
         //Displays Vertices (On Top Of Segments)
         for (Vertex v: aMesh.getVerticesList().subList(0,nonCentroids)) {
@@ -83,25 +104,7 @@ public class GraphicRenderer {
             }
         }
         
-        for(Polygon p: aMesh.getPolygonsList()){
-            for(int i = 0; i<4; i++){
-                List<Vertex> v = aMesh.getVerticesList();
-                Segment s = aMesh.getSegments(p.getSegmentIdxs(i));
-                int v1 = s.getV1Idx();
-                int v2 = s.getV2Idx();
-                double centre_x1 = v.get(v1).getX();
-                double centre_y1 = v.get(v1).getY();
-                double centre_x2 = v.get(v2).getX();
-                double centre_y2 = v.get(v2).getY();
-                canvas.setColor(extractColor(s.getPropertiesList()));
-                if(debugMode){ // change condition to command line arg
-                    canvas.setColor(Color.BLACK);
-                }
-                Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
-                //canvas.drawString(""+p.getSegmentIdxs(i),(float)(((centre_x1+centre_x2)/2)+5), (float)((centre_y1+centre_y2)/2)-3);
-                canvas.draw(Line);
-            }
-        }
+        
 
         
 
@@ -134,35 +137,6 @@ public class GraphicRenderer {
     
 
         } */
-
-       
-
-
-        /* for (int i = 0; i < aMesh.getPolygonsList().size(); i++) {
-            Polygon p = aMesh.getPolygonsList().get(i);
-
-            Structs.Segment segment1 = aMesh.getSegments(p.getSegmentIdxs(0));
-            Structs.Segment segment2 = aMesh.getSegments(p.getSegmentIdxs(1));
-            Structs.Segment segment3 = aMesh.getSegments(p.getSegmentIdxs(2));
-            Structs.Segment segment4 = aMesh.getSegments(p.getSegmentIdxs(3));
-
-           canvas.setColor(extractColor(segment1.getPropertiesList()));
-           canvas.setColor(extractColor(segment2.getPropertiesList()));
-           canvas.setColor(extractColor(segment3.getPropertiesList()));
-           canvas.setColor(extractColor(segment4.getPropertiesList()));
-
-           canvas.draw(new Line2D.Double(aMesh.getVertices(segment1.getV1Idx()).getX(),aMesh.getVertices(segment1.getV1Idx()).getY(),aMesh.getVertices(segment1.getV2Idx()).getX(),aMesh.getVertices(segment1.getV2Idx()).getY()));
-           canvas.draw(new Line2D.Double(aMesh.getVertices(segment2.getV1Idx()).getX(),aMesh.getVertices(segment2.getV1Idx()).getY(),aMesh.getVertices(segment2.getV2Idx()).getX(),aMesh.getVertices(segment2.getV2Idx()).getY()));
-           canvas.draw(new Line2D.Double(aMesh.getVertices(segment3.getV1Idx()).getX(),aMesh.getVertices(segment3.getV1Idx()).getY(),aMesh.getVertices(segment3.getV2Idx()).getX(),aMesh.getVertices(segment3.getV2Idx()).getY()));
-           canvas.draw(new Line2D.Double(aMesh.getVertices(segment4.getV1Idx()).getX(),aMesh.getVertices(segment4.getV1Idx()).getY(),aMesh.getVertices(segment4.getV2Idx()).getX(),aMesh.getVertices(segment4.getV2Idx()).getY()));
-
-
-
-        } */
-
-        
-        //System.out.println("Vertices: " + aMesh.getVerticesList());
-        //System.out.println("Segments: " + aMesh.getSegmentsList());
     
         
     }
