@@ -72,4 +72,5 @@ When you develop features and enrich the product, remember that you have first t
 | F05 | Create centroids for all polygons | Aswin, Kyen | 02/12/2023 | 02/16/2023 | D |
 | F06 | Create neighboring indexes for all polygons | Aswin | 02/16/2023| 02/20/2023 | D |
 | F06 | Create visualization mode | Aswin, Kyen | 02/20/2023| | D |
+| F07 | Compute Voronoi Diagram | Kyen | 02/23/2023| | D |
 
