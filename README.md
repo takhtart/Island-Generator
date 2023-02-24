@@ -75,6 +75,7 @@ When you develop features and enrich the product, remember that you have first t
 | F08 | Generate Random Points For Irregular Mesh | Tarnveer | 02/23/2023 | 02/23/2023 | D |
 | F09 | Compute Voronoi Diagram | Kyen | 02/23/2023| 02/24/2023 | D |
 | F10 | Change mesh using Lloyd Relaxation | Aswin | 02/24/2023| 02/24/2023 | D | 
-| F11 | Delaunay triangulation and convex hulls Generation | Team | 02/24/2023 |  | S |
+| F11 | Delaunay triangulation for neighbouring relationships | Kyen | 02/24/2023 | 02/25/2023 | D |
+| F12 | convex hulls Generation | Team | 02/24/2023 |  | S |
 
 

@@ -30,6 +30,7 @@ import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineSegment;
 import org.locationtech.jts.geom.LinearRing;
+import org.locationtech.jts.triangulate.DelaunayTriangulationBuilder;
 import org.locationtech.jts.triangulate.VoronoiDiagramBuilder;
 
 public class DotGen {
@@ -43,11 +44,11 @@ public class DotGen {
         
         Random bag = new Random();   
         // random vertices:
-        List<Structs.Vertex> vertice = new ArrayList<>();
+        List<Structs.Vertex> points = new ArrayList<>();
 
         //Inital Random Point
         Structs.Vertex v = Structs.Vertex.newBuilder().setX(bag.nextDouble(0.0, width)).setY(bag.nextDouble(0.0, height)).build();
-        vertice.add(v);
+        points.add(v);
         //Adds Random Point (But Ensures That No Point Overlaps)
         for (int i = 0; i < VertexCount-1; i++){
             boolean posoverlap = true;
@@ -65,9 +66,9 @@ public class DotGen {
                 x = bag.nextDouble(0.0, width);
                 y = bag.nextDouble(0.0, height);
 
-                for (int j = 0; j < vertice.size(); j++) {
-                    double x2 = vertice.get(j).getX();
-                    double y2 = vertice.get(j).getY();
+                for (int j = 0; j < points.size(); j++) {
+                    double x2 = points.get(j).getX();
+                    double y2 = points.get(j).getY();
 
                     double distance = Math.sqrt(Math.pow((x2-x),2)+Math.pow((y2-y),2));
 
@@ -75,7 +76,7 @@ public class DotGen {
                     if (distance > 10){
                         count++;
                     }
-                    if (count == vertice.size()){
+                    if (count == points.size()){
                         posoverlap = false;
                     }
                     
@@ -84,15 +85,16 @@ public class DotGen {
             }
 
             v = Structs.Vertex.newBuilder().setX(x).setY(y).build();
-            vertice.add(v);
+            points.add(v);
         }
         List<Structs.Segment> segments = new ArrayList<>();
         List<Vertex> vertices = new ArrayList<>();
         List<Polygon> polygons = new ArrayList<>();
+        List<Polygon> polygonsWithCentroids = new ArrayList<>();
         for (int a = 0; a < 20; a++){
             List<Coordinate> coordlist = new ArrayList<>();
-            for (int i = 0; i < vertice.size(); i++) {
-                Coordinate coordinate = new Coordinate(vertice.get(i).getX(),vertice.get(i).getY());
+            for (int i = 0; i < points.size(); i++) {
+                Coordinate coordinate = new Coordinate(points.get(i).getX(),points.get(i).getY());
                 coordlist.add(coordinate);
             }
 
@@ -117,7 +119,7 @@ public class DotGen {
             vertices = new ArrayList<>();
             polygons = new ArrayList<>();
             int total = 0;
-            for (int j = 0 ; j < geometryCollection.getNumGeometries() - 1; j++){
+            for (int j = 0 ; j < geometryCollection.getNumGeometries(); j++){
                 org.locationtech.jts.geom.Polygon geometryPolygon = (org.locationtech.jts.geom.Polygon) geometryCollection.getGeometryN(j);
                 
                 Coordinate[] polygonCoordinates = geometryPolygon.getCoordinates();
@@ -157,7 +159,8 @@ public class DotGen {
 
 
             }
-            vertice = new ArrayList<>();
+            points = new ArrayList<>();
+
             for (Polygon p: polygons){
                 double centroidX = 0;
                 double centroidY = 0;
@@ -167,10 +170,98 @@ public class DotGen {
                 }
                 centroidX /= p.getSegmentIdxsCount();
                 centroidY /= p.getSegmentIdxsCount();
-                vertice.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
+                points.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
+                if (a == 19) { 
+                    vertices.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
+                    polygonsWithCentroids.add(Structs.Polygon.newBuilder(p).setCentroidIdx(vertices.size()-1).build());
+                }
             }
         }
-        return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygons).build();
+
+        //DelaunayTriangulationBuilder
+        DelaunayTriangulationBuilder delaunayBuilder = new DelaunayTriangulationBuilder();
+        GeometryFactory factory = new GeometryFactory();
+
+        List<Coordinate> centroidCoords = new ArrayList<>();
+        for (int i = 0; i < points.size(); i++) {
+            Coordinate coordinate = new Coordinate(points.get(i).getX(),points.get(i).getY());
+            centroidCoords.add(coordinate);
+        }
+
+        delaunayBuilder.setSites(centroidCoords);
+        Geometry triangles = delaunayBuilder.getTriangles(factory);
+        GeometryCollection trianglesCollection = (GeometryCollection) triangles;
+
+        List<org.locationtech.jts.geom.Polygon> generatedTriangles = new ArrayList<>(); 
+        for (int j = 0 ; j < trianglesCollection.getNumGeometries() - 1; j++){
+            org.locationtech.jts.geom.Polygon geometryTrianglePolygon = (org.locationtech.jts.geom.Polygon) trianglesCollection.getGeometryN(j);
+            generatedTriangles.add(geometryTrianglePolygon);
+        }
+
+        List <Polygon> polygonsWithNeighbors = new ArrayList<>();
+        
+
+        for (Polygon p: polygonsWithCentroids){
+            List<Integer> neighbor = new ArrayList<>();
+            for (org.locationtech.jts.geom.Polygon tp: generatedTriangles){
+                Coordinate[] triangleCoordinates = tp.getCoordinates();
+
+                double x1 = triangleCoordinates[0].x;
+                double y1 = triangleCoordinates[0].y;
+                double x2 = triangleCoordinates[1].x;
+                double y2 = triangleCoordinates[1].y;
+                double x3 = triangleCoordinates[2].x;
+                double y3 = triangleCoordinates[2].y;
+                
+                
+                if (vertices.get(p.getCentroidIdx()).getX() == x1 && vertices.get(p.getCentroidIdx()).getY() == y1){
+                    int polygonCounter = 0;
+                    for (Polygon sp: polygonsWithCentroids){
+                        if (vertices.get(sp.getCentroidIdx()).getX() == x2 && vertices.get(sp.getCentroidIdx()).getY() == y2){
+                            neighbor.add(polygonCounter);
+                        }
+                        else if (vertices.get(sp.getCentroidIdx()).getX() == x3 && vertices.get(sp.getCentroidIdx()).getY() == y3){
+                            neighbor.add(polygonCounter);
+                        }
+                        polygonCounter++;
+                    }
+                }
+                else if (vertices.get(p.getCentroidIdx()).getX() == x2 && vertices.get(p.getCentroidIdx()).getY() == y2){
+                    int polygonCounter = 0;
+                    for (Polygon sp: polygonsWithCentroids){
+                        if (vertices.get(sp.getCentroidIdx()).getX() == x1 && vertices.get(sp.getCentroidIdx()).getY() == y1){
+                            neighbor.add(polygonCounter);
+                        }
+                        else if (vertices.get(sp.getCentroidIdx()).getX() == x3 && vertices.get(sp.getCentroidIdx()).getY() == y3){
+                            neighbor.add(polygonCounter);
+                        }
+                        polygonCounter++;
+                    }
+                }
+                else if (vertices.get(p.getCentroidIdx()).getX() == x3 && vertices.get(p.getCentroidIdx()).getY() == y3){
+                    int polygonCounter = 0;
+                    for (Polygon sp: polygonsWithCentroids){
+                        if (vertices.get(sp.getCentroidIdx()).getX() == x2 && vertices.get(sp.getCentroidIdx()).getY() == y2){
+                            neighbor.add(polygonCounter);
+                        }
+                        else if (vertices.get(sp.getCentroidIdx()).getX() == x1 && vertices.get(sp.getCentroidIdx()).getY() == y1){
+                            neighbor.add(polygonCounter);
+                        }
+                        polygonCounter++;
+                    }
+                }
+           }
+            LinkedHashSet<Integer> set = new LinkedHashSet<>(neighbor);
+            List<Integer> uniqueNeighbor = new ArrayList<>(set);
+
+            polygonsWithNeighbors.add(Structs.Polygon.newBuilder(p).addAllNeighborIdxs(uniqueNeighbor).build());
+
+        }
+        
+
+
+
+        return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygonsWithNeighbors).build();
     }
     
 }
