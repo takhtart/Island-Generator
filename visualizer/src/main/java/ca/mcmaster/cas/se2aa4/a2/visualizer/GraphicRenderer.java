@@ -123,6 +123,18 @@ public class GraphicRenderer {
                 canvas.draw(Line);
             }
         }
+        for (Vertex v: aMesh.getVerticesList().subList(aMesh.getVerticesCount() - 625, aMesh.getVerticesCount())) {
+            double centre_x = v.getX() - (THICKNESS/2.0d);
+            double centre_y = v.getY() - (THICKNESS/2.0d);
+            Color old = canvas.getColor();
+            canvas.setColor(extractColor(v.getPropertiesList()));
+            if (debugMode){ // change condition to command line arg
+                canvas.setColor(Color.BLACK);
+            }
+            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+            canvas.fill(point);
+            canvas.setColor(old);
+        }
 
         //Displays Segment Numbers
         /* Font stringFont = new Font( "SansSerif", Font.PLAIN, 3 );
