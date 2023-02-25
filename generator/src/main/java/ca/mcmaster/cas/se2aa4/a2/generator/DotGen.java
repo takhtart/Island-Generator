@@ -257,11 +257,56 @@ public class DotGen {
             polygonsWithNeighbors.add(Structs.Polygon.newBuilder(p).addAllNeighborIdxs(uniqueNeighbor).build());
 
         }
-        
+        List<Vertex> verticesWithColors = new ArrayList<>();
+        List<int[]> Colors = new ArrayList<int[]>();
+        Random colorBag = new Random();
+        for(Vertex u: vertices){
+            int red = colorBag.nextInt(255);
+            int green = colorBag.nextInt(255);
+            int blue = colorBag.nextInt(255);
+            int transparencyAlpha = 255;
+            
+            String colorCode = red + "," + green + "," + blue + "," + transparencyAlpha;
+            Property color = Property.newBuilder().setKey("rgba_color").setValue(colorCode).build();
+            Vertex colored = Vertex.newBuilder(u).addProperties(color).build();
+            
+            verticesWithColors.add(colored);
+            int[] RGBA = {red,green,blue,transparencyAlpha};
+            Colors.add(RGBA);
+            
+        }
+        List<Structs.Segment> segmentsWithColors = new ArrayList<>();
+        for(Segment s: segments) {
+            int v1 = s.getV1Idx();
+            int v2 = s.getV2Idx();
+
+            int red = (Colors.get(v1)[0] + Colors.get(v2)[0])/2;
+            int green = (Colors.get(v1)[1] + Colors.get(v2)[1])/2;
+            int blue = (Colors.get(v1)[2] + Colors.get(v2)[2])/2;
+            int transparencyAlpha = 255;
+
+
+            System.out.println("V1: " + v1);
+            System.out.println(Colors.get(v1)[0] + "," + Colors.get(v1)[1] + "," + Colors.get(v1)[2]);
+
+            System.out.println("V2: " + v2);
+            System.out.println(Colors.get(v2)[0] + "," + Colors.get(v2)[1] + "," + Colors.get(v2)[2]);
+
+
+            System.out.println("Average: " + v1 + " and " + v2);
+            System.out.println(red + "," + green + "," + blue + "," + transparencyAlpha);
+
+
+            String colorCode = red + "," + green + "," + blue + "," + transparencyAlpha;
+            Property color = Property.newBuilder().setKey("rgba_color").setValue(colorCode).build();
+            Segment colored = Segment.newBuilder(s).addProperties(color).build();
+            segmentsWithColors.add(colored);
+
+        }
 
 
 
-        return Mesh.newBuilder().addAllVertices(vertices).addAllSegments(segments).addAllPolygons(polygonsWithNeighbors).build();
+        return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygonsWithNeighbors).build();
     }
     
 }
