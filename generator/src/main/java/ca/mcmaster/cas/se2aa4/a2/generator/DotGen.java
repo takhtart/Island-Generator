@@ -38,10 +38,10 @@ public class DotGen {
     private final int height = 500;
     private final int square_size = 20;
 
-    private final int VertexCount = 625;
     
-    public Mesh generateIrregular() {
+    public Mesh generateIrregular(int relaxations, int numPolygons) {
         
+        int VertexCount = numPolygons;
         Random bag = new Random();   
         // random vertices:
         List<Structs.Vertex> points = new ArrayList<>();
@@ -73,7 +73,7 @@ public class DotGen {
                     double distance = Math.sqrt(Math.pow((x2-x),2)+Math.pow((y2-y),2));
 
                     //Set Gap Between Vertices By Modifying If Statement
-                    if (distance > 10){
+                    if (distance > 1){
                         count++;
                     }
                     if (count == points.size()){
@@ -91,7 +91,7 @@ public class DotGen {
         List<Vertex> vertices = new ArrayList<>();
         List<Polygon> polygons = new ArrayList<>();
         List<Polygon> polygonsWithCentroids = new ArrayList<>();
-        for (int a = 0; a < 20; a++){
+        for (int a = 0; a < relaxations; a++){
             List<Coordinate> coordlist = new ArrayList<>();
             for (int i = 0; i < points.size(); i++) {
                 Coordinate coordinate = new Coordinate(points.get(i).getX(),points.get(i).getY());
@@ -151,7 +151,7 @@ public class DotGen {
                     segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v2_idx).build()); 
                     s.add(p);
                 }
-                segments.add(Structs.Segment.newBuilder().setV1Idx(total).setV2Idx(total).build()); 
+                segments.add(Structs.Segment.newBuilder().setV1Idx((total + newVertices) - 1).setV2Idx(total).build()); 
                 total += newVertices;
                 s.add(total - 1);
 
@@ -171,7 +171,7 @@ public class DotGen {
                 centroidX /= p.getSegmentIdxsCount();
                 centroidY /= p.getSegmentIdxsCount();
                 points.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
-                if (a == 19) { 
+                if (a == relaxations-1) { 
                     vertices.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
                     polygonsWithCentroids.add(Structs.Polygon.newBuilder(p).setCentroidIdx(vertices.size()-1).build());
                 }

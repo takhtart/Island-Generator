@@ -15,9 +15,10 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Polygon;
 public class GridMesh {
     private final int width = 500;
     private final int height = 500;
-    private final int square_size = 20;
 
-    public Mesh generate() {
+    public Mesh generate(int numPolygons) {
+        
+        int square_size = (int) (500/Math.sqrt(numPolygons));
         List<Vertex> vertices = new ArrayList<>();
 
         for(int x = 0; x < width; x += square_size*2) {
