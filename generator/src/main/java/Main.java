@@ -1,4 +1,4 @@
-import ca.mcmaster.cas.se2aa4.a2.generator.DotGen;
+import ca.mcmaster.cas.se2aa4.a2.generator.IrregMesh;
 import ca.mcmaster.cas.se2aa4.a2.generator.GridMesh;
 import ca.mcmaster.cas.se2aa4.a2.io.MeshFactory;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
@@ -13,21 +13,26 @@ public class Main {
         options.addOption("grid", false, "display grid mesh");
         options.addOption("polygons", true, "number of polygons");
         options.addOption("relax", true, "number of relaxations");
+        options.addOption("transparency", true, "transparency alpha");
         options.addOption("h", false, "help");
         options.addOption("help", false, "help");
       
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd = parser.parse(options, args);
-        DotGen generator = new DotGen();
-        Mesh myMesh = generator.generateIrregular(20,100);
-        if(cmd.hasOption("grid")) {
+         IrregMesh generator = new IrregMesh();
+        Mesh myMesh = generator.generateIrregular(20,100,255);
+        int transparencyAlpha = 255;
+        if(cmd.hasOption("transparency")) {
+            transparencyAlpha = Integer.parseInt(cmd.getOptionValue("transparency"));
+        }
+        if(cmd.hasOption("grid")) { 
             GridMesh gen = new GridMesh(); 
-            int polygons = 625;
+            int polygons = 256;
             if(cmd.hasOption("polygons")){
                 polygons = Integer.parseInt(cmd.getOptionValue("polygons"));
             }
             
-            myMesh = gen.generate(polygons);
+            myMesh = gen.generate(polygons, transparencyAlpha);
         }
         else{
             int relaxations = 20;
@@ -38,11 +43,12 @@ public class Main {
             if(cmd.hasOption("polygons")){
                 polygons = Integer.parseInt(cmd.getOptionValue("polygons"));
             }
-            myMesh = generator.generateIrregular(relaxations, polygons);
-        }
+            myMesh = generator.generateIrregular(relaxations, polygons, transparencyAlpha);
+        } 
+        
         if(cmd.hasOption("help") || cmd.hasOption("h")){
             System.out.println("-grid   displays a grid mesh");
-            System.out.println("-polygons (number of polygons)  displays number of polygons given");
+            System.out.println("-polygons (number of polygons)  displays number of polygons given (must be square number for grid mesh) ");
             System.out.println("-relax (number of relaxations)  displays number of relaxations given (irregular mesh only)");
         }
         MeshFactory factory = new MeshFactory();

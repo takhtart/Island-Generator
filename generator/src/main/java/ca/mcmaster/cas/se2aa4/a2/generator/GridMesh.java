@@ -16,7 +16,7 @@ public class GridMesh {
     private final int width = 500;
     private final int height = 500;
 
-    public Mesh generate(int numPolygons) {
+    public Mesh generate(int numPolygons, int transparencyAlpha) {
         
         int square_size = (int) (500/Math.sqrt(numPolygons));
         List<Vertex> vertices = new ArrayList<>();
@@ -40,7 +40,6 @@ public class GridMesh {
             int red = bag.nextInt(255);
             int green = bag.nextInt(255);
             int blue = bag.nextInt(255);
-            int transparencyAlpha = 255;
             
             String colorCode = red + "," + green + "," + blue + "," + transparencyAlpha;
             Property color = Property.newBuilder().setKey("rgba_color").setValue(colorCode).build();
@@ -76,7 +75,7 @@ public class GridMesh {
             int v2_idx = i+1;
             int v3_idx = i+2;
             int v4_idx = i+3;
-            if (verticesWithColors.get(v2_idx).getY() != height) {
+            if (verticesWithColors.get(v1_idx).getY() < height -10 && verticesWithColors.get(v2_idx).getY() < height -10) {
                 segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
                 segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
            }
@@ -87,6 +86,13 @@ public class GridMesh {
             int v2_idx = i+3;
             int v3_idx = v1_idx+(width/square_size)*2+1;
             int v4_idx = v2_idx+(width/square_size)*2+1;
+            if((int) Math.sqrt(numPolygons) % 2 == 0){
+                v3_idx = v1_idx+(width/square_size+1)*2+1;
+                v4_idx = v2_idx+(width/square_size+1)*2+1;
+            }
+            if(v3_idx>=verticesWithColors.size()||v4_idx>=verticesWithColors.size()){
+                continue;
+            }
             if (verticesWithColors.get(v2_idx).getX() != width) {
                 segments.add(Structs.Segment.newBuilder().setV1Idx(v1_idx).setV2Idx(v3_idx).build());
                 segments.add(Structs.Segment.newBuilder().setV1Idx(v2_idx).setV2Idx(v4_idx).build());
@@ -105,7 +111,6 @@ public class GridMesh {
             int red = (Colors.get(v1)[0] + Colors.get(v2)[0])/2;
             int green = (Colors.get(v1)[1] + Colors.get(v2)[1])/2;
             int blue = (Colors.get(v1)[2] + Colors.get(v2)[2])/2;
-            int transparencyAlpha = 255;
 
 
             System.out.println("V1: " + v1);
@@ -153,11 +158,11 @@ public class GridMesh {
             polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v3).addSegmentIdxs(v1).addSegmentIdxs(v4).addSegmentIdxs(v2).setCentroidIdx(verticesWithColors.size()-1).build()); 
         }
         counter = 0;
-        for (int i = ((height/square_size)+1)*((height/square_size)+1)+(height/square_size+1)*((height/square_size-1)/2)+1; i<segments.size()-2;i+=2){
+        for (int i = ((height/square_size)+1)*((height/square_size)+1)+(height/square_size+1)*((height/square_size)/2)+1; i<segments.size()-2;i+=2){
             int v1 = i;
             int v2 = i+1;
             int v3 = (v1-((height/square_size)+1)*((height/square_size)/2));
-            if((v3+27)%(((height/square_size)+1))==0){
+            if((v3+(height/square_size)+2)%(((height/square_size)+1))==0){
                 counter-=2;
                 continue;
             }
@@ -170,7 +175,7 @@ public class GridMesh {
             polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v3).addSegmentIdxs(v2).addSegmentIdxs(v4).setCentroidIdx(verticesWithColors.size()-1).build());
         }  
         counter = 0;
-        for (int i = ((height/square_size)+1)*((height/square_size)+1)+(height/square_size+1)*((height/square_size-1)/2); i<segments.size()-1;i+=2){
+        for (int i = ((height/square_size)+1)*((height/square_size)+1)+(height/square_size+1)*((height/square_size)/2); i<segments.size()-1;i+=2){
             int v1 = i;
             int v2 = i+1;
             int v3 = 2+counter;
@@ -222,6 +227,7 @@ public class GridMesh {
             }
         }
         System.out.println("|Segments| = " + segmentsWithColors.size());
+        int test = ((height/square_size)+1)*((height/square_size)+1)+(height/square_size+1)*((height/square_size-1)/2)+1;
         return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygonsWithNeighbors).build();
 
     }
