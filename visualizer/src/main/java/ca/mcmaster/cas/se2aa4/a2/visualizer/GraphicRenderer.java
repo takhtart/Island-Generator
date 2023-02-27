@@ -26,7 +26,7 @@ public class GraphicRenderer {
         canvas.setColor(Color.BLACK);
         Stroke stroke = new BasicStroke(0.5f);
         canvas.setStroke(stroke);
-        int nonCentroids = (int)Math.pow((int) Math.sqrt(aMesh.getVerticesList().size()/2) + 1,2);
+        int nonCentroids = aMesh.getSegmentsCount()+1 != aMesh.getVerticesCount() ? aMesh.getSegmentsCount() : (int)Math.pow((int) Math.sqrt(aMesh.getVerticesList().size()/2) + 1,2);
         //Displays Segments (Below Vertices)
         /* for (Segment s: aMesh.getSegmentsList()) {
             
@@ -66,7 +66,7 @@ public class GraphicRenderer {
         } */
 
         //Displays Vertices (On Top Of Segments)
-        for (Vertex v: aMesh.getVerticesList().subList(0,aMesh.getSegmentsCount())) {
+        for (Vertex v: aMesh.getVerticesList().subList(0,nonCentroids)) {
             double centre_x = v.getX() - (THICKNESS/2.0d);
             double centre_y = v.getY() - (THICKNESS/2.0d);
             Color old = canvas.getColor();
@@ -93,7 +93,7 @@ public class GraphicRenderer {
                     canvas.draw(Line);
                 }
             }
-            for (Vertex v: aMesh.getVerticesList().subList(aMesh.getSegmentsCount(),aMesh.getVerticesCount())) {
+            for (Vertex v: aMesh.getVerticesList().subList(nonCentroids,aMesh.getVerticesCount())) {
                 double centre_x = v.getX() - (THICKNESS/2.0d);
                 double centre_y = v.getY() - (THICKNESS/2.0d);
                 Color old = canvas.getColor();

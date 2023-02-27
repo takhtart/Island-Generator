@@ -222,9 +222,6 @@ public class GridMesh {
             }
         }
         System.out.println("|Segments| = " + segmentsWithColors.size());
-        for (int i = 0; i<polygonsWithNeighbors.get(1).getNeighborIdxsCount(); i++){
-            System.out.println("Neighbors: " + polygonsWithNeighbors.get(15).getNeighborIdxs(i));
-        }
         return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygonsWithNeighbors).build();
 
     }

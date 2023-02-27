@@ -43,7 +43,7 @@ public class Main {
         if(cmd.hasOption("help") || cmd.hasOption("h")){
             System.out.println("-grid   displays a grid mesh");
             System.out.println("-polygons (number of polygons)  displays number of polygons given");
-            System.out.println("-relax (number of relaxations)  displays number of relaxations given");
+            System.out.println("-relax (number of relaxations)  displays number of relaxations given (irregular mesh only)");
         }
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, args[0]);

@@ -40,7 +40,7 @@ public class DotGen {
 
     
     public Mesh generateIrregular(int relaxations, int numPolygons) {
-        
+        relaxations++;
         int VertexCount = numPolygons;
         Random bag = new Random();   
         // random vertices:
