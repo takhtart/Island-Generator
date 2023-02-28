@@ -113,15 +113,7 @@ public class GridMesh {
             int blue = (Colors.get(v1)[2] + Colors.get(v2)[2])/2;
 
 
-            System.out.println("V1: " + v1);
-            System.out.println(Colors.get(v1)[0] + "," + Colors.get(v1)[1] + "," + Colors.get(v1)[2]);
-
-            System.out.println("V2: " + v2);
-            System.out.println(Colors.get(v2)[0] + "," + Colors.get(v2)[1] + "," + Colors.get(v2)[2]);
-
-
-            System.out.println("Average: " + v1 + " and " + v2);
-            System.out.println(red + "," + green + "," + blue + "," + transparencyAlpha);
+        
 
 
             String colorCode = red + "," + green + "," + blue + "," + transparencyAlpha;
@@ -138,6 +130,8 @@ public class GridMesh {
             
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(i+3).getV2Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(i).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+1).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+2).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(i+3).getV2Idx()).getY())/4;
+            centroidX = Math.round(centroidX*100)/100; //round to 2 decimal places
+            centroidY = Math.round(centroidY*100)/100;
             verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
             polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(i).addSegmentIdxs(i+1).addSegmentIdxs(i+3).addSegmentIdxs(i+2).setCentroidIdx(verticesWithColors.size()-1).build()); 
         }
@@ -154,6 +148,9 @@ public class GridMesh {
             
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getY())/4;
+            centroidX = Math.round(centroidX*100)/100; //round to 2 decimal places
+            centroidY = Math.round(centroidY*100)/100;
+
             verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
             polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v3).addSegmentIdxs(v1).addSegmentIdxs(v4).addSegmentIdxs(v2).setCentroidIdx(verticesWithColors.size()-1).build()); 
         }
@@ -171,6 +168,9 @@ public class GridMesh {
              
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getY())/4;
+            centroidX = Math.round(centroidX*100)/100; //round to 2 decimal places
+            centroidY = Math.round(centroidY*100)/100;
+
             verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
             polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v3).addSegmentIdxs(v2).addSegmentIdxs(v4).setCentroidIdx(verticesWithColors.size()-1).build());
         }  
@@ -184,6 +184,9 @@ public class GridMesh {
             
             double centroidX = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getX() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getX())/4;
             double centroidY = (verticesWithColors.get(segmentsWithColors.get(v1).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v2).getV2Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v3).getV1Idx()).getY() + verticesWithColors.get(segmentsWithColors.get(v4).getV2Idx()).getY())/4;
+            centroidX = Math.round(centroidX*100)/100; //round to 2 decimal places
+            centroidY = Math.round(centroidY*100)/100;
+            
             verticesWithColors.add(Vertex.newBuilder().setX(centroidX).setY(centroidY).build());
             polygons.add(Structs.Polygon.newBuilder().addSegmentIdxs(v1).addSegmentIdxs(v3).addSegmentIdxs(v2).addSegmentIdxs(v4).setCentroidIdx(verticesWithColors.size()-1).build()); 
         } 
@@ -226,7 +229,6 @@ public class GridMesh {
                 neighbor.clear();
             }
         }
-        System.out.println("|Segments| = " + segmentsWithColors.size());
         int test = ((height/square_size)+1)*((height/square_size)+1)+(height/square_size+1)*((height/square_size-1)/2)+1;
         return Mesh.newBuilder().addAllVertices(verticesWithColors).addAllSegments(segmentsWithColors).addAllPolygons(polygonsWithNeighbors).build();
 
