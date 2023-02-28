@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Main {
 
     public static void main(String[] args) throws IOException, ParseException {
-       
+        
         Options options = new Options();
         options.addOption("grid", false, "display grid mesh");
         options.addOption("polygons", true, "number of polygons");
@@ -47,9 +47,10 @@ public class Main {
         } 
         
         if(cmd.hasOption("help") || cmd.hasOption("h")){
-            System.out.println("-grid   displays a grid mesh");
+            System.out.println("-grid displays a grid mesh");
             System.out.println("-polygons (number of polygons)  displays number of polygons given (must be square number for grid mesh) ");
             System.out.println("-relax (number of relaxations)  displays number of relaxations given (irregular mesh only)");
+            System.out.println("-transparency (transparency number)  displays transparency of colors (0-255)");
         }
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, args[0]);
