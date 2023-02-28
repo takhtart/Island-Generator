@@ -285,15 +285,6 @@ public class IrregMesh {
             int blue = (Colors.get(v1)[2] + Colors.get(v2)[2])/2;
 
 
-            System.out.println("V1: " + v1);
-            System.out.println(Colors.get(v1)[0] + "," + Colors.get(v1)[1] + "," + Colors.get(v1)[2]);
-
-            System.out.println("V2: " + v2);
-            System.out.println(Colors.get(v2)[0] + "," + Colors.get(v2)[1] + "," + Colors.get(v2)[2]);
-
-
-            System.out.println("Average: " + v1 + " and " + v2);
-            System.out.println(red + "," + green + "," + blue + "," + transparencyAlpha);
 
 
             String colorCode = red + "," + green + "," + blue + "," + transparencyAlpha;

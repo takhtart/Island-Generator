@@ -174,7 +174,6 @@ public class GraphicRenderer {
         String val = null;
         for(Property p: properties) {
             if (p.getKey().equals("rgba_color")) {
-                System.out.println(p.getValue());
                 val = p.getValue();
             }
         }
