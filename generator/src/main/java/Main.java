@@ -27,7 +27,7 @@ public class Main {
         }
         if(cmd.hasOption("grid")) { 
             GridMesh gen = new GridMesh(); 
-            int polygons = 256;
+            int polygons = 625;
             if(cmd.hasOption("polygons")){
                 polygons = Integer.parseInt(cmd.getOptionValue("polygons"));
             }
@@ -54,7 +54,7 @@ public class Main {
             System.out.println("-relax (number of relaxations)                  displays number of relaxations given (irregular mesh only)");
             System.out.println("-transparency (transparency number)             displays transparency of colors (0-255)");
             System.out.println("--------------------------------------------------------- \n");
-        }
+        }   
         MeshFactory factory = new MeshFactory();
         factory.write(myMesh, args[0]);
     }
