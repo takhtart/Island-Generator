@@ -65,19 +65,7 @@ public class GraphicRenderer {
             }
         } */
 
-        //Displays Vertices (On Top Of Segments)
-        for (Vertex v: aMesh.getVerticesList().subList(0,nonCentroids)) {
-            double centre_x = v.getX() - (THICKNESS/2.0d);
-            double centre_y = v.getY() - (THICKNESS/2.0d);
-            Color old = canvas.getColor();
-            canvas.setColor(extractColor(v.getPropertiesList()));
-            if (debugMode){ // change condition to command line arg
-                canvas.setColor(Color.BLACK);
-            }
-            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
-            canvas.fill(point);
-            canvas.setColor(old);
-        }
+
         //Displays centroids and neighboring polygon relations
         if (debugMode){ // change condition to command line arg
             for(Polygon p: aMesh.getPolygonsList()){
@@ -120,53 +108,22 @@ public class GraphicRenderer {
                     canvas.setColor(Color.BLACK);
                 }
                 Line2D.Double Line = new Line2D.Double(centre_x1,centre_y1,centre_x2,centre_y2);
-                //canvas.drawString(""+p.getSegmentIdxs(i),(float)(((centre_x1+centre_x2)/2)+5), (float)((centre_y1+centre_y2)/2)-3);
                 canvas.draw(Line);
             }
         }
-        /* for (Vertex v: aMesh.getVerticesList().subList(aMesh.getVerticesCount() - 625, aMesh.getVerticesCount())) {
-            double centre_x = v.getX() - (THICKNESS/2.0d);
-            double centre_y = v.getY() - (THICKNESS/2.0d);
-            Color old = canvas.getColor();
-            canvas.setColor(extractColor(v.getPropertiesList()));
-            if (debugMode){ // change condition to command line arg
-                canvas.setColor(Color.BLACK);
+               //Displays Vertices (On Top Of Segments)
+               for (Vertex v: aMesh.getVerticesList().subList(0,nonCentroids)) {
+                double centre_x = v.getX() - (THICKNESS/2.0d);
+                double centre_y = v.getY() - (THICKNESS/2.0d);
+                Color old = canvas.getColor();
+                canvas.setColor(extractColor(v.getPropertiesList()));
+                if (debugMode){ // change condition to command line arg
+                    canvas.setColor(Color.BLACK);
+                }
+                Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
+                canvas.fill(point);
+                canvas.setColor(old);
             }
-            Ellipse2D point = new Ellipse2D.Double(centre_x, centre_y, THICKNESS, THICKNESS);
-            canvas.fill(point);
-            canvas.setColor(old);
-        } */
-
-        //Displays Segment Numbers
-        /* Font stringFont = new Font( "SansSerif", Font.PLAIN, 3 );
-        canvas.setFont(stringFont);
-        for (int i = 0; i < aMesh.getSegmentsList().size(); i++) {
-            Segment s = aMesh.getSegmentsList().get(i);
-            
-            List<Vertex> v = aMesh.getVerticesList();
-            int v1 = s.getV1Idx();
-            int v2 = s.getV2Idx();
-            float centre_x1 = (float) v.get(v1).getX();
-            float centre_y1 = (float) v.get(v1).getY();
-            float centre_x2 = (float) v.get(v2).getX();
-            float centre_y2 = (float) v.get(v2).getY();
-            canvas.setColor(extractColor(s.getPropertiesList()));
-            String index = Integer.toString(i);
-            if ((centre_y1+centre_y2)/2+3 > 500){
-                canvas.drawString(index,((centre_x1+centre_x2)/2), ((centre_y1+centre_y2)/2)-3);
-            }
-            else if ((centre_x1+centre_x2)/2+3 > 500){
-                canvas.drawString(index,((centre_x1+centre_x2)/2)-6, ((centre_y1+centre_y2)/2)+3);
-            }
-            else{
-                canvas.drawString(index,((centre_x1+centre_x2)/2)+1, ((centre_y1+centre_y2)/2)+3);
-            }
-           
-
-    
-
-        } */
-    
         
     }
 
