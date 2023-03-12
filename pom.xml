@@ -13,10 +13,11 @@
     <description>Mesh generator and visualizer</description>
 
     <modules>
+		<module>island</module>
         <module>generator</module>
         <module>io</module>
         <module>visualizer</module>
-		<module>generator/src/main/java/ca/mcmaster/cas/se2aa4/a2/generator/island</module>
+		
 
 		
     </modules>
