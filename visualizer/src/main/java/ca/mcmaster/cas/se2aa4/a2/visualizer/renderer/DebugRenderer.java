@@ -33,10 +33,13 @@ public class DebugRenderer implements Renderer {
 
     private void drawCentroids(Structs.Mesh aMesh, Graphics2D canvas) {
         canvas.setColor(Color.RED);
+        int i = 1;
         for(Structs.Polygon p: aMesh.getPolygonsList()) {
             Structs.Vertex centroid = aMesh.getVertices(p.getCentroidIdx());
-            Ellipse2D circle = new Ellipse2D.Float((float) centroid.getX()-1.5f, (float) centroid.getY()-1.5f,
-                                                3, 3);
+            Ellipse2D circle = new Ellipse2D.Float((float) centroid.getX()-1.5f, (float) centroid.getY()-1.5f, 3, 3);
+            canvas.setFont(new Font("TimesRoman", Font.PLAIN, 10));
+            canvas.drawString("#" + i, (float) centroid.getX()-1.5f, (float) centroid.getY()-1.5f);
+            i++;
             canvas.fill(circle);
         }
     }
