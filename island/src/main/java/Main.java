@@ -11,9 +11,9 @@ public class Main {
         Configuration config = new Configuration(args);
         Mesh aMesh = new MeshFactory().read(config.input());
         islandgen island = new islandgen();
-        island.generateisland(aMesh, "circle");
+        Mesh enriched = island.generateisland(aMesh, "circle");
         
-        //new MeshFactory().write(aMesh, config.export(Configuration.OUTPUT));
+        new MeshFactory().write(enriched, config.export(Configuration.OUTPUT));
     }
     
 }

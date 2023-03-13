@@ -9,7 +9,7 @@ public class Configuration {
 
     public static final String INPUT = "i";
     public static final String OUTPUT = "o";
-    public static final String MODE = "-mode";
+    public static final String MODE = "mode";
     public static final String HELP = "help";
 
 
