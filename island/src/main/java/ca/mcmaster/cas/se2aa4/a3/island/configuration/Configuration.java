@@ -34,6 +34,10 @@ public class Configuration {
         return this.cli.getOptionValue(OUTPUT, "output.svg");
     }
 
+    public String mode() {
+        return this.cli.getOptionValue(MODE);
+    }
+
     private void help() {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp("java -jar island.jar", options());

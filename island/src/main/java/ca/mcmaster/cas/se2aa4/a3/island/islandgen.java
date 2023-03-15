@@ -10,28 +10,12 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.*;
 
 public class islandgen {
     public Mesh generateisland(Mesh aMesh, String Shape){
-        List<Polygon> polygonsWithColors = new ArrayList<>();
-        if (Shape == "circle"){
-            int width = 1000;
-            int length = 1000;
 
-            List<int[]> Colors = new ArrayList<int[]>();
-            Random colorBag = new Random();
-            /* for (int i = 0; i < aMesh.getPolygonsList().size(); i++) {
-                Polygon p = aMesh.getPolygonsList().get(i);
-                int red = colorBag.nextInt(255);
-                int green = colorBag.nextInt(255);
-                int blue = colorBag.nextInt(255);
-            
-                String colorCode = red + "," + green + "," + blue;
-                Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-                Polygon colored = Polygon.newBuilder(p).addProperties(color).build();
-            
-                polygonsWithColors.add(colored);
-                int[] RGBA = {red,green,blue};
-                Colors.add(RGBA);
-            }
-        } */
+    List<Polygon> polygonsWithColors = new ArrayList<>();
+    if (Shape == "null"){
+        return Mesh.newBuilder().addAllVertices(aMesh.getVerticesList()).addAllSegments(aMesh.getSegmentsList()).addAllPolygons(polygonsWithColors).build();
+    }
+    if (Shape.equals("lagoon")){
 
         //Outer Circle
         int outerRadius = 400;
@@ -93,9 +77,14 @@ public class islandgen {
             }
             i++;
         }
-    }
+    
 
      return Mesh.newBuilder().addAllVertices(aMesh.getVerticesList()).addAllSegments(aMesh.getSegmentsList()).addAllPolygons(polygonsWithColors).build();
 }
+else{
+    return Mesh.newBuilder().addAllVertices(aMesh.getVerticesList()).addAllSegments(aMesh.getSegmentsList()).addAllPolygons(polygonsWithColors).build();
+}
+    }
+
 
 }
