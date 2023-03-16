@@ -13,6 +13,7 @@ public class ShapeFactory {
         bindings.put("lagoon", LagoonGen.class);
         bindings.put("random", NoiseGen.class);
         bindings.put("yinyang", YinYangGen.class);
+        bindings.put("cross", Cross.class);
     }
 
     public static Buildable create(Configuration configuration) {
