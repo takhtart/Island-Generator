@@ -5,60 +5,18 @@ import java.util.List;
 import java.util.Random;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
+import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.LagoonGen;
+import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.NoiseGen;
+import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.YinYangGen;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.*;
 
 
-public class islandgen {
-    public Mesh generateisland(Mesh aMesh, String Shape){
+public class islandgen{
+    public Mesh generateisland(Mesh aMesh){
+        List<Polygon> polygonsWithColors = new ArrayList<>(aMesh.getPolygonsList());
 
-    List<Polygon> polygonsWithColors = new ArrayList<>();
-    if (Shape == "null"){
-        return Mesh.newBuilder().addAllVertices(aMesh.getVerticesList()).addAllSegments(aMesh.getSegmentsList()).addAllPolygons(polygonsWithColors).build();
-    }
-    if (Shape.equals("lagoon")){
-
-        //Outer Circle
-        int outerRadius = 400;
-        int innerRadius = 200;
-        int centerX = 500;
-        int centerY = 500;
-        
-        Property land = Property.newBuilder().setKey("tileType").setValue("land").build();
-        Property ocean = Property.newBuilder().setKey("tileType").setValue("ocean").build();
-        Property lagoon = Property.newBuilder().setKey("tileType").setValue("lagoon").build();
+        //Beach
         Property beach = Property.newBuilder().setKey("tileType").setValue("beach").build();
-
-
-        for (Polygon p: aMesh.getPolygonsList()){
-            double centroidX = aMesh.getVertices(p.getCentroidIdx()).getX();
-            double centroidY = aMesh.getVertices(p.getCentroidIdx()).getY();
-
-            double distance = Math.sqrt(Math.pow(centroidX - centerX,2) + Math.pow(centroidY- centerY,2));
-            
-
-            if (distance <= outerRadius && distance >= innerRadius){
-                String colorCode = 45 + "," + 173 + "," + 79;
-                Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-                Polygon tiles = Polygon.newBuilder(p).addProperties(color).addProperties(land).build();
-
-
-                polygonsWithColors.add(tiles);
-            }
-            else if(distance > outerRadius) {
-                String colorCode = 45 + "," + 49 + "," + 173;
-                Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-                Polygon tiles = Polygon.newBuilder(p).addProperties(color).addProperties(ocean).build();
-
-                polygonsWithColors.add(tiles);
-            }
-            else {
-                String colorCode = 45 + "," + 105 + "," + 173;
-                Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-                Polygon tiles = Polygon.newBuilder(p).addProperties(color).addProperties(lagoon).build();
-
-                polygonsWithColors.add(tiles);
-            }
-        }
         int i = 0;
         for (Polygon p: polygonsWithColors){
             if (p.getProperties(1).getValue().equals("land")){
@@ -77,14 +35,9 @@ public class islandgen {
             }
             i++;
         }
-    
 
+     //aMesh.toString();
      return Mesh.newBuilder().addAllVertices(aMesh.getVerticesList()).addAllSegments(aMesh.getSegmentsList()).addAllPolygons(polygonsWithColors).build();
 }
-else{
-    return Mesh.newBuilder().addAllVertices(aMesh.getVerticesList()).addAllSegments(aMesh.getSegmentsList()).addAllPolygons(polygonsWithColors).build();
-}
-    }
-
 
 }
