@@ -13,36 +13,40 @@ import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.*;
 
 public class Cross implements Buildable{
-    private final int innerRadius;
-    private final int outerRadius;
+    private final int width;
+    private final int height;
 
-    public Cross(int innerRadius, int outerRadius) {
-        this.innerRadius = innerRadius;
-        this.outerRadius = outerRadius;
+    public Cross(int width, int height) {
+        this.width = width;
+        this.height = height;
     }
 
     
 
     Cross(Map<String, String> options){
-        this(Integer.parseInt(options.getOrDefault(Configuration.INNERRADIUS, "200")), Integer.parseInt(options.getOrDefault(Configuration.OUTERRADIUS, "400")));
+        this(Integer.parseInt(options.getOrDefault(Configuration.INNERRADIUS, "700")), Integer.parseInt(options.getOrDefault(Configuration.OUTERRADIUS, "700")));
 
         System.out.print(options);
     }
 
     public Mesh build (Mesh aMesh){
     List<Polygon> polygonsWithColors = new ArrayList();
-    double [] pointsY = {350,150,850,650,350,150,850,650};
-    double [] pointsX = {150,350,650,850,150,350,650,850};
+
+    int width = this.width;
+    int height = this.height;
+
+    int pointX1 = 500-width/2;
+    int pointX2 = 500+width/2;
+    int pointY1 = 500-height/2;
+    int pointY2 = 500+height/2;
     
     Property land = Property.newBuilder().setKey("tileType").setValue("land").build();
     Property ocean = Property.newBuilder().setKey("tileType").setValue("ocean").build();
         
     for (Polygon p: aMesh.getPolygonsList()){
-        boolean landTile = false;
-        //for (int i = 0; i<5;i+=4){
             
-        if (aMesh.getVertices(p.getCentroidIdx()).getX()>pointsX[0] && aMesh.getVertices(p.getCentroidIdx()).getX()<pointsX[3] && aMesh.getVertices(p.getCentroidIdx()).getY()>pointsY[1] && aMesh.getVertices(p.getCentroidIdx()).getY()<pointsY[2]){
-            if(Math.abs(aMesh.getVertices(p.getCentroidIdx()).getX()-aMesh.getVertices(p.getCentroidIdx()).getY())<150){
+        if (aMesh.getVertices(p.getCentroidIdx()).getX()>pointX1 && aMesh.getVertices(p.getCentroidIdx()).getX()<pointX2 && aMesh.getVertices(p.getCentroidIdx()).getY()>pointY1 && aMesh.getVertices(p.getCentroidIdx()).getY()<pointY2){
+            if(Math.abs(aMesh.getVertices(p.getCentroidIdx()).getX()-aMesh.getVertices(p.getCentroidIdx()).getY())<125){
                 String colorCode = 45 + "," + 173 + "," + 79;
                 Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
                 Polygon tiles = Polygon.newBuilder(p).addProperties(color).addProperties(land).build();
@@ -51,7 +55,7 @@ public class Cross implements Buildable{
                 polygonsWithColors.add(tiles);
                 continue;
             }
-            if(aMesh.getVertices(p.getCentroidIdx()).getX()+aMesh.getVertices(p.getCentroidIdx()).getY()>850 && aMesh.getVertices(p.getCentroidIdx()).getX()+aMesh.getVertices(p.getCentroidIdx()).getY()<1150){
+            if(aMesh.getVertices(p.getCentroidIdx()).getX()+aMesh.getVertices(p.getCentroidIdx()).getY()>875 && aMesh.getVertices(p.getCentroidIdx()).getX()+aMesh.getVertices(p.getCentroidIdx()).getY()<1125){
                 String colorCode = 45 + "," + 173 + "," + 79;
                 Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
                 Polygon tiles = Polygon.newBuilder(p).addProperties(color).addProperties(land).build();
@@ -60,26 +64,8 @@ public class Cross implements Buildable{
                 polygonsWithColors.add(tiles);
                 continue;
             }
-                /* 
-            if (aMesh.getVertices(p.getCentroidIdx()).getX()<aMesh.getVertices(p.getCentroidIdx()).getY()-100){
-                    String colorCode = 45 + "," + 49 + "," + 173;
-                    Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-                    Polygon tiles = Polygon.newBuilder(p).addProperties(color).addProperties(ocean).build();
-                    polygonsWithColors.add(tiles);
-                    landTile = true;
-                    continue;
-                }
-            if (aMesh.getVertices(p.getCentroidIdx()).getX()-100>aMesh.getVertices(p.getCentroidIdx()).getY()){
-                    String colorCode = 45 + "," + 49 + "," + 173;
-                    Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
-                    Polygon tiles = Polygon.newBuilder(p).addProperties(color).addProperties(ocean).build();
-                    polygonsWithColors.add(tiles);
-                    landTile = true; 
-                    continue;
-            }  */
                 
         }
-        //}
         String colorCode = 45 + "," + 49 + "," + 173;
         Property color = Property.newBuilder().setKey("rgb_color").setValue(colorCode).build();
         Polygon tiles = Polygon.newBuilder(p).addProperties(color).addProperties(ocean).build();
