@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
+import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.volcano;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a3.island.modifiers.*;
 
@@ -28,8 +29,16 @@ public class islandgen{
         }
         Lake lake = new Lake(Integer.parseInt(options.getOrDefault(Configuration.LAKE,"0")));
         lake.createLakes(tilesWithColors);
+        volcano volcano = new volcano(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL,"5")));
+        aMesh = volcano.setElevation(aMesh);
+
+
     IslandMesh Mesh = new IslandMesh(aMesh.getWidth(), aMesh.getHeight(), aMesh.getCornersList(), aMesh.getEdgesList(), aMesh.getTilesList());
     return Mesh;
+
+
+
+
 }
 
 }

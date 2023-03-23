@@ -37,13 +37,13 @@ public class Importer {
             edges.add(edge);
         }
 
+        int counter = 1;
         for (Polygon p: polygons) {
             List<Integer> neighborpol = new ArrayList<>();
             List<Integer> polyvert = new ArrayList<>();
-
             for (int i = 0; i < p.getSegmentIdxsCount(); i++) {
-                int v1 = segments.get(i).getV1Idx();
-                int v2 = segments.get(i).getV2Idx();
+                int v1 = segments.get(p.getSegmentIdxs(i)).getV1Idx();
+                int v2 = segments.get(p.getSegmentIdxs(i)).getV2Idx();
                 if (!polyvert.contains(v1)){
                     polyvert.add(v1);
                 }
@@ -60,6 +60,7 @@ public class Importer {
                         break;
                     }
                 }
+
             }
 
             Tile tile = new Tile(p.getSegmentIdxsList(), p.getNeighborIdxsList(), p.getCentroidIdx(),neighborpol,polyvert);

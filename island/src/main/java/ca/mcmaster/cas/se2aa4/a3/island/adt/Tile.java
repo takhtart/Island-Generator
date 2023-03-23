@@ -7,6 +7,7 @@ public class Tile {
     private final List<Integer> edge, neighbor, neighbortile, corners;
     private int red,green,blue = 255;
     private String tiletype;
+    private int elevation;
 
     public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> neighbortile, List<Integer> corners) {
         this.edge = edge;
@@ -25,8 +26,22 @@ public class Tile {
         }
     }
 
+    public int getR(){
+        return red;
+    }
+    public int getG(){
+        return green;
+    }
+    public int getB(){
+        return blue;
+    }
+
     public void setTileType(String type){
         this.tiletype = type;
+    }
+
+    public void setElevation(int level){
+        this.elevation = level;
     }
 
     public String getStringColor(){

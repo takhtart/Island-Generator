@@ -3,6 +3,8 @@ package ca.mcmaster.cas.se2aa4.a3.island.adt;
 public class Corner {
     private final double x, y;
     private int  red, green, blue = 0;
+    private int elevation;
+    private boolean landCorner = false;
 
     public Corner(double x, double y) {
         this.x = x;
@@ -17,7 +19,23 @@ public class Corner {
     public double getY() {
         return y;
     }
+
+    public void setElevation(int value){
+        this.elevation = value;
+    }
     
+    public int getElevation(){
+        return elevation;
+    }
+
+    public void setLandCorner(){
+        this.landCorner = true;
+    }
+
+    public boolean isLandCorner(){
+        return landCorner;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
