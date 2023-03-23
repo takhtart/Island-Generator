@@ -17,6 +17,7 @@ public class Configuration {
     public static final String RADIUS = "r";
     public static final String NOISESEED = "ns";
     public static final String LAGOON = "lagoon";
+    public static final String LAKE = "lakes";
 
 
     private CommandLine cli;
@@ -55,6 +56,9 @@ public class Configuration {
     public Boolean lagoon(){
         return this.cli.hasOption(LAGOON) == true;
     }
+    public String lake(){
+        return this.cli.getOptionValue(LAKE);
+    }
 
     private void help() {
         HelpFormatter formatter = new HelpFormatter();
@@ -88,6 +92,7 @@ public class Configuration {
         options.addOption(new Option(RADIUS, true, "Single Radius"));
         options.addOption(new Option(NOISESEED, true, "NoiseGen Seed"));
         options.addOption(new Option(LAGOON, false, "Generate Lagoon"));
+        options.addOption(new Option(LAKE, true, "Generate Lakes"));
         // Global help
         options.addOption(new Option(HELP, false, "print help message"));
         return options;

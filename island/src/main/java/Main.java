@@ -18,7 +18,7 @@ public class Main {
         Mesh aMesh = new MeshFactory().read(config.input());
         IslandMesh islandmesh = new Importer().buildADT(aMesh.getVerticesList(), aMesh.getSegmentsList(), aMesh.getPolygonsList());
         IslandMesh theMesh = specification.build(islandmesh);
-        IslandMesh island = new islandgen().generateisland(theMesh);
+        IslandMesh island = new islandgen().generateisland(config, theMesh);
         Mesh enriched = new Exporter().buildStructs(island.getCornersList(), island.getEdgesList(), island.getTilesList());
 
         
