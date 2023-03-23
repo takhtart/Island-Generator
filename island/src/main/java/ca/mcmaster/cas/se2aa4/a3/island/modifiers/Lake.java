@@ -42,8 +42,10 @@ public class Lake {
         int i = 0;
         int j = 0;
         for (Tile t: tilesWithColors){
+            if(lakes == 0){
+                break;
+            }
             if (i == random.get(j)){
-                String colorCode = 45 + "," + 105 + "," + 173;
                 t.setColor(45, 105, 173);
                 t.setTileType("ocean");
                 tilesWithColors.set(i, t); 
