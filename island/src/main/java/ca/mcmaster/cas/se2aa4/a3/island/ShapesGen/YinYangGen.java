@@ -12,45 +12,40 @@ import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 
 public class YinYangGen implements Buildable{
 
-    private final int lagoonSize;
     private final int outerRadius;
 
-    public YinYangGen(int lagoonSize, int outerRadius) {
-        this.lagoonSize = lagoonSize;
+    public YinYangGen(int outerRadius) {
         this.outerRadius = outerRadius;
     }
 
     
 
     YinYangGen(Map<String, String> options){
-        this(Integer.parseInt(options.getOrDefault(Configuration.INNERRADIUS, "50")), Integer.parseInt(options.getOrDefault(Configuration.OUTERRADIUS, "400")));
+        this(Integer.parseInt(options.getOrDefault(Configuration.OUTERRADIUS, "350")));
 
         System.out.print(options);
     }
 
     public IslandMesh build(IslandMesh aMesh){
-        
 
-        List<Tile> polygonsWithColors = new ArrayList<>();
-
-        int fillCenterX_Right = 350;
-        int fillCenterY_Right = 500;
-        int fillCenterX_Left = 725;
-        int fillCenterY_Left = 500;
+        int fillCenterX_Right = 375;
+        int fillCenterY_Right = (int)(aMesh.getHeight()/2);
+        int fillCenterX_Left = 650;
+        int fillCenterY_Left = (int)(aMesh.getHeight()/2) ;
         int fillRadius = this.outerRadius;
 
         int outerRadius = this.outerRadius;
         int centerXRight = 625;
-        int centerYRight = 500;
+        int centerYRight = (int)(aMesh.getHeight()/2);
         int centerXLeft = 375;
-        int centerYLeft = 500;
+        int centerYLeft = (int)(aMesh.getHeight()/2);
 
-        int headCenterX_Right = 400;
-        int headCenterY_Right = 300;
-        int headCenterX_Left = 700;
-        int headCenterY_Left = 700;
-        int headSize = 200;
-        int lagoonSize = this.lagoonSize;
+        int headCenterX_Left = 400;
+        int headCenterY_Left = 350;
+        int headCenterX_Right = 700;
+        int headCenterY_Right = 650;
+        int headSize = this.outerRadius/2;
+        int lagoonSize = 75;
 
 
         //Property land = Property.newBuilder().setKey("tileType").setValue("land").build();
@@ -81,7 +76,7 @@ public class YinYangGen implements Buildable{
         }
 
         int i = 0;
-        for (Tile p: polygonsWithColors){
+        for (Tile p: aMesh.getTilesList()){
             double centroidX = aMesh.getCorner(p.getCentroidIdx()).getX();
             double centroidY = aMesh.getCorner(p.getCentroidIdx()).getY();
             double distance = Math.sqrt(Math.pow(centroidX - centerXLeft,2) + Math.pow(centroidY- centerYLeft,2));
@@ -100,7 +95,7 @@ public class YinYangGen implements Buildable{
         }
 
         i = 0;
-        for (Tile p: polygonsWithColors){
+        for (Tile p: aMesh.getTilesList()){
             double centroidX = aMesh.getCorner(p.getCentroidIdx()).getX();
             double centroidY = aMesh.getCorner(p.getCentroidIdx()).getY();
             double distance = Math.sqrt(Math.pow(centroidX - fillCenterX_Right,2) + Math.pow(centroidY- fillCenterY_Right,2));
@@ -121,7 +116,7 @@ public class YinYangGen implements Buildable{
 
 
         i = 0;
-        for (Tile p: polygonsWithColors){
+        for (Tile p: aMesh.getTilesList()){
             double centroidX = aMesh.getCorner(p.getCentroidIdx()).getX();
             double centroidY = aMesh.getCorner(p.getCentroidIdx()).getY();
 
@@ -145,7 +140,7 @@ public class YinYangGen implements Buildable{
 
         //Lagoon
         i = 0;
-        for (Tile p: polygonsWithColors){
+        for (Tile p: aMesh.getTilesList()){
             double centroidX = aMesh.getCorner(p.getCentroidIdx()).getX();
             double centroidY = aMesh.getCorner(p.getCentroidIdx()).getY();
 
