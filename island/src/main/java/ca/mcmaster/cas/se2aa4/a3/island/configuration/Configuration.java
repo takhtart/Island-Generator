@@ -18,6 +18,7 @@ public class Configuration {
     public static final String NOISESEED = "ns";
     public static final String LAGOON = "lagoon";
     public static final String LAKE = "lakes";
+    public static final String AQUIFERS = "aquifers";
     public static final String ELEVATIONLEVEL = "el";
 
 
@@ -60,6 +61,9 @@ public class Configuration {
     public String lake(){
         return this.cli.getOptionValue(LAKE);
     }
+    public String aquifer(){
+        return this.cli.getOptionValue(AQUIFERS);
+    }
     public String elevationLevel(){
         return this.cli.getOptionValue(ELEVATIONLEVEL);
     }
@@ -97,6 +101,7 @@ public class Configuration {
         options.addOption(new Option(NOISESEED, true, "NoiseGen Seed"));
         options.addOption(new Option(LAGOON, false, "Generate Lagoon"));
         options.addOption(new Option(LAKE, true, "Generate Lakes"));
+        options.addOption(new Option(AQUIFERS, true, "Generate Aquifers"));
         options.addOption(new Option(ELEVATIONLEVEL, true, "Range of elevation levels that exist"));
         // Global help
         options.addOption(new Option(HELP, false, "print help message"));

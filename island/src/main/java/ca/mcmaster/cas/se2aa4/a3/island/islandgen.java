@@ -29,8 +29,26 @@ public class islandgen{
         }
         Lake lake = new Lake(Integer.parseInt(options.getOrDefault(Configuration.LAKE,"0")));
         lake.createLakes(tilesWithColors);
+        Aquifers aquifers = new Aquifers(Integer.parseInt(options.getOrDefault(Configuration.AQUIFERS,"0")));
+        aquifers.createAquifers(tilesWithColors);
         volcano volcano = new volcano(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL,"5")));
         aMesh = volcano.setElevation(aMesh);
+
+        //Aquifers Test
+        /* for (Tile t:aMesh.getTilesList()){
+            if (t.getHumidity() == 1){
+                int[] colorCode = {137, 207, 240};
+                t.setColor(colorCode[0],colorCode[1],colorCode[2]);
+            }
+            else if (t.getHumidity() > 1){
+                int[] colorCode = {137+30, 207, 240};
+                t.setColor(colorCode[0],colorCode[1],colorCode[2]);
+            }
+            if (t.isAquifer()){
+                int[] colorCode = {0,255,255};
+                t.setColor(colorCode[0],colorCode[1],colorCode[2]);
+            }
+        } */
 
 
     IslandMesh Mesh = new IslandMesh(aMesh.getWidth(), aMesh.getHeight(), aMesh.getCornersList(), aMesh.getEdgesList(), aMesh.getTilesList());

@@ -8,6 +8,8 @@ public class Tile {
     private int red,green,blue = 255;
     private String tiletype;
     private int elevation;
+    private boolean aquifer = false;
+    private int humidity;
     // private boolean marked;
 
     public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> neighbortile, List<Integer> corners) {
@@ -89,6 +91,21 @@ public class Tile {
 
     public String getTiletype(){
         return tiletype;
+    }
+
+    public void setAquifer(){
+        this.aquifer = true;
+    }
+
+    public boolean isAquifer(){
+        return aquifer;
+    }
+
+    public int getHumidity(){
+        return humidity;
+    }
+    public void addHumidity(int add){
+        this.humidity = humidity + add;
     }
 
 }

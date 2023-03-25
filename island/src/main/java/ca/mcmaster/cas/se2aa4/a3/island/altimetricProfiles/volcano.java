@@ -118,8 +118,8 @@ public class volcano {
 
                 for (int i = levels; i >= 1; i--){
                     if (average == i){
-                        t.setElevation(1);
-                        t.setColor(t.getR()+(150/levels)*i,t.getG(),t.getB());
+                        t.setElevation(i);
+                        t.setColor(t.getR()+((150/levels)*i),t.getG(),t.getB());
                     }
                 }
 
