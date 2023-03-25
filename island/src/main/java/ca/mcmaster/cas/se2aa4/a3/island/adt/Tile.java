@@ -8,6 +8,7 @@ public class Tile {
     private int red,green,blue = 255;
     private String tiletype;
     private int elevation;
+    // private boolean marked;
 
     public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> neighbortile, List<Integer> corners) {
         this.edge = edge;
@@ -35,7 +36,15 @@ public class Tile {
     public int getB(){
         return blue;
     }
-
+    // public void setMarked(){
+    //     this.marked = true;
+    // }
+    // public void setUnmarked(){
+    //     this.marked = false;
+    // }
+    // public boolean isMarked(){
+    //     return marked;
+    // }
     public void setTileType(String type){
         this.tiletype = type;
     }
@@ -43,7 +52,9 @@ public class Tile {
     public void setElevation(int level){
         this.elevation = level;
     }
-
+    public int getElevation(){
+        return elevation;
+    }
     public String getStringColor(){
         return red + "," + green + "," + blue;
     }

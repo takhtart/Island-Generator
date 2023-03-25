@@ -38,7 +38,7 @@ public class Lake {
             random.add(randInt);              
         }
         Collections.sort(random);
-        //Beach
+        
         int i = 0;
         int j = 0;
         for (Tile t: tilesWithColors){
@@ -47,8 +47,9 @@ public class Lake {
             }
             if (i == random.get(j)){
                 t.setColor(45, 105, 173);
-                t.setTileType("ocean");
+                t.setTileType("lake");
                 tilesWithColors.set(i, t); 
+
                 j++;
                 if(j==random.size()){
                     break;
@@ -58,5 +59,31 @@ public class Lake {
 
             i++;
         }
+        
+        for (int n = 0; n<random.size();n++){
+            int rand = 5;
+            if(rand == 0){
+                continue;
+            }
+            for (int a: tilesWithColors.get(random.get(n)).getNeighborsList()){
+                Tile tile = tilesWithColors.get(a);
+                if (tile.getTiletype() == "land" && tile.getElevation() == tilesWithColors.get(random.get(n)).getElevation()){
+                    tile.setColor(45, 105, 173);
+                    tile.setTileType("lake");
+                    tilesWithColors.set(a,tile);
+                    if(rand > 4){
+                        for (int b: tilesWithColors.get(a).getNeighborsList()){
+                            Tile c = tilesWithColors.get(b);
+                            if (c.getTiletype() == "land" && tile.getElevation() == tilesWithColors.get(random.get(n)).getElevation()){
+                                c.setColor(45, 105, 173);
+                                c.setTileType("lake");
+                                tilesWithColors.set(a,c);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
     }
 }
