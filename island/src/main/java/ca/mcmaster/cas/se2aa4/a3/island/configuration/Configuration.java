@@ -20,6 +20,7 @@ public class Configuration {
     public static final String LAKE = "lakes";
     public static final String AQUIFERS = "aquifers";
     public static final String ELEVATIONLEVEL = "el";
+    public static final String ALTITUDE = "altitude";
 
 
     private CommandLine cli;
@@ -67,6 +68,9 @@ public class Configuration {
     public String elevationLevel(){
         return this.cli.getOptionValue(ELEVATIONLEVEL);
     }
+    public String altitude(){
+        return this.cli.getOptionValue(ALTITUDE);
+    }
 
     private void help() {
         HelpFormatter formatter = new HelpFormatter();
@@ -103,6 +107,7 @@ public class Configuration {
         options.addOption(new Option(LAKE, true, "Generate Lakes"));
         options.addOption(new Option(AQUIFERS, true, "Generate Aquifers"));
         options.addOption(new Option(ELEVATIONLEVEL, true, "Range of elevation levels that exist"));
+        options.addOption(new Option(ALTITUDE, true, "Altimetric Profile"));
         // Global help
         options.addOption(new Option(HELP, false, "print help message"));
         return options;

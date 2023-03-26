@@ -3,21 +3,28 @@ package ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
+import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 
-public class volcano {
+public class volcano implements ElevationBuildable{
+    volcano(Map<String, String> options){
+        this(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL, "5")));
+
+        System.out.print(options);
+    }
+
     private int levels;
 
     public volcano(int levels){
         this.levels = levels;
     }
 
-
     public IslandMesh setElevation(IslandMesh aMesh){
         List<Tile> tilesWithElevation = new ArrayList<>(aMesh.getTilesList());
         List<Corner> cornersWithElevation = new ArrayList<>(aMesh.getCornersList());
-
+        
         //Property altitude = Property.newBuilder().setKey("altitude").setValue("0").build();
 
 

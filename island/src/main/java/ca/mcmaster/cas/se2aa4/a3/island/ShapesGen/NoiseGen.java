@@ -10,7 +10,8 @@ import ca.mcmaster.cas.se2aa4.a3.island.noise.Noise;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 
 public class NoiseGen implements Buildable{
-    private final int noiseSeed;
+    private int noiseSeed;
+    public static int fSeed;
 
     public NoiseGen(int noiseSeed) {
         this.noiseSeed = noiseSeed;
@@ -30,10 +31,12 @@ public class NoiseGen implements Buildable{
         Noise noise = new Noise();
         if (noiseSeed <= 0){
             noise.generate();
+            this.noiseSeed = noise.getSeed();
         }
         else {
             noise.generate(noiseSeed);
         }
+        fSeed = noise.getSeed();
         
         int width = 1000;
         int length = 1000;

@@ -11,16 +11,18 @@ public class ElevationFactory {
 
     static {
         bindings.put("volcano", volcano.class);
+        bindings.put("hills", hills.class);
+        bindings.put("artic", artic.class);
     }
 
-    /* public static Buildable create(Configuration configuration) {
+    public static ElevationBuildable create(Configuration configuration) {
         Map<String, String> options = configuration.export();
         // This code can be simplified with a switch case over the kind of mesh
         try {
-            Class klass = bindings.get(options.get(Configuration.SHAPE));
-            return (Buildable) klass.getDeclaredConstructor(Map.class).newInstance(options);
+            Class klass = bindings.get(options.get(Configuration.ALTITUDE));
+            return (ElevationBuildable) klass.getDeclaredConstructor(Map.class).newInstance(options);
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
-    } */
+    }
 }
