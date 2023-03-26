@@ -90,5 +90,15 @@ When you develop features and enrich the product, remember that you have first t
 | F09 | Compute Voronoi Diagram | Kyen | 02/23/2023| 02/24/2023 | D |
 | F10 | Change mesh using Lloyd Relaxation | Aswin | 02/24/2023| 02/24/2023 | D | 
 | F11 | Delaunay triangulation for neighbouring relationships | Kyen | 02/24/2023 | 02/25/2023 | D |
+| F12 | Create lagoon islands with ocean, beach and lagoon | Team | 03/10/2023 | 03/13/2023 | D | 
+| F13 | Shapes | Team | 03/15/2023 | 03/16/2023 | 
+| F14 | Elevation | Kyen | 03/15/2023 | 03/26/2023 | 
+| F14 | Lakes | Aswin | 03/22/2023 | 03/25/2023 | 
+| F14 | Rivers | Aswin | 03/24/2023 | 03/26/2023 | 
+| F14 | Aquifers | Kyen | 03/24/2023 | 03/25/2023 | 
+| F14 | Soil absorption | Aswin | 03/26/2023 | 03/26/2023 | 
+| F14 | Biomes/Whittaker diagrams | Tarnveer | 03/24/2023 | 03/26/2023 | 
+| F14 | Reproductibility | Team | 03/15/2023 | 03/26/2023 | 
+
 
 
