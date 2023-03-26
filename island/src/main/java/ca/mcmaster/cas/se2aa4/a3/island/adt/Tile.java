@@ -10,7 +10,7 @@ public class Tile {
     private int elevation;
     private boolean aquifer = false;
     private int humidity;
-    // private boolean marked;
+    private boolean marked;
 
     public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> neighbortile, List<Integer> corners) {
         this.edge = edge;
@@ -38,15 +38,15 @@ public class Tile {
     public int getB(){
         return blue;
     }
-    // public void setMarked(){
-    //     this.marked = true;
-    // }
-    // public void setUnmarked(){
-    //     this.marked = false;
-    // }
-    // public boolean isMarked(){
-    //     return marked;
-    // }
+    public void setMarked(){
+        this.marked = true;
+    }
+    public void setUnmarked(){
+        this.marked = false;
+    }
+    public boolean isMarked(){
+        return marked;
+    }
     public void setTileType(String type){
         this.tiletype = type;
     }
