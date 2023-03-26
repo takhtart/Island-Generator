@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Tile {
     private final int centroid;
-    private final List<Integer> edge, neighbor, neighbortile, corners;
+    private final List<Integer> edge, neighbor, corners;
     private int red,green,blue = 255;
     private String tiletype;
     private int elevation = 1;
@@ -13,11 +13,10 @@ public class Tile {
     private boolean marked;
     private String biome;
 
-    public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> neighbortile, List<Integer> corners) {
+    public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> corners) {
         this.edge = edge;
         this.neighbor = neighbor;
         this.centroid = centroid;
-        this.neighbortile = neighbortile;
         this.corners = corners;
     }
 
@@ -87,10 +86,6 @@ public class Tile {
 
     public int getSegmentsCount(){
         return edge.size();
-    }
-
-    public List<Integer> getNeighboringTiles(){
-        return neighbortile;
     }
 
     public List<Integer> getCorners(){

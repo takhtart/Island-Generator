@@ -38,9 +38,9 @@ public class islandgen{
         HashSet <Integer> aquiferlist = aquifers.createAquifers(tilesWithColors);
         volcano volcano = new volcano(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL,"5")));
         aMesh = volcano.setElevation(aMesh);
-        River river = new River(Integer.parseInt(options.getOrDefault(Configuration.RIVERS,"5")));
+        River river = new River(Integer.parseInt(options.getOrDefault(Configuration.RIVERS,"0")));
         aMesh = river.createRivers(aMesh);
-        NormalSoil soil = new NormalSoil();
+        Soil soil = new Soil(options.getOrDefault(Configuration.SOIL,"normal"));
         soil.getHumidity(aquiferlist, tilesWithColors, aMesh.getEdgesList());
         Whittiker biome = new Whittiker(options.getOrDefault(Configuration.BIOME,"tropical"));
         aMesh = biome.generatebiomes(aMesh);

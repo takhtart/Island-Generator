@@ -22,6 +22,7 @@ public class Configuration {
     public static final String RIVERS = "rivers";
     public static final String ELEVATIONLEVEL = "el";
     public static final String ALTITUDE = "altitude";
+    public static final String SOIL = "soil";
     public static final String BIOME = "biome";
 
 
@@ -76,6 +77,9 @@ public class Configuration {
     public String altitude(){
         return this.cli.getOptionValue(ALTITUDE);
     }
+    public String soil(){
+        return this.cli.getOptionValue(SOIL);
+    }
     public String biome(){
         return this.cli.getOptionValue(BIOME);
     }
@@ -117,6 +121,7 @@ public class Configuration {
         options.addOption(new Option(RIVERS, true, "Generate Rivers"));
         options.addOption(new Option(ELEVATIONLEVEL, true, "Range of elevation levels that exist"));
         options.addOption(new Option(ALTITUDE, true, "Altimetric Profile"));
+        options.addOption(new Option(SOIL, true, "Soil Selection"));
         options.addOption(new Option(BIOME, true, "Whittiker Selection"));
         // Global help
         options.addOption(new Option(HELP, false, "print help message"));
