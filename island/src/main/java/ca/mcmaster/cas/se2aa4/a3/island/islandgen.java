@@ -3,12 +3,15 @@ package ca.mcmaster.cas.se2aa4.a3.island;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.*;
 
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.ElevationBuildable;
 import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.volcano;
+import ca.mcmaster.cas.se2aa4.a3.island.biomes.Whittiker;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a3.island.modifiers.*;
+import ca.mcmaster.cas.se2aa4.a3.island.soil.*;
 
 
 public class islandgen{
@@ -16,7 +19,7 @@ public class islandgen{
         List<Tile> tilesWithColors = new ArrayList<>(aMesh.getTilesList());
         Map<String, String> options = config.export();
         
-        /* for (Tile t: tilesWithColors){
+       /*  for (Tile t: tilesWithColors){
             if (t.getTiletype().equals("land")){
                 for(Integer n: t.getNeighborsList()){
                     Tile neighbour = tilesWithColors.get(n);
@@ -31,8 +34,16 @@ public class islandgen{
         Lake lake = new Lake(Integer.parseInt(options.getOrDefault(Configuration.LAKE,"0")));
         lake.createLakes(tilesWithColors);
         Aquifers aquifers = new Aquifers(Integer.parseInt(options.getOrDefault(Configuration.AQUIFERS,"0")));
-        aquifers.createAquifers(tilesWithColors);
 
+        HashSet <Integer> aquiferlist = aquifers.createAquifers(tilesWithColors);
+        volcano volcano = new volcano(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL,"5")));
+        aMesh = volcano.setElevation(aMesh);
+        River river = new River(Integer.parseInt(options.getOrDefault(Configuration.RIVERS,"5")));
+        aMesh = river.createRivers(aMesh);
+        NormalSoil soil = new NormalSoil();
+        soil.getHumidity(aquiferlist, tilesWithColors, aMesh.getEdgesList());
+        Whittiker biome = new Whittiker(options.getOrDefault(Configuration.BIOME,"tropical"));
+        aMesh = biome.generatebiomes(aMesh);
 
         //Aquifers Test
         /* for (Tile t:aMesh.getTilesList()){

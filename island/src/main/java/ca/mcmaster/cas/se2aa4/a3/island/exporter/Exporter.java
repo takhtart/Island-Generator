@@ -26,6 +26,8 @@ public class Exporter {
             int v2 = e.getV2Idx();
             Property color = Property.newBuilder().setKey("rgb_color").setValue(e.getStringColor()).build();
             Segment segment = Segment.newBuilder().setV1Idx(v1).setV2Idx(v2).addProperties(color).build();
+            Property thickness = Property.newBuilder().setKey("thickness").setValue(""+e.getThickness()).build();
+            segment = Segment.newBuilder(segment).setV1Idx(v1).setV2Idx(v2).addProperties(thickness).build();
             segments.add(segment);
         }
 

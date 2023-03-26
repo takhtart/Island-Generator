@@ -7,10 +7,11 @@ public class Tile {
     private final List<Integer> edge, neighbor, neighbortile, corners;
     private int red,green,blue = 255;
     private String tiletype;
-    private int elevation;
+    private int elevation = 1;
     private boolean aquifer = false;
-    private int humidity;
-    // private boolean marked;
+    private int humidity = 1;
+    private boolean marked;
+    private String biome;
 
     public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> neighbortile, List<Integer> corners) {
         this.edge = edge;
@@ -38,15 +39,18 @@ public class Tile {
     public int getB(){
         return blue;
     }
-    // public void setMarked(){
-    //     this.marked = true;
-    // }
-    // public void setUnmarked(){
-    //     this.marked = false;
-    // }
-    // public boolean isMarked(){
-    //     return marked;
-    // }
+    public void setMarked(){
+        this.marked = true;
+    }
+    public void setUnmarked(){
+        this.marked = false;
+    }
+    public void setBiome(String b){
+        this.biome = b;
+    }
+    public boolean isMarked(){
+        return marked;
+    }
     public void setTileType(String type){
         this.tiletype = type;
     }
@@ -65,6 +69,10 @@ public class Tile {
         return centroid;
     }
 
+    public String getBiome() {
+        return biome;
+    }
+
     public List<Integer> getNeighborsList() {
         return neighbor;
     }
@@ -77,7 +85,7 @@ public class Tile {
         return neighbor.size();
     }
 
-    public int geSegmentsCount(){
+    public int getSegmentsCount(){
         return edge.size();
     }
 
@@ -103,6 +111,9 @@ public class Tile {
 
     public int getHumidity(){
         return humidity;
+    }
+    public void setHumidity(int humidity){
+        this.humidity = humidity;
     }
     public void addHumidity(int add){
         this.humidity = humidity + add;
