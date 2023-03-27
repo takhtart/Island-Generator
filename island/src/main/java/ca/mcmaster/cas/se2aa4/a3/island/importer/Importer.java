@@ -3,7 +3,6 @@ package ca.mcmaster.cas.se2aa4.a3.island.importer;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.locationtech.jts.algorithm.Centroid;
 
 import ca.mcmaster.cas.se2aa4.a2.io.Structs.*;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
@@ -45,7 +44,6 @@ public class Importer {
         }
 
         for (Polygon p: polygons) {
-            List<Integer> neighborpol = new ArrayList<>();
             List<Integer> polyvert = new ArrayList<>();
             for (int i = 0; i < p.getSegmentIdxsCount(); i++) {
                 int v1 = segments.get(p.getSegmentIdxs(i)).getV1Idx();
@@ -57,18 +55,8 @@ public class Importer {
                     polyvert.add(v2);
                 }   
             }
-            for (Integer n : p.getNeighborIdxsList()) {
 
-                for (int j = 0; j < centroidlist.size(); j++) {
-                    if (n == polygons.get(j).getCentroidIdx()){
-                        neighborpol.add(j);
-                    }
-                    
-                }
-               
-
-            }
-            Tile tile = new Tile(p.getSegmentIdxsList(), p.getNeighborIdxsList(), p.getCentroidIdx(),neighborpol,polyvert);
+            Tile tile = new Tile(p.getSegmentIdxsList(), p.getNeighborIdxsList(), p.getCentroidIdx(),polyvert);
             tiles.add(tile);
         }
 

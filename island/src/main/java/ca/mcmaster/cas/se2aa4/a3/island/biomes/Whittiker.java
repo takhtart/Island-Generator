@@ -1,14 +1,10 @@
 package ca.mcmaster.cas.se2aa4.a3.island.biomes;
 
-import java.lang.System.Logger.Level;
 import java.util.List;
-import java.util.Random;
 
-import ca.mcmaster.cas.se2aa4.a3.island.biomes.*;
 
 import ca.mcmaster.cas.se2aa4.a3.island.adt.IslandMesh;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.Tile;
-import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.artic;
 
 public class Whittiker {
     private final String diagram;

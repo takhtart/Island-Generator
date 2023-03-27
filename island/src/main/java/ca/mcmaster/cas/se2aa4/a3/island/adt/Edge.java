@@ -4,7 +4,7 @@ public class Edge {
 
     private final int c1, c2;
     private int  red, green, blue = 0;
-    private boolean marked;
+    private boolean marked = false;
     private String edgeType;
     private int thickness;
 
