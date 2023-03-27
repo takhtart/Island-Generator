@@ -9,6 +9,9 @@ public class Soil {
         this.soil = soil;
     }
     public void getHumidity(HashSet<Integer> aquiferList, List<Tile> tilesWithColors, List<Edge> edgesWithColors){
+        for(Tile t:tilesWithColors){
+            t.setHumidity(1);
+        }
         if (soil.equals("arid")){
             AridSoil soil = new AridSoil();
             soil.getHumidity(aquiferList, tilesWithColors, edgesWithColors);
