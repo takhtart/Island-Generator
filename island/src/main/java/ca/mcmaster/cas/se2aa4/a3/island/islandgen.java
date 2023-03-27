@@ -34,9 +34,10 @@ public class islandgen{
         aquifers.createAquifers(tilesWithColors);
         volcano volcano = new volcano(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL,"5")));
         aMesh = volcano.setElevation(aMesh);
+        River river = new River(Integer.parseInt(options.getOrDefault(Configuration.RIVERS,"5")));
+        aMesh = river.createRivers(aMesh);
         Whittiker biome = new Whittiker(options.getOrDefault(Configuration.BIOME,"tropical"));
         aMesh = biome.generatebiomes(aMesh);
-
         //Aquifers Test
         /* for (Tile t:aMesh.getTilesList()){
             if (t.getHumidity() == 1){
