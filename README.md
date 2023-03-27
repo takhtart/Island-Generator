@@ -79,26 +79,15 @@ When you develop features and enrich the product, remember that you have first t
 
 | Id | Feature title | Who? | Start | End | Status |
 |:--:|---------------|------|-------|-----|--------|
-| F01 | Draw Segments Between Vertices To Visualize The Squares | Team | 02/01/2023 | 02/02/2023 | D |
-| F02 | Display Segments As The Averages Of The Vertices It's Connected To | Tarnveer | 02/06/2023 | 02/07/2023 | D |
-| F03 | Add transparency to colours | Kyen, Tarnveer |02/08/2023 | 02/08/2023 | D |
-| F04 | Create polygons for all squares | Team | 02/08/2023 | 02/13/2023 | D |
-| F05 | Create centroids for all polygons | Aswin, Kyen | 02/13/2023 | 02/13/2023 | D |
-| F06 | Create neighboring indexes for all polygons | Aswin | 02/16/2023| 02/20/2023 | D |
-| F07 | Create visualization mode | Aswin, Kyen | 02/20/2023|02/23/2023| D |
-| F08 | Generate Random Points For Irregular Mesh | Tarnveer | 02/23/2023 | 02/23/2023 | D |
-| F09 | Compute Voronoi Diagram | Kyen | 02/23/2023| 02/24/2023 | D |
-| F10 | Change mesh using Lloyd Relaxation | Aswin | 02/24/2023| 02/24/2023 | D | 
-| F11 | Delaunay triangulation for neighbouring relationships | Kyen | 02/24/2023 | 02/25/2023 | D |
-| F12 | Create lagoon islands with ocean, beach and lagoon | Team | 03/10/2023 | 03/13/2023 | D | 
-| F13 | Shapes | Team | 03/15/2023 | 03/16/2023 | 
-| F14 | Elevation | Kyen | 03/15/2023 | 03/26/2023 | 
-| F14 | Lakes | Aswin | 03/22/2023 | 03/25/2023 | 
-| F14 | Rivers | Aswin | 03/24/2023 | 03/26/2023 | 
-| F14 | Aquifers | Kyen | 03/24/2023 | 03/25/2023 | 
-| F14 | Soil absorption | Aswin | 03/26/2023 | 03/26/2023 | 
-| F14 | Biomes/Whittaker diagrams | Tarnveer | 03/24/2023 | 03/26/2023 | 
-| F14 | Reproductibility | Team | 03/15/2023 | 03/26/2023 | 
+| F01 | Create lagoon islands with ocean, beach and lagoon | Team | 03/10/2023 | 03/13/2023 | D | 
+| F02 | Shapes | Team | 03/15/2023 | 03/16/2023 | D | 
+| F03 | Elevation | Kyen | 03/15/2023 | 03/26/2023 | D |
+| F04 | Lakes | Aswin | 03/22/2023 | 03/25/2023 | D |
+| F05 | Rivers | Aswin | 03/24/2023 | 03/26/2023 | D | 
+| F06 | Aquifers | Kyen | 03/24/2023 | 03/25/2023 | D | 
+| F07 | Soil absorption | Aswin | 03/26/2023 | 03/26/2023 | D |
+| F08 | Biomes/Whittaker diagrams | Tarnveer | 03/24/2023 | 03/26/2023 | D |
+| F09 | Reproductibility | Team | 03/15/2023 | 03/26/2023 | D | 
 
 
 
