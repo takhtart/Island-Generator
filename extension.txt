@@ -1,5 +1,6 @@
 1. Feature 9: Reproducibility
 2. Update backlog and tags
-3. Bug-fixes (River flow, remove elevation level)
-4. Finish test-cases
-5. Cleanup
+3. Bug-fixes (River flow, remove elevation level,etc)
+4. Add Additional test-cases
+5. Update Class Diagram (Report) - Due to updates in code
+6. Cleanup Code
