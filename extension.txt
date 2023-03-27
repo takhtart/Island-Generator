@@ -1,6 +1,12 @@
 1. Feature 9: Reproducibility
 2. Update backlog and tags
-3. Bug-fixes (River flow, remove elevation level,etc)
+3. Bug-fixes (Lakes, River flow, remove elevation level, etc.)
 4. Add Additional test-cases
-5. Update Class Diagram (Report) - Due to updates in code
-6. Cleanup Code
+5. Update Class Diagram (Report) - Due to updates in code the class diagram will change
+6. Update Whittiker Diagrams
+7. Cleanup Code (remove commented out code, unnecesary imports, etc.)
+8. Update YingYang Shape to Scale
+9. Fix Soil Absorbtion humidity
+10. Fix Noise Generator to be more concise
+11. Finish Report
+12. Update ADT Types (If Feature/Fix Demands It) 
