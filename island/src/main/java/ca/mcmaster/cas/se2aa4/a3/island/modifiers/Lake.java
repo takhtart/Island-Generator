@@ -59,27 +59,38 @@ public class Lake {
 
             i++;
         }
-        
         for (int n = 0; n<random.size();n++){
-            int rand = 5;
+            int rand = bag.nextInt(10);
             if(rand == 0){
                 continue;
             }
             for (int a: tilesWithColors.get(random.get(n)).getNeighborsList()){
                 Tile tile = tilesWithColors.get(a);
                 if (tile.getTiletype() == "land" && tile.getElevation() == tilesWithColors.get(random.get(n)).getElevation()){
-                    tile.setColor(45, 105, 173);
-                    tile.setTileType("lake");
-                    tilesWithColors.set(a,tile);
-                    if(rand > 4){
+                    boolean overlaps = false;
                         for (int b: tilesWithColors.get(a).getNeighborsList()){
+                            boolean overlap = false;
                             Tile c = tilesWithColors.get(b);
-                            if (c.getTiletype() == "land" && tile.getElevation() == tilesWithColors.get(random.get(n)).getElevation()){
+                            for (int d: tilesWithColors.get(b).getNeighborsList()){
+                                Tile e = tilesWithColors.get(d);
+                                if (e.getTiletype() == "lagoon"){
+                                    overlap = true;
+                                }
+                            }
+                            if (c.getTiletype() == "land" && tile.getElevation() == tilesWithColors.get(random.get(n)).getElevation() && !overlap && rand > 4){
                                 c.setColor(45, 105, 173);
                                 c.setTileType("lake");
                                 tilesWithColors.set(a,c);
+                                overlap = false;
                             }
+                            if (c.getTiletype() == "lagoon"){
+                                overlaps = true;
+                            } 
                         }
+                    if (!overlaps){
+                        tile.setColor(45, 105, 173);
+                        tile.setTileType("lake");
+                        tilesWithColors.set(a,tile);
                     }
                 }
             }

@@ -10,7 +10,7 @@ public class Aquifers {
         this.aquifers = aquifers;
     }
 
-    public void createAquifers(List<Tile> tilesWithColors){
+    public HashSet<Integer> createAquifers(List<Tile> tilesWithColors){
         List<Integer> landTiles = new ArrayList<>();
         HashSet<Integer> aquiferList = new HashSet<>();
 
@@ -32,19 +32,9 @@ public class Aquifers {
             aquiferList.add(landTiles.get(random));
         }
 
-        for (Integer i:aquiferList){
-            Tile aquiferTile =  tilesWithColors.get(i);
-            aquiferTile.setAquifer();
-            aquiferTile.addHumidity(2);
 
-            for (Integer n: aquiferTile.getNeighborsList()){
-                if (tilesWithColors.get(n).getTiletype() != "ocean"){
-                    tilesWithColors.get(n).addHumidity(1);
-                }
-            }
-        }
     
-
+        return aquiferList;
     }
 
 

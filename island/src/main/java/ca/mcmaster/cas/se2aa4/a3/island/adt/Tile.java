@@ -85,7 +85,7 @@ public class Tile {
         return neighbor.size();
     }
 
-    public int geSegmentsCount(){
+    public int getSegmentsCount(){
         return edge.size();
     }
 
@@ -111,6 +111,9 @@ public class Tile {
 
     public int getHumidity(){
         return humidity;
+    }
+    public void setHumidity(int humidity){
+        this.humidity = humidity;
     }
     public void addHumidity(int add){
         this.humidity = humidity + add;

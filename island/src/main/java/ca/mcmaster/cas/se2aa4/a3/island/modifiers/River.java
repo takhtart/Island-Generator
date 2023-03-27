@@ -37,6 +37,7 @@ public class River {
                 if (random.get(j) == randInt){
                     randInt = lands.get(bag.nextInt(lands.size()));
                     j = -1;
+                    continue;
                 }
                 for (int a: tilesWithColors.get(randInt).getNeighborsList()){
                     if (a == random.get(j) || tilesWithColors.get(a).getTiletype() == "ocean" || tilesWithColors.get(a).getTiletype() == "lake" || tilesWithColors.get(a).getTiletype() == "lagoon"){
@@ -61,14 +62,14 @@ public class River {
         //Beach
         int i = 0;
         int j = 0;
-        List<Edge> river = new ArrayList<>();
+        List<Edge> start = new ArrayList<>();
         for (Edge e: edgesWithColors){
             if(rivers == 0){
                 break;
             }
             if (i == random.get(j)){
                 riverRecursion(edgesWithColors, cornersWithColors, tilesWithColors, e, 3);
-                river.add(e);
+                start.add(e);
                 e.setColor(0, 0, 0);
                 e.setThickness(4);
                 edgesWithColors.set(i,e);
@@ -82,11 +83,12 @@ public class River {
             i++;
         }
         i = 0;
-        for(Edge e: river){
+        for(Edge e: start){
             e.setUnmarked();
         }
         for (Edge e:edgesWithColors){
             if(e.isMarked()){
+                e.setEdgeType("river");
                 e.setColor(45, 0, 173);
                 e.setThickness(4);
                 edgesWithColors.set(i,e);
@@ -96,6 +98,8 @@ public class River {
             }
             i++;
         }
+        
+        
         IslandMesh Mesh = new IslandMesh(aMesh.getWidth(), aMesh.getHeight(), cornersWithColors, edgesWithColors, aMesh.getTilesList());
 
         return Mesh;
