@@ -7,10 +7,11 @@ public class Tile {
     private final List<Integer> edge, neighbor, neighbortile, corners;
     private int red,green,blue = 255;
     private String tiletype;
-    private int elevation;
+    private int elevation = 1;
     private boolean aquifer = false;
-    private int humidity;
+    private int humidity = 1;
     private boolean marked;
+    private String biome;
 
     public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> neighbortile, List<Integer> corners) {
         this.edge = edge;
@@ -44,6 +45,9 @@ public class Tile {
     public void setUnmarked(){
         this.marked = false;
     }
+    public void setBiome(String b){
+        this.biome = b;
+    }
     public boolean isMarked(){
         return marked;
     }
@@ -63,6 +67,10 @@ public class Tile {
     
     public int getCentroidIdx() {
         return centroid;
+    }
+
+    public String getBiome() {
+        return biome;
     }
 
     public List<Integer> getNeighborsList() {
