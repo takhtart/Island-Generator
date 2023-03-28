@@ -42,17 +42,17 @@ public class LagoonGen implements Buildable{
             
 
             if (distance <= outerRadius && distance >= this.innerRadius){
-                colorCode[0] = 45;
+                /* colorCode[0] = 45;
                 colorCode[1] = 173;
                 colorCode[2] = 79;
-                t.setColor(colorCode[0],colorCode[1],colorCode[2]);
+                t.setColor(colorCode[0],colorCode[1],colorCode[2]); */
                 t.setTileType("land");
             }
             else if(distance > this.outerRadius) {
                 colorCode[0] = 45;
                 colorCode[1] = 49;
                 colorCode[2] = 173;
-                t.setColor(colorCode[0],colorCode[1],colorCode[2]);
+                t.setColor(colorCode[0],colorCode[1],colorCode[2]); 
                 t.setTileType("ocean");
             }
             else {

@@ -62,7 +62,7 @@ public class YinYangGen implements Buildable{
                 colorCode[0] = 45;
                 colorCode[1] = 173;
                 colorCode[2] = 79;
-                p.setColor(colorCode[0],colorCode[1],colorCode[2]);
+                //p.setColor(colorCode[0],colorCode[1],colorCode[2]);
                 p.setTileType("land");
 
             }

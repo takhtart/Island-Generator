@@ -123,12 +123,12 @@ public class volcano implements ElevationBuildable{
                 }
                 average = Math.round(elevationSum / t.getCorners().size());
 
-                for (int i = levels; i >= 1; i--){
+               /*  for (int i = levels; i >= 1; i--){
                     if (average == i){
                         t.setElevation(i);
                         t.setColor(t.getR()+((150/levels)*i),t.getG(),t.getB());
                     }
-                }
+                } */
 
 
 

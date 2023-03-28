@@ -60,7 +60,7 @@ public class hills implements ElevationBuildable{
                     }
                 }
 
-                if (t.getElevation() == 1){
+                /* if (t.getElevation() == 1){
                     t.setColor(t.getR()+ 30,t.getG(),t.getB());
                 }
                 else if (t.getElevation() == 2){
@@ -74,7 +74,7 @@ public class hills implements ElevationBuildable{
                 }
                 else if (t.getElevation() == 5){
                     t.setColor(t.getR()+ 150,t.getG(),t.getB());
-                } 
+                }  */
             }
 
         }

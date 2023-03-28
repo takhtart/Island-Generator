@@ -46,14 +46,14 @@ public class Cross implements Buildable{
             if(Math.abs(aMesh.getCorner(t.getCentroidIdx()).getX()-aMesh.getCorner(t.getCentroidIdx()).getY())<125){
 
                 t.setTileType("land");
-                t.setColor(45, 173, 79);
+                //t.setColor(45, 173, 79);
 
                 tilesWithColors.add(t);
                 continue;
             }
             if(aMesh.getCorner(t.getCentroidIdx()).getX()+aMesh.getCorner(t.getCentroidIdx()).getY()>875 && aMesh.getCorner(t.getCentroidIdx()).getX()+aMesh.getCorner(t.getCentroidIdx()).getY()<1125){
                 t.setTileType("land");
-                t.setColor(45, 173, 79);
+                //t.setColor(45, 173, 79);
 
 
                 tilesWithColors.add(t);

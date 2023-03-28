@@ -51,7 +51,7 @@ public class NoiseGen implements Buildable{
             if(centroidX > 100 && centroidX < width - 100 && centroidY > 100 && centroidY < length - 100){
                 if (noiseval > 0.0){
                     //String colorCode = 45 + "," + 173 + "," + 79;
-                    t.setColor(45, 173, 79);
+                    //t.setColor(45, 173, 79);
                     t.setTileType("land");
     
                 }

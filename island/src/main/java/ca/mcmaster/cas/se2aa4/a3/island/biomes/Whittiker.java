@@ -58,38 +58,46 @@ public class Whittiker {
                         Tile neigh = tilesWithColors.get(0);
                         for(Integer n: t.getNeighborsList()){
                             if (tilesWithColors.get(n).getTiletype().equals("land")){
-                                neigh = tilesWithColors.get(n);
-                                break;
+                                if (!tilesWithColors.get(n).getBiome().equals("")){
+                                    neigh = tilesWithColors.get(n);
+                                    t.setBiome(neigh.getBiome());
+                                    t.setColor(neigh.getR(),neigh.getG(),neigh.getB());
+                                    break;
+                                }
+                                else{
+                                    t.setBiome(tropicalbiome.Seasonal_Forest.toString());
+                                    t.setColor(157, 200, 121);
+                                }
                             }
+                            
                         }
-                        t.setBiome(neigh.getBiome());
-                        t.setColor(neigh.getR(),neigh.getG(),neigh.getB());
+                    }
                     }
 
                 }
                 
             }
             
-        }
+        
         else if (diagram.equals("arctic")){
             for (Tile t : tilesWithColors) {
                 if (t.getTiletype().equals("land")){
                     int elevation = t.getElevation();
                     int humidity = t.getHumidity();
 
-                    if (elevation == 1 && humidity == 3){
+                    if (elevation == 1 && humidity == 1){
                         t.setBiome(arcticbiome.Temperate_Rainforest.toString());
                         t.setColor(23, 87, 77);
 
                     }
                     else if (elevation == 2 && (humidity == 2 | humidity == 3)){
                         t.setBiome(arcticbiome.Boreal_Forest.toString());
-                        t.setColor(70, 112, 71);
+                        t.setColor(70, 112, 90);
 
                     }
                     else if (elevation == 3 && humidity == 2){
                         t.setBiome(arcticbiome.Taiga.toString());
-                        t.setColor(100, 145, 83);
+                        t.setColor(83, 145, 118);
 
                     }
                     else if (elevation == 4 && (humidity == 1 | humidity == 2)){
@@ -107,12 +115,20 @@ public class Whittiker {
                         Tile neigh = tilesWithColors.get(0);
                         for(Integer n: t.getNeighborsList()){
                             if (tilesWithColors.get(n).getTiletype().equals("land")){
-                                neigh = tilesWithColors.get(n);
-                                break;
+                                if (!tilesWithColors.get(n).getBiome().equals("")){
+                                    neigh = tilesWithColors.get(n);
+                                    t.setBiome(neigh.getBiome());
+                                    t.setColor(neigh.getR(),neigh.getG(),neigh.getB());
+                                    break;
+                                }
+                                else{
+                                    t.setBiome(arcticbiome.Alpine_Tundra.toString());
+                                    t.setColor(190, 190, 190);
+                                }
                             }
+                            
                         }
-                        t.setBiome(neigh.getBiome());
-                        t.setColor(neigh.getR(),neigh.getG(),neigh.getB());
+                       
                     }
 
                 }
@@ -128,27 +144,27 @@ public class Whittiker {
 
                     if (elevation == 1 && (humidity == 1 | humidity == 2)){
                         t.setBiome(grasslandbiome.Desert_Scrub.toString());
-                        t.setColor(232, 211, 162);
+                        t.setColor(201, 134, 10);
 
                     }
                     else if (elevation == 2 && humidity == 2){
                         t.setBiome(grasslandbiome.Savanna.toString());
-                        t.setColor(205, 184, 121);
+                        t.setColor(161,95,62);
 
                     }
                     else if (elevation == 3 && (humidity == 2 | humidity == 3)){
                         t.setBiome(grasslandbiome.Temperate_Grassland.toString());
-                        t.setColor(175, 197, 122);
+                        t.setColor(101, 122, 56);
 
                     }
                     else if (elevation == 4 && (humidity == 2 | humidity == 3)){
                         t.setBiome(grasslandbiome.Tropical_Grassland.toString());
-                        t.setColor(165, 190, 111);
+                        t.setColor(83, 102, 42);
 
                     }
                     else if (elevation == 5 && humidity == 3){
                         t.setBiome(grasslandbiome.Temperate_Forest.toString());
-                        t.setColor(97, 155, 129);
+                        t.setColor(50, 64, 19);
 
                     }
                     else{
@@ -156,12 +172,19 @@ public class Whittiker {
                         Tile neigh = tilesWithColors.get(0);
                         for(Integer n: t.getNeighborsList()){
                             if (tilesWithColors.get(n).getTiletype().equals("land")){
-                                neigh = tilesWithColors.get(n);
-                                break;
+                                if (!tilesWithColors.get(n).getBiome().equals("")){
+                                    neigh = tilesWithColors.get(n);
+                                    t.setBiome(neigh.getBiome());
+                                    t.setColor(neigh.getR(),neigh.getG(),neigh.getB());
+                                    break;
+                                }
+                                else{
+                                    t.setBiome(grasslandbiome.Temperate_Grassland.toString());
+                                    t.setColor(101, 122, 56);
+                                }
                             }
+                            
                         }
-                        t.setBiome(neigh.getBiome());
-                        t.setColor(neigh.getR(),neigh.getG(),neigh.getB());
                     }
 
                 }
@@ -169,7 +192,6 @@ public class Whittiker {
             }
 
         }
-
 
         IslandMesh Mesh = new IslandMesh(aMesh.getWidth(), aMesh.getHeight(), aMesh.getCornersList(), aMesh.getEdgesList(), tilesWithColors);
 

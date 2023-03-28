@@ -11,7 +11,7 @@ public class Tile {
     private boolean aquifer = false;
     private int humidity = 1;
     private boolean marked;
-    private String biome;
+    private String biome = "";
 
     public Tile(List<Integer> edge, List<Integer> neighbor, int centroid, List<Integer> corners) {
         this.edge = edge;
