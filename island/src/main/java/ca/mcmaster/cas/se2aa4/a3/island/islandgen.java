@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.*;
 
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
-import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.ElevationBuildable;
+import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.Elevation;
 import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.volcano;
 import ca.mcmaster.cas.se2aa4.a3.island.biomes.Whittiker;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
@@ -32,14 +32,14 @@ public class islandgen{
             }
         } */
         Lake lake = new Lake(Integer.parseInt(options.getOrDefault(Configuration.LAKE,"0")));
-        lake.createLakes(tilesWithColors);
+        lake.createLakes(tilesWithColors,Integer.parseInt(options.getOrDefault(Configuration.SEED, "0")));
         Aquifers aquifers = new Aquifers(Integer.parseInt(options.getOrDefault(Configuration.AQUIFERS,"0")));
 
-        HashSet <Integer> aquiferlist = aquifers.createAquifers(tilesWithColors);
-        volcano volcano = new volcano(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL,"5")));
-        aMesh = volcano.setElevation(aMesh);
+        HashSet <Integer> aquiferlist = aquifers.createAquifers(tilesWithColors,Integer.parseInt(options.getOrDefault(Configuration.SEED, "0")));
+        Elevation elevation = new Elevation(options.getOrDefault(Configuration.ALTITUDE,"volcano"));
+        aMesh = elevation.create(aMesh);
         River river = new River(Integer.parseInt(options.getOrDefault(Configuration.RIVERS,"0")));
-        aMesh = river.createRivers(aMesh);
+        aMesh = river.createRivers(aMesh,Integer.parseInt(options.getOrDefault(Configuration.SEED, "0")));
         Soil soil = new Soil(options.getOrDefault(Configuration.SOIL,"normal"));
         soil.getHumidity(aquiferlist, tilesWithColors, aMesh.getEdgesList());
         Whittiker biome = new Whittiker(options.getOrDefault(Configuration.BIOME,"tropical"));
@@ -60,6 +60,7 @@ public class islandgen{
                 t.setColor(colorCode[0],colorCode[1],colorCode[2]);
             }
         } */
+        
 
 
     IslandMesh Mesh = new IslandMesh(aMesh.getWidth(), aMesh.getHeight(), aMesh.getCornersList(), aMesh.getEdgesList(), aMesh.getTilesList());

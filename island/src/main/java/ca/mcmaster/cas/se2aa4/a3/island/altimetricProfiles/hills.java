@@ -9,20 +9,8 @@ import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.NoiseGen;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 
-public class hills implements ElevationBuildable{
-    hills(Map<String, String> options){
-        this(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL, "4")));
-
-        System.out.print(options);
-    }
-
-    private int levels;
-
-    public hills(int levels){
-        this.levels = levels;
-    }
-
-    public IslandMesh setElevation(IslandMesh aMesh){
+public class hills {
+    public static IslandMesh setElevation(IslandMesh aMesh){
         List<Tile> tilesWithElevation = new ArrayList<>(aMesh.getTilesList());
         List<Corner> cornersWithElevation = new ArrayList<>(aMesh.getCornersList());
 

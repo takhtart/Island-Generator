@@ -8,20 +8,8 @@ import java.util.Map;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 
-public class volcano implements ElevationBuildable{
-    volcano(Map<String, String> options){
-        this(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL, "5")));
-
-        System.out.print(options);
-    }
-
-    private int levels;
-
-    public volcano(int levels){
-        this.levels = levels;
-    }
-
-    public IslandMesh setElevation(IslandMesh aMesh){
+public class volcano{
+    public static IslandMesh setElevation(IslandMesh aMesh){
         List<Tile> tilesWithElevation = new ArrayList<>(aMesh.getTilesList());
         List<Corner> cornersWithElevation = new ArrayList<>(aMesh.getCornersList());
         
@@ -74,7 +62,7 @@ public class volcano implements ElevationBuildable{
             }
         }
         
-        double split = maxDistance / levels;
+        double split = maxDistance / 5;
         for (Corner c: cornersWithElevation){
             if (c.isLandCorner()){
                 double minDistance = aMesh.getHeight();
@@ -90,7 +78,7 @@ public class volcano implements ElevationBuildable{
                     }
 
                 }
-                for (int i = levels; i >= 1; i--){
+                for (int i = 5; i >= 1; i--){
                     if (minDistance <= (split*i)){
                         c.setElevation(i);
                     }
@@ -123,12 +111,12 @@ public class volcano implements ElevationBuildable{
                 }
                 average = Math.round(elevationSum / t.getCorners().size());
 
-               /*  for (int i = levels; i >= 1; i--){
+                for (int i = 5; i >= 1; i--){
                     if (average == i){
                         t.setElevation(i);
-                        t.setColor(t.getR()+((150/levels)*i),t.getG(),t.getB());
+                        //t.setColor(t.getR()+(30*i),t.getG(),t.getB());
                     }
-                } */
+                }
 
 
 

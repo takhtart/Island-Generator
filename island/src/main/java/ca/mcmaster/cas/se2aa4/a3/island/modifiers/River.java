@@ -12,7 +12,7 @@ public class River {
         this.rivers = rivers;
     }
     
-    public IslandMesh createRivers (IslandMesh aMesh){
+    public IslandMesh createRivers (IslandMesh aMesh, int seed){
         List<Tile> tilesWithColors = aMesh.getTilesList();
         List<Corner> cornersWithColors = aMesh.getCornersList();
         List<Edge> edgesWithColors = aMesh.getEdgesList();
@@ -29,6 +29,14 @@ public class River {
             rivers = lands.size();
         }
         Random bag = new Random();
+        if(seed == 0){ 
+            seed = bag.nextInt(1000);
+            bag.setSeed(seed);
+            System.out.println(seed);
+        }
+        else{
+            bag.setSeed(seed);
+        }
         List<Integer> random = new ArrayList<>();
         
         for (int i = 0; i<rivers; i++){

@@ -28,24 +28,24 @@ public class YinYangGen implements Buildable{
 
     public IslandMesh build(IslandMesh aMesh){
 
-        int fillCenterX_Right = 375;
+        int fillCenterX_Right = (int)((aMesh.getWidth()/2) * (0.75));
         int fillCenterY_Right = (int)(aMesh.getHeight()/2);
-        int fillCenterX_Left = 650;
+        int fillCenterX_Left = (int)((aMesh.getWidth()/2) * (1.3));
         int fillCenterY_Left = (int)(aMesh.getHeight()/2) ;
         int fillRadius = this.outerRadius;
 
         int outerRadius = this.outerRadius;
-        int centerXRight = 625;
+        int centerXRight = (int)((aMesh.getWidth()/2) * (1.25));
         int centerYRight = (int)(aMesh.getHeight()/2);
-        int centerXLeft = 375;
+        int centerXLeft = (int)((aMesh.getWidth()/2) * (0.75));
         int centerYLeft = (int)(aMesh.getHeight()/2);
 
-        int headCenterX_Left = 400;
-        int headCenterY_Left = 350;
-        int headCenterX_Right = 700;
-        int headCenterY_Right = 650;
+        int headCenterX_Left = (int)((aMesh.getWidth()/2) * (0.8));
+        int headCenterY_Left = (int)((aMesh.getHeight()/2) * (0.7));
+        int headCenterX_Right = (int)((aMesh.getWidth()/2) * (1.4));
+        int headCenterY_Right = (int)((aMesh.getHeight()/2) * (1.3));
         int headSize = this.outerRadius/2;
-        int lagoonSize = 75;
+        int lagoonSize = this.outerRadius/5;
 
 
         //Property land = Property.newBuilder().setKey("tileType").setValue("land").build();

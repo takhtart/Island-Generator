@@ -7,20 +7,8 @@ import java.util.Map;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 
-public class artic implements ElevationBuildable{
-    artic(Map<String, String> options){
-        this(Integer.parseInt(options.getOrDefault(Configuration.ELEVATIONLEVEL, "4")));
-
-        System.out.print(options);
-    }
-
-    private int levels;
-
-    public artic(int levels){
-        this.levels = levels;
-    }
-
-    public IslandMesh setElevation(IslandMesh aMesh){
+public class artic{
+    public static IslandMesh setElevation(IslandMesh aMesh){
         double centerX = aMesh.getHeight() / 2;
         double centerY = aMesh.getWidth() / 2;
 

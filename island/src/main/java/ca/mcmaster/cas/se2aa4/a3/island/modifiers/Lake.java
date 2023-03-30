@@ -12,7 +12,7 @@ public class Lake {
         this.lakes = lakes;
     }
     
-    public void createLakes (List<Tile> tilesWithColors){
+    public void createLakes (List<Tile> tilesWithColors, int seed){
         
         List<Integer> lands = new ArrayList<>();
         int counter = 0;
@@ -26,6 +26,14 @@ public class Lake {
             lakes = lands.size();
         }
         Random bag = new Random();
+        if(seed == 0){   
+            seed = bag.nextInt(1000);
+            bag.setSeed(seed);
+            System.out.print("\nSeed for island is " + seed);
+        }
+        else{
+            bag.setSeed(seed);
+        }
         List<Integer> random = new ArrayList<>();
         for (int i = 0; i<lakes; i++){
             int randInt = lands.get(bag.nextInt(lands.size()));
