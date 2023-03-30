@@ -47,28 +47,23 @@ public class NoiseGen implements Buildable{
             double distance = Math.sqrt(Math.pow((centroidX-centerX),2)+Math.pow((centroidY-centerY),2));
 
             double noiseval = noise.getValue(centroidX, centroidY)*(1/distance);
-            //System.out.println(noiseval);
             if(centroidX > 100 && centroidX < width - 100 && centroidY > 100 && centroidY < length - 100){
                 if (noiseval > 0.0){
-                    //String colorCode = 45 + "," + 173 + "," + 79;
-                    //t.setColor(45, 173, 79);
                     t.setTileType("land");
     
                 }
                 else{
-                    //String colorCode = 45 + "," + 49 + "," + 173;
                     t.setColor(45, 49, 173);
                     t.setTileType("ocean");
                 }
             }
              else{
-                //String colorCode = 45 + "," + 49 + "," + 173;
                 t.setColor(45, 49, 173);
                 t.setTileType("ocean");
             }
 
         }
-
+        
         IslandMesh Mesh = new IslandMesh(aMesh.getWidth(), aMesh.getHeight(), aMesh.getCornersList(), aMesh.getEdgesList(), aMesh.getTilesList());
 
         return Mesh;

@@ -21,14 +21,14 @@ public class islandgen{
         Map<String, String> options = config.export();
 
         if (options.containsKey(Configuration.SEED)){
-            Seed seedstring = new Seed();
+            Seed seedstring = new Seed(config);
             String[] splitseed = seedstring.Split(options.get(Configuration.SEED), 6);
             for (int i = 0; i < splitseed.length; i++) {
                 seed.add(splitseed[i]);
             }
         }
         else{
-            Seed seedstring = new Seed();
+            Seed seedstring = new Seed(config);
             String[] splitseed = seedstring.Split(seedstring.generate(), 6);
             for (int i = 0; i < splitseed.length; i++) {
                 seed.add(splitseed[i]);
@@ -47,7 +47,7 @@ public class islandgen{
         soil.getHumidity(aquiferlist, tilesWithColors, aMesh.getEdgesList());
         Whittiker biome = new Whittiker(options.getOrDefault(Configuration.BIOME,"tropical"));
         aMesh = biome.generatebiomes(aMesh);
-        System.out.println("Seed: " + seed.get(0) + seed.get(1) + seed.get(2));
+        System.out.println("Seed (-seed): " + seed.get(0) + seed.get(1) + seed.get(2));
         
 
 

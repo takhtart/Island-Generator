@@ -10,7 +10,7 @@ public class Noise {
     private int noiseSeed;
 
     public void generate(int seed){
-        System.out.println("Seed: " + seed);
+        System.out.println("Shape Seed (-ns): " + seed);
         JNoise noisePipeline  = JNoise.newBuilder().perlin(seed,Interpolation.COSINE,FadeFunction.IMPROVED_PERLIN_NOISE).clamp(0.0, 1.0).scale(1/400.0).build();
 
         noise = noisePipeline;
@@ -27,7 +27,7 @@ public class Noise {
      
         Random bag = new Random();
         int seed = bag.nextInt(3000,999999999);
-        System.out.println("Seed: " + seed);
+        System.out.println("Shape Seed (-ns): " + seed);
         JNoise noisePipeline  = JNoise.newBuilder().perlin(seed,Interpolation.COSINE,FadeFunction.IMPROVED_PERLIN_NOISE).clamp(0.0, 1.0).scale(1/400.0).build(); 
 
         noise = noisePipeline;

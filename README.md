@@ -1,4 +1,4 @@
-# Assignment A2: Mesh Generator
+# Assignment A3: Island Generator
 
   - Author #1 [takhtart@mcmaster.ca]
   - Author #2 [sok13@mcmaster.ca]
@@ -8,28 +8,49 @@
 
 Grid Mesh Procedure:
 `mvn package`
-`java -jar generator/target/2aa4.mesh.generator-jar-with-dependencies.jar generator/sample.mesh -grid`
-`java -jar visualizer/target/2aa4.mesh.visualizer-jar-with-dependencies.jar generator/sample.mesh visualizer/sample.svg`
-
-Description/Scenario:
-In order to generate a full grid mesh, the user would need to first ensure they are in the correct directory of `a2---mesh-generator-team-38/`.Then type the command `mvn package`. Next, the generator can be ran using the command `java -jar generator/target/2aa4.mesh.generator-jar-with-dependencies.jar generator/sample.mesh -grid`. Finally, the visualizer can be ran by typing in `java -jar visualizer/target/2aa4.mesh.visualizer-jar-with-dependencies.jar generator/sample.mesh visualizer/sample.svg`, and the user would be able to find a full grid mesh consisting of a default of 25 by 25 polygons. If the user wishes to specify the number of polygons to be generated, a `-polygons (insert number of polygons)` flag can be added when the generator command is called. Furthermore, if the user wishes to change the transparency of the colors of the segments, vertices and polygons, a `-transparency (transparency number)` flag can be added when the generator command is called. The transparency number ranges from 0-255. Additionally, debug mode can be switched into using the `-X` flag when running the visualizer command. Ensure all 3 command lines in the procedure are ran when adding or removing any flags.
+`java -jar generator/target/2aa4.mesh.generator-jar-with-dependencies.jar -k grid -h 1000 -w 1000 -p 1000 -s 20 -o img/grid.mesh`
+`java -jar visualizer/target/2aa4.mesh.visualizer-jar-with-dependencies.jar img/sample.mesh visualizer/sample.svg`
 
 Irregular Mesh Procedure:
 `mvn package`
-`java -jar generator/target/2aa4.mesh.generator-jar-with-dependencies.jar generator/sample.mesh`
-`java -jar visualizer/target/2aa4.mesh.visualizer-jar-with-dependencies.jar generator/sample.mesh visualizer/sample.svg`
+`java -jar generator/target/2aa4.mesh.generator-jar-with-dependencies.jar -k irregular -h 1000 -w 1000 -p 1000 -s 20 -o img/irregular.mesh`
+`java -jar visualizer/target/2aa4.mesh.visualizer-jar-with-dependencies.jar img/sample.mesh visualizer/sample.svg`
 
-Description/Scenario:
-In order to generate an irregular mesh, follow the previous procedure but remove the `-grid` flag before you call the generator. The user would then be able to observe an irregular mesh consisting of a default of 100 polygons and a relaxation of 20. Once again, the `-polygons (insert number of polygons)` flag can be used when running the generator. If the user wishes to change the relaxation of the grid, the `-relax (insert number of relxations)` flag can be used when running the generator. `-transparency (transparency number)` and debug mode `-X` can also be used for the irregular mesh when running the generator and visualizer respectively. Ensure all 3 command lines in the procedure are ran when adding or removing any flags.
+One can run the generator with `-help` as option to see the different command line arguments that are available
+
+Island Mesh Procedure:
+
+For MVP Release:
+`java -jar island/target/2aa4.mesh.island-jar-with-dependencies.jar -i img/irregular.mesh <options> -o img/island.mesh`
+`java -jar visualizer/target/2aa4.mesh.visualizer-jar-with-dependencies.jar img/island.mesh visualizer/sample.svg`
+
+One can run the generator with `-help` as option to see the different command line arguments that are available.
+
+`-mode lagoon` is required to generate the island. Optional: Can Control Inner And Outer Radius of Shape `-help` for more info.
+Optional commands: `-ir` inner radius, `-or` outer radius.
+
+For Final Release:
+
+For the Island Mesh The Following Commands Are Mandatory:
+`-shape` (Choosing Shape) (`-mode` is deprecated)
+
+**For Reproductability:
+If using `-shape random` it will provide you with a seed that can be invoked using `-ns <seed value>` (To Reproduce Island)
+When Generating Lakes, Rivers And Aquifers a seed it will be provided you with a seed that can be invoked using `-seed <seed value>`
+NOTE: the -seed command only controls positional randomness, when calling the seed you still need to indicate the amount of rivers, lakes, and aquifers that need to be generated (as the point of the seed is to control randomness so that all the decisions taken are the same when regenerating)
+
+NOTE: that when regenerating the irregular mesh or grid mesh, the reproductability of lakes, rivers, and aquifers will not remain the same (due to order of polygons changing), You must use the initial irregular/grid mesh to reproduce lakes, rivers, and aquifers in the same positions.
+
+One can run the generator with `-help` as option to see the different command line arguments that are available.
 
 ### Installation instructions
 
-This product is handled by Maven, as a multi-module project. We assume here that you have cloned the project in a directory named `A2`
+This product is handled by Maven, as a multi-module project. We assume here that you have cloned the project in a directory named `A3`
 
 To install the different tooling on your computer, simply run:
 
 ```
-mosser@azrael A2 % mvn install
+mosser@azrael A3 % mvn install
 ```
 
 After installation, you'll find an application named `generator.jar` in the `generator` directory, and a file named `visualizer.jar` in the `visualizer` one. 
@@ -69,13 +90,11 @@ To viualize the SVG file:
 
 When you develop features and enrich the product, remember that you have first to `package` (as in `mvn package`) it so that the `jar` file is re-generated by maven.
 
-## Backlog
-
 ### Definition of Done
 
 -- Feature is Fully Implemented And Tested --
 
-### Product Backlog
+### Backlog
 
 | Id | Feature title | Who? | Start | End | Status |
 |:--:|---------------|------|-------|-----|--------|
@@ -87,7 +106,7 @@ When you develop features and enrich the product, remember that you have first t
 | F06 | Aquifers | Kyen | 03/24/2023 | 03/25/2023 | D | 
 | F07 | Soil absorption | Aswin | 03/26/2023 | 03/26/2023 | D |
 | F08 | Biomes/Whittaker diagrams | Tarnveer | 03/24/2023 | 03/26/2023 | D |
-| F09 | Reproductibility | Team | 03/15/2023 | 03/26/2023 | D | 
+| F09 | Reproductibility | Tarnveer | 03/15/2023 | 03/29/2023 | D | 
 
 
 

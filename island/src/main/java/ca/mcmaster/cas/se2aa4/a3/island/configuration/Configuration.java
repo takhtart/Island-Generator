@@ -108,20 +108,20 @@ public class Configuration {
     private Options options() {
         Options options = new Options();
         options.addOption(new Option(INPUT, true, "Input Mesh"));
-        options.addOption(new Option(OUTPUT, true, "Output File Name"));
-        options.addOption(new Option(SHAPE, true, "Island Type"));
-        options.addOption(new Option(INNERRADIUS, true, "Inner Radius"));
-        options.addOption(new Option(OUTERRADIUS, true, "Outer Radius"));
+        options.addOption(new Option(OUTPUT, true, "Output File Name (MANDATORY)"));
+        options.addOption(new Option(SHAPE, true, "Island Type Options: cross, lagoon, yinyang, random"));
+        options.addOption(new Option(INNERRADIUS, true, "Inner Radius <OPT> Used by: lagoon, cross"));
+        options.addOption(new Option(OUTERRADIUS, true, "Outer Radius <OPT> Used by lagoon, cross, yinyang"));
         options.addOption(new Option(RADIUS, true, "Single Radius"));
-        options.addOption(new Option(NOISESEED, true, "NoiseGen Seed"));
+        options.addOption(new Option(NOISESEED, true, "NoiseGen Seed (Controls Randomness Of Shape) Used by: random"));
         options.addOption(new Option(LAGOON, false, "Generate Lagoon"));
         options.addOption(new Option(LAKE, true, "Generate Lakes"));
         options.addOption(new Option(AQUIFERS, true, "Generate Aquifers"));
         options.addOption(new Option(RIVERS, true, "Generate Rivers"));
-        options.addOption(new Option(ALTITUDE, true, "Altimetric Profile"));
-        options.addOption(new Option(SOIL, true, "Soil Selection"));
-        options.addOption(new Option(BIOME, true, "Whittiker Selection"));
-        options.addOption(new Option(SEED, true, "Seed Selection"));
+        options.addOption(new Option(ALTITUDE, true, "Altimetric Profile Options:artic, hills, volcano (default)"));
+        options.addOption(new Option(SOIL, true, "Soil Selection Options: arid, moist, normal (default)"));
+        options.addOption(new Option(BIOME, true, "Whittiker Selection Options: arctic, grassland, tropical (default)"));
+        options.addOption(new Option(SEED, true, "Seed Selection (Controls Randomness Of Rivers, Lakes And Aquifers)"));
         // Global help
         options.addOption(new Option(HELP, false, "print help message"));
         return options;
