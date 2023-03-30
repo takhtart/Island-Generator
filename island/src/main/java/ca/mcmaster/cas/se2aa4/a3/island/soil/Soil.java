@@ -17,7 +17,6 @@ public class Soil {
             soil.getHumidity(aquiferList, tilesWithColors, edgesWithColors);
         }
         if (soil.equals("normal")){
-            System.out.println("test");
             NormalSoil soil = new NormalSoil();
             soil.getHumidity(aquiferList, tilesWithColors, edgesWithColors);
         }
