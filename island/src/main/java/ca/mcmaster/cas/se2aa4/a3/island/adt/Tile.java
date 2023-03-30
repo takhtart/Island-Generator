@@ -5,7 +5,9 @@ import java.util.List;
 public class Tile {
     private final int centroid;
     private final List<Integer> edge, neighbor, corners;
-    private int red,green,blue = 255;
+    private int red = 255;
+    private int green = 255;
+    private int blue = 255;
     private String tiletype;
     private int elevation = 1;
     private boolean aquifer = false;

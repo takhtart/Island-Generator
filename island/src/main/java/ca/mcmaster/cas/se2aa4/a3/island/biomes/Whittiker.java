@@ -33,22 +33,17 @@ public class Whittiker {
                         t.setColor(255, 221, 102);
 
                     }
-                    else if (elevation == 2 && humidity == 2){
-                        t.setBiome(tropicalbiome.Savanna.toString());
-                        t.setColor(161,95,62);
-
-                    }
-                    else if (elevation == 3 && (humidity == 2 | humidity == 3)){
+                    else if ((elevation >=1 && elevation <= 3) && (humidity >= 2)){
                         t.setBiome(tropicalbiome.Seasonal_Forest.toString());
                         t.setColor(157, 200, 121);
 
                     }
-                    else if (elevation == 4 && (humidity == 2 | humidity == 3)){
+                    else if (elevation == 4 && (humidity >= 2)){
                         t.setBiome(tropicalbiome.Montane_Forest.toString());
                         t.setColor(109, 156, 90);
 
                     }
-                    else if (elevation == 5 && humidity == 3){
+                    else if (elevation == 5 && humidity >= 2){
                         t.setBiome(tropicalbiome.Tropical_Rainforest.toString());
                         t.setColor(40, 85, 44);
 
@@ -74,9 +69,9 @@ public class Whittiker {
                     }
 
 
-                    /* System.out.println(t.getBiome());
+                    System.out.println(t.getBiome());
                     System.out.println(t.getElevation() + " " + t.getHumidity());
-                    System.out.println(t.getStringColor()); */
+                    System.out.println(t.getStringColor());
                     
                     }
 
@@ -92,26 +87,26 @@ public class Whittiker {
                     int humidity = t.getHumidity();
 
                     if (elevation == 1 && humidity == 1){
-                        t.setBiome(arcticbiome.Temperate_Rainforest.toString());
-                        t.setColor(23, 87, 77);
-
+                        t.setBiome(arcticbiome.Alpine_Tundra.toString());
+                        t.setColor(255, 255, 255);
                     }
-                    else if (elevation == 2 && (humidity == 2 | humidity == 3)){
+                    else if (elevation == 2 && humidity >= 2){
                         t.setBiome(arcticbiome.Boreal_Forest.toString());
                         t.setColor(70, 112, 90);
 
                     }
-                    else if (elevation == 3 && humidity == 2){
+                    else if (elevation == 3 && humidity >= 2){
                         t.setBiome(arcticbiome.Taiga.toString());
                         t.setColor(83, 145, 118);
 
                     }
-                    else if (elevation == 4 && (humidity == 1 | humidity == 2)){
-                        t.setBiome(arcticbiome.Alpine_Tundra.toString());
-                        t.setColor(190, 190, 190);
+                    else if (elevation == 4 && humidity <= 2){
+                        
+                        t.setBiome(arcticbiome.Temperate_Rainforest.toString());
+                        t.setColor(23, 87, 77);
 
                     }
-                    else if (elevation == 5 && humidity == 1){
+                    else if (elevation == 5 && humidity >= 1){
                         t.setBiome(arcticbiome.Arctic_Tundra.toString());
                         t.setColor(238, 238, 238);
 
@@ -151,27 +146,27 @@ public class Whittiker {
                     int elevation = t.getElevation();
                     int humidity = t.getHumidity();
 
-                    if (elevation == 1 && (humidity == 1 | humidity == 2)){
+                    if (elevation == 1 && humidity == 1){
                         t.setBiome(grasslandbiome.Desert_Scrub.toString());
-                        t.setColor(201, 134, 10);
+                        t.setColor(130, 156, 128);
 
                     }
-                    else if (elevation == 2 && humidity == 2){
+                    else if (elevation == 2 && humidity >= 2){
                         t.setBiome(grasslandbiome.Savanna.toString());
-                        t.setColor(161,95,62);
+                        t.setColor(95, 171, 89);
 
                     }
-                    else if (elevation == 3 && (humidity == 2 | humidity == 3)){
+                    else if (elevation == 3 && humidity >= 2){
                         t.setBiome(grasslandbiome.Temperate_Grassland.toString());
                         t.setColor(101, 122, 56);
 
                     }
-                    else if (elevation == 4 && (humidity == 2 | humidity == 3)){
+                    else if (elevation == 4 && humidity >= 2){
                         t.setBiome(grasslandbiome.Tropical_Grassland.toString());
                         t.setColor(83, 102, 42);
 
                     }
-                    else if (elevation == 5 && humidity == 3){
+                    else if (elevation == 5 && humidity >= 2){
                         t.setBiome(grasslandbiome.Temperate_Forest.toString());
                         t.setColor(50, 64, 19);
 

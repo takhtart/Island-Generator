@@ -22,8 +22,6 @@ public class YinYangGen implements Buildable{
 
     YinYangGen(Map<String, String> options){
         this(Integer.parseInt(options.getOrDefault(Configuration.OUTERRADIUS, "350")));
-
-        System.out.print(options);
     }
 
     public IslandMesh build(IslandMesh aMesh){

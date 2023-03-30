@@ -3,19 +3,25 @@ package adtTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
-import ca.mcmaster.cas.se2aa4.a3.island.adt.Tile;
+import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 
 public class TileTest {
+    List<Integer> edges = new ArrayList<>();
+    List<Integer> corners = new ArrayList<>();
+    List<Integer> neighbors = new ArrayList<>();
 
-    Tile t1 = new Tile(null, null, 0, null);
-    Tile t2 = new Tile(null, null, 0, null);
+    Tile t1 = new Tile(edges, neighbors, 0, corners);
+    Tile t2 = new Tile(edges, neighbors, 0, corners);
     
 
     @Test
     public void testColor(){
-        assertEquals("0,0,0", t1.getStringColor());
+        assertEquals("255,255,255", t1.getStringColor());
         assertNotEquals("0,255,255",t1.getStringColor());
         t1.setColor(0, 255, 255);
         assertEquals(0,t1.getR());
