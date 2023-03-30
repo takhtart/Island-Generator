@@ -40,7 +40,7 @@ public class River {
                     continue;
                 }
                 for (int a: tilesWithColors.get(randInt).getNeighborsList()){
-                    if (a == random.get(j) || tilesWithColors.get(a).getTiletype() == "ocean" || tilesWithColors.get(a).getTiletype() == "lake" || tilesWithColors.get(a).getTiletype() == "lagoon"){
+                    if (a == random.get(j) || tilesWithColors.get(a).getTiletype().equals("ocean") || tilesWithColors.get(a).getTiletype().equals("lake") || tilesWithColors.get(a).getTiletype().equals("lagoon")){
                         randInt = lands.get(bag.nextInt(lands.size()));
                         j = -1;
                         break;
@@ -63,16 +63,32 @@ public class River {
         int i = 0;
         int j = 0;
         List<Edge> start = new ArrayList<>();
+        List<List<Edge>> meshRivers = new ArrayList<>();
+        List<Edge> unmarkedEdges = new ArrayList<>();
+        for(Edge edge: edgesWithColors){
+            unmarkedEdges.add(edge);
+        }
         for (Edge e: edgesWithColors){
+            List<Edge> river = new ArrayList<>();
             if(rivers == 0){
                 break;
             }
             if (i == random.get(j)){
-                riverRecursion(edgesWithColors, cornersWithColors, tilesWithColors, e, 3);
+                riverRecursion(edgesWithColors, cornersWithColors, tilesWithColors, e, meshRivers, 3);
+                for (Edge edge: edgesWithColors){
+                    if (edge.isMarked() && unmarkedEdges.indexOf(edge) != -1){
+                        river.add(edge);
+                        unmarkedEdges.remove(edge);
+                    }
+                }
+                
                 start.add(e);
-                e.setColor(0, 0, 0);
-                e.setThickness(4);
-                edgesWithColors.set(i,e);
+                if(river.size() != 1){
+                    meshRivers.add(river);
+                    e.setColor(45, 0, 113);
+                    e.setThickness(4);
+                    edgesWithColors.set(i,e);
+                }
                 j++;
                 if(j==random.size()){
                     break;
@@ -82,6 +98,20 @@ public class River {
 
             i++;
         }
+
+        
+        /* for(List<Edge> list:meshRivers){
+            for(Edge riverEdge: list){
+                for(List<Edge> l:meshRivers){
+                    for(Edge e: l){
+                        if((riverEdge.getV1Idx() == e.getV2Idx() || riverEdge.getV2Idx() == e.getV2Idx() || riverEdge.getV1Idx() == e.getV1Idx() || riverEdge.getV2Idx() == e.getV1Idx()) && !list.contains(e)){
+                            e.setThickness(2);
+                        }
+                    }
+                }
+            }
+        } */
+
         i = 0;
         for(Edge e: start){
             e.setUnmarked();
@@ -90,14 +120,17 @@ public class River {
             if(e.isMarked()){
                 e.setEdgeType("river");
                 e.setColor(45, 0, 173);
-                e.setThickness(4);
+                e.setThickness(e.getThickness() + 4);
                 edgesWithColors.set(i,e);
-            }
-            else{
-                e.setColor(0, 0, 0);
             }
             i++;
         }
+        /* for(List<Edge> list:meshRivers){
+            for(Edge edge: list){
+                System.out.print(edge.getV1Idx()+", ");
+            }
+            System.out.println();
+        } */
         
         
         IslandMesh Mesh = new IslandMesh(aMesh.getWidth(), aMesh.getHeight(), cornersWithColors, edgesWithColors, aMesh.getTilesList());
@@ -105,7 +138,7 @@ public class River {
         return Mesh;
     }
 
-    public Edge riverRecursion(List<Edge> edgesWithColors, List<Corner> cornersWithColors, List<Tile> tilesWithColors, Edge e, int v){
+    public Edge riverRecursion(List<Edge> edgesWithColors, List<Corner> cornersWithColors, List<Tile> tilesWithColors, Edge e, List<List<Edge>> meshRivers, int v){
         List<Edge> sharedEdges = new ArrayList<>();
         e.setMarked();
         for (Edge a: edgesWithColors){
@@ -134,7 +167,6 @@ public class River {
                 return i;
             }
         } 
-        List<Edge> neighbours = new ArrayList<>();
         
         for (Edge i: sharedEdges){
             double elevationI = (cornersWithColors.get(i.getV1Idx()).getElevation()+cornersWithColors.get(i.getV2Idx()).getElevation())/2;
@@ -146,7 +178,7 @@ public class River {
                 else{
                     v = 1;
                 }
-                e = riverRecursion(edgesWithColors, cornersWithColors, tilesWithColors, i, v);
+                e = riverRecursion(edgesWithColors, cornersWithColors, tilesWithColors, i, meshRivers, v);
                     String tileType = "land";
                     for (Tile t: tilesWithColors){
                         for(int b: t.getSegmentsList()){
@@ -159,7 +191,7 @@ public class River {
                         break;
                     }
                     else{
-                        e.setUnmarked();
+                        i.setUnmarked();
                     }
                 
             }
