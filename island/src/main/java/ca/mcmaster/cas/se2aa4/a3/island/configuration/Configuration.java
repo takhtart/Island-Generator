@@ -23,7 +23,7 @@ public class Configuration {
     public static final String ALTITUDE = "altitude";
     public static final String SOIL = "soil";
     public static final String BIOME = "biome";
-    public static final String SEED = "seed";
+
 
     private CommandLine cli;
 
@@ -79,9 +79,6 @@ public class Configuration {
     public String biome(){
         return this.cli.getOptionValue(BIOME);
     }
-    public String seed(){
-        return this.cli.getOptionValue(SEED);
-    }
 
     private void help() {
         HelpFormatter formatter = new HelpFormatter();
@@ -121,7 +118,6 @@ public class Configuration {
         options.addOption(new Option(ALTITUDE, true, "Altimetric Profile"));
         options.addOption(new Option(SOIL, true, "Soil Selection"));
         options.addOption(new Option(BIOME, true, "Whittiker Selection"));
-        options.addOption(new Option(SEED, true, "Seed Selection"));
         // Global help
         options.addOption(new Option(HELP, false, "print help message"));
         return options;

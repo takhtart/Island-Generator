@@ -10,7 +10,7 @@ public class Aquifers {
         this.aquifers = aquifers;
     }
 
-    public HashSet<Integer> createAquifers(List<Tile> tilesWithColors, int seed){
+    public HashSet<Integer> createAquifers(List<Tile> tilesWithColors){
         List<Integer> landTiles = new ArrayList<>();
         HashSet<Integer> aquiferList = new HashSet<>();
 
@@ -26,14 +26,7 @@ public class Aquifers {
         }
 
         Random bag = new Random();
-        if(seed == 0){   
-            seed = bag.nextInt(1000);
-            bag.setSeed(seed);
-            System.out.print(seed);
-        }
-        else{
-            bag.setSeed(seed);
-        }
+
         while (aquiferList.size() < aquifers){
             int random = bag.nextInt(landTiles.size());
             aquiferList.add(landTiles.get(random));

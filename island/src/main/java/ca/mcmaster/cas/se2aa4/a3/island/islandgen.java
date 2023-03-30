@@ -32,14 +32,14 @@ public class islandgen{
             }
         } */
         Lake lake = new Lake(Integer.parseInt(options.getOrDefault(Configuration.LAKE,"0")));
-        lake.createLakes(tilesWithColors,Integer.parseInt(options.getOrDefault(Configuration.SEED, "0")));
+        lake.createLakes(tilesWithColors);
         Aquifers aquifers = new Aquifers(Integer.parseInt(options.getOrDefault(Configuration.AQUIFERS,"0")));
 
-        HashSet <Integer> aquiferlist = aquifers.createAquifers(tilesWithColors,Integer.parseInt(options.getOrDefault(Configuration.SEED, "0")));
+        HashSet <Integer> aquiferlist = aquifers.createAquifers(tilesWithColors);
         Elevation elevation = new Elevation(options.getOrDefault(Configuration.ALTITUDE,"volcano"));
         aMesh = elevation.create(aMesh);
         River river = new River(Integer.parseInt(options.getOrDefault(Configuration.RIVERS,"0")));
-        aMesh = river.createRivers(aMesh,Integer.parseInt(options.getOrDefault(Configuration.SEED, "0")));
+        aMesh = river.createRivers(aMesh);
         Soil soil = new Soil(options.getOrDefault(Configuration.SOIL,"normal"));
         soil.getHumidity(aquiferlist, tilesWithColors, aMesh.getEdgesList());
         Whittiker biome = new Whittiker(options.getOrDefault(Configuration.BIOME,"tropical"));
