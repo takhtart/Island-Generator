@@ -1,12 +1,6 @@
 package ca.mcmaster.cas.se2aa4.a3.island.ShapesGen;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
-
-import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.*;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 
 
@@ -46,10 +40,6 @@ public class YinYangGen implements Buildable{
         int lagoonSize = this.outerRadius/5;
 
 
-        //Property land = Property.newBuilder().setKey("tileType").setValue("land").build();
-        //Property ocean = Property.newBuilder().setKey("tileType").setValue("ocean").build();
-        //Property lagoon = Property.newBuilder().setKey("tileType").setValue("lagoon").build();
-        //Property beach = Property.newBuilder().setKey("tileType").setValue("beach").build();
         int[] colorCode = {0,0,0};
         for (Tile p: aMesh.getTilesList()){
             double centroidX = aMesh.getCorner(p.getCentroidIdx()).getX();
@@ -60,7 +50,6 @@ public class YinYangGen implements Buildable{
                 colorCode[0] = 45;
                 colorCode[1] = 173;
                 colorCode[2] = 79;
-                //p.setColor(colorCode[0],colorCode[1],colorCode[2]);
                 p.setTileType("land");
 
             }

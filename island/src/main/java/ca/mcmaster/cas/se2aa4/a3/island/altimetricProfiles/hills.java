@@ -2,12 +2,10 @@ package ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import ca.mcmaster.cas.se2aa4.a3.island.noise.Noise;
 import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.NoiseGen;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
-import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 
 public class hills {
     public static IslandMesh setElevation(IslandMesh aMesh){
@@ -48,21 +46,6 @@ public class hills {
                     }
                 }
 
-                /* if (t.getElevation() == 1){
-                    t.setColor(t.getR()+ 30,t.getG(),t.getB());
-                }
-                else if (t.getElevation() == 2){
-                    t.setColor(t.getR()+ 60,t.getG(),t.getB());
-                }
-                else if (t.getElevation() == 3){
-                    t.setColor(t.getR()+ 90,t.getG(),t.getB());
-                }
-                else if (t.getElevation() == 4){
-                    t.setColor(t.getR()+ 120,t.getG(),t.getB());
-                }
-                else if (t.getElevation() == 5){
-                    t.setColor(t.getR()+ 150,t.getG(),t.getB());
-                }  */
             }
 
         }

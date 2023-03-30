@@ -1,7 +1,6 @@
 package ca.mcmaster.cas.se2aa4.a3.island.biomes;
 
 import java.util.List;
-import java.util.Random;
 
 import ca.mcmaster.cas.se2aa4.a3.island.adt.IslandMesh;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.Tile;
@@ -67,11 +66,6 @@ public class Whittiker {
                             
                         }
                     }
-
-
-                    System.out.println(t.getBiome());
-                    System.out.println(t.getElevation() + " " + t.getHumidity());
-                    System.out.println(t.getStringColor());
                     
                     }
 
@@ -132,9 +126,6 @@ public class Whittiker {
                        
                     }
 
-                    /* System.out.println(t.getBiome());
-                    System.out.println(t.getElevation() + " " + t.getHumidity());
-                    System.out.println(t.getStringColor()); */
                 }
                 
             }
@@ -191,9 +182,6 @@ public class Whittiker {
                         }
                     }
 
-                    /* System.out.println(t.getBiome());
-                    System.out.println(t.getElevation() + " " + t.getHumidity());
-                    System.out.println(t.getStringColor()); */
                 }
                 
             }

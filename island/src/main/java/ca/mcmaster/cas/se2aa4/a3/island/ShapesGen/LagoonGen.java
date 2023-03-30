@@ -1,10 +1,7 @@
 package ca.mcmaster.cas.se2aa4.a3.island.ShapesGen;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.*;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 
@@ -28,7 +25,6 @@ public class LagoonGen implements Buildable{
 
 
     public IslandMesh build(IslandMesh aMesh){
-        List<Tile> polygonsWithColors = new ArrayList<>();
         double centerX = aMesh.getWidth()/2;
         double centerY = aMesh.getHeight()/2;
         System.out.println(this.innerRadius + " " + this.outerRadius);
@@ -42,10 +38,6 @@ public class LagoonGen implements Buildable{
             
 
             if (distance <= outerRadius && distance >= this.innerRadius){
-                /* colorCode[0] = 45;
-                colorCode[1] = 173;
-                colorCode[2] = 79;
-                t.setColor(colorCode[0],colorCode[1],colorCode[2]); */
                 t.setTileType("land");
             }
             else if(distance > this.outerRadius) {

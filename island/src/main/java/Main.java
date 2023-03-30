@@ -5,7 +5,6 @@ import ca.mcmaster.cas.se2aa4.a2.io.Structs.Mesh;
 import ca.mcmaster.cas.se2aa4.a3.island.islandgen;
 import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.Buildable;
 import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.ShapeFactory;
-import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.Elevation;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.IslandMesh;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a3.island.exporter.Exporter;

@@ -2,7 +2,6 @@ package ca.mcmaster.cas.se2aa4.a3.island.modifiers;
 
 import java.util.*;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
-import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 
 public class Lake {
 

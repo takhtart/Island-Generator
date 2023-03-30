@@ -2,11 +2,9 @@ package ca.mcmaster.cas.se2aa4.a3.island.ShapesGen;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Map;
 
 
-import ca.mcmaster.cas.se2aa4.a3.island.ShapesGen.*;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 
@@ -29,7 +27,7 @@ public class Cross implements Buildable{
     }
 
     public IslandMesh build (IslandMesh aMesh){
-    List<Tile> tilesWithColors = new ArrayList();
+    List<Tile> tilesWithColors = new ArrayList<>();
 
     int width = this.width;
     int height = this.height;

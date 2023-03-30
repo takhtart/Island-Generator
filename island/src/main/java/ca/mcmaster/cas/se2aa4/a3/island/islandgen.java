@@ -7,7 +7,6 @@ import java.util.*;
 
 import ca.mcmaster.cas.se2aa4.a3.island.adt.*;
 import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.Elevation;
-import ca.mcmaster.cas.se2aa4.a3.island.altimetricProfiles.volcano;
 import ca.mcmaster.cas.se2aa4.a3.island.biomes.Whittiker;
 import ca.mcmaster.cas.se2aa4.a3.island.configuration.Configuration;
 import ca.mcmaster.cas.se2aa4.a3.island.modifiers.*;
@@ -20,29 +19,16 @@ public class islandgen{
         List<String> seed = new ArrayList<>();
         List<Tile> tilesWithColors = new ArrayList<>(aMesh.getTilesList());
         Map<String, String> options = config.export();
-        
-       /*  for (Tile t: tilesWithColors){
-            if (t.getTiletype().equals("land")){
-                for(Integer n: t.getNeighborsList()){
-                    Tile neighbour = tilesWithColors.get(n);
-                    if (neighbour.getTiletype().equals("lagoon") || neighbour.getTiletype().equals("ocean")){
-                        int[] colorCode = {199,190,111};
-                        neighbour.setColor(colorCode[0],colorCode[1],colorCode[2]);
-                    }
-
-                }
-            }
-        } */
 
         if (options.containsKey(Configuration.SEED)){
-            Seed seedstring = new Seed(config);
+            Seed seedstring = new Seed();
             String[] splitseed = seedstring.Split(options.get(Configuration.SEED), 6);
             for (int i = 0; i < splitseed.length; i++) {
                 seed.add(splitseed[i]);
             }
         }
         else{
-            Seed seedstring = new Seed(config);
+            Seed seedstring = new Seed();
             String[] splitseed = seedstring.Split(seedstring.generate(), 6);
             for (int i = 0; i < splitseed.length; i++) {
                 seed.add(splitseed[i]);
@@ -62,22 +48,6 @@ public class islandgen{
         Whittiker biome = new Whittiker(options.getOrDefault(Configuration.BIOME,"tropical"));
         aMesh = biome.generatebiomes(aMesh);
         System.out.println("Seed: " + seed.get(0) + seed.get(1) + seed.get(2));
-
-        //Aquifers Test
-        /* for (Tile t:aMesh.getTilesList()){
-            if (t.getHumidity() == 1){
-                int[] colorCode = {137, 207, 240};
-                t.setColor(colorCode[0],colorCode[1],colorCode[2]);
-            }
-            else if (t.getHumidity() > 1){
-                int[] colorCode = {137+30, 207, 240};
-                t.setColor(colorCode[0],colorCode[1],colorCode[2]);
-            }
-            if (t.isAquifer()){
-                int[] colorCode = {0,255,255};
-                t.setColor(colorCode[0],colorCode[1],colorCode[2]);
-            }
-        } */
         
 
 
