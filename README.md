@@ -1,4 +1,4 @@
-# Assignment A3: Island Generator
+# Island Generator
 
   - Author #1 [takhtart@mcmaster.ca]
   - Author #2 [sok13@mcmaster.ca]
