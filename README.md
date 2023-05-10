@@ -4,6 +4,10 @@
   - Author #2 [sok13@mcmaster.ca]
   - Author #3 [kugana7@mcmaster.ca]
 
+# Description
+Grid and Polygonal Mesh Based Dynamic Island Generation. Various modes and preset island generation methods with configuration options available via commandline.
+Seed based generation allows for reproductibility of previously generated islands on a configurable grid/poly mesh.
+
 ## How to run the product
 
 Grid Mesh Procedure:
@@ -20,19 +24,8 @@ One can run the generator with `-help` as option to see the different command li
 
 Island Mesh Procedure:
 
-For MVP Release:
-`java -jar island/target/2aa4.mesh.island-jar-with-dependencies.jar -i img/irregular.mesh <options> -o img/island.mesh`
-`java -jar visualizer/target/2aa4.mesh.visualizer-jar-with-dependencies.jar img/island.mesh visualizer/sample.svg`
-
-One can run the generator with `-help` as option to see the different command line arguments that are available.
-
-`-mode lagoon` is required to generate the island. Optional: Can Control Inner And Outer Radius of Shape `-help` for more info.
-Optional commands: `-ir` inner radius, `-or` outer radius.
-
-For Final Release:
-
 For the Island Mesh The Following Commands Are Mandatory:
-`-shape` (Choosing Shape) (`-mode` is deprecated)
+`-shape` (Choosing Shape)
 
 **For Reproductability:
 If using `-shape random` it will provide you with a seed that can be invoked using `-ns <seed value>` (To Reproduce Island)
